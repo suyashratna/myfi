@@ -7,6 +7,10 @@
     tools:context="com.example.lenovo.myfinance.Fragments.Transaction_fragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/trans_constraint">
 
     <!--Top most info layout-->
     <RelativeLayout
@@ -14,6 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
+        app:layout_constraintTop_toTopOf="@id/trans_recycler"
+
         >
         <LinearLayout
             android:id="@+id/TopInfo_linear"
@@ -69,6 +75,13 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="45dp"/>
     </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/trans_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/TopInfo_relative"
+        android:padding="10dp"
+        ></android.support.v7.widget.RecyclerView></android.support.constraint.ConstraintLayout>
 
 
 </FrameLayout>
