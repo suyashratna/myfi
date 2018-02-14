@@ -1,0 +1,74 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.example.lenovo.myfinance.Fragments.Transaction_fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <!--Top most info layout-->
+    <RelativeLayout
+        android:id="@+id/TopInfo_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        >
+        <LinearLayout
+            android:id="@+id/TopInfo_linear"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:padding="20dp"
+
+           >
+
+            <TextView
+                android:id="@+id/income_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="INCOME"
+                android:layout_weight="1"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:id="@+id/expense_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="EXPENSE"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+               />
+
+
+            <TextView
+                android:id="@+id/balance_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="BALANCE"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/trans_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/exchange"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"/>
+    </RelativeLayout>
+
+
+</FrameLayout>

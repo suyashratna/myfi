@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="5">
+    <LinearLayout
+        android:id="@+id/money_back"
+        android:background="@drawable/moneyback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/l1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/logotext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Myfi"
+                android:background="@drawable/logoback_shape"
+                android:layout_gravity="center"
+                android:layout_marginTop="100dp"
+                android:textSize="50sp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_marginTop="15dp"
+                android:padding="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/logoback_shape"
+                android:text="A complete personal finance solution"
+                android:textColor="@color/white"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/l2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:background="@drawable/moneyup">
+            <ImageView
+                android:layout_marginTop="40dp"
+                android:id="@+id/logo"
+                android:layout_width="80sp"
+                android:layout_height="80sp"
+                android:src="@drawable/logo"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
