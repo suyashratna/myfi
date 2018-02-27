@@ -1,51 +1,43 @@
 package com.example.lenovo.myfinance.Fragments;
 
-import android.app.Fragment;
-import android.arch.lifecycle.ReportFragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.example.lenovo.myfinance.Adapter.SectionsPageAdapter;
 import com.example.lenovo.myfinance.R;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Reports_fragment.OnFragmentInteractionListener} interface
+ * {@link Choosetrans_fragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Reports_fragment#newInstance} factory method to
+ * Use the {@link Choosetrans_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Reports_fragment extends Fragment {
+public class Choosetrans_fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-
-    Animation uptodown;
-
-
-    @BindView(R.id.report_image)ImageView analytics;
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    public ViewPager mViewPager;
+    public TabLayout mTablayout;
+    public SectionsPageAdapter mSectionsPageAdapter;
+
     private OnFragmentInteractionListener mListener;
 
-    public Reports_fragment() {
+    public Choosetrans_fragment() {
         // Required empty public constructor
     }
 
@@ -55,11 +47,11 @@ public class Reports_fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Reports_fragment.
+     * @return A new instance of fragment Choosetrans_fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Reports_fragment newInstance(String param1, String param2) {
-        Reports_fragment fragment = new Reports_fragment();
+    public static Choosetrans_fragment newInstance(String param1, String param2) {
+        Choosetrans_fragment fragment = new Choosetrans_fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,48 +61,47 @@ public class Reports_fragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
 
+        mSectionsPageAdapter = new SectionsPageAdapter(getFragmentManager());
+
+        mViewPager =(ViewPager) getActivity().findViewById(R.id.chooser_viewpager);
+        setupViewPager(mViewPager);
+
+        mTablayout = (TabLayout) getActivity().findViewById(R.id.chooser_tab);
+        mTablayout.setupWithViewPager(mViewPager);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_reports, container, false);
-        ButterKnife.bind(this,view);
+        return inflater.inflate(R.layout.fragment_choosetrans, container, false);
 
-
-//        uptodown = AnimationUtils.loadAnimation(getActivity(),R.anim.uptodown);
-//        view.setAnimation(uptodown);
-
-
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        return view;
 
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            Toast.makeText(context, "Reports", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {
@@ -131,5 +122,12 @@ public class Reports_fragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    private void setupViewPager(ViewPager viewPager){
+        SectionsPageAdapter adapter = new SectionsPageAdapter(getChildFragmentManager());
+        adapter.addFragment(new Income_Fragment(),"INCOME");
+        adapter.addFragment(new Expense_Fragment(),"EXPENSE");
+        adapter.addFragment(new Transfer_fragment(),"TRANSFER");
+        viewPager.setAdapter(adapter);
     }
 }

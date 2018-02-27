@@ -36,7 +36,7 @@ public class Categories_fragment extends Fragment {
     Animation uptodown;
     Animation rotate;
 
-    @BindView(R.id.category_image)ImageView categories;
+    @BindView(R.id.category_image)ImageView categories_imageview;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -79,8 +79,8 @@ public class Categories_fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
         ButterKnife.bind(this,view);
 
-//        uptodown = AnimationUtils.loadAnimation(getActivity(),R.anim.uptodown);
-//        view.setAnimation(uptodown);
+        rotate = AnimationUtils.loadAnimation(getActivity(),R.anim.rotate);
+        categories_imageview.setAnimation(rotate);
 
 
         if (getArguments() != null) {
@@ -98,15 +98,15 @@ public class Categories_fragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            Toast.makeText(context, "Categories", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            Toast.makeText(context, "Categories", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     @Override
     public void onDetach() {

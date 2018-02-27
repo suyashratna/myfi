@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.fragment_frame,new Categories_fragment());
                     transaction.commit();
                     return true;
-                case R.id.navigation_notifications:
-
-                    return true;
+//                case R.id.navigation_notifications:
+//
+//                    return true;
                 case R.id.navigation_reports:
                     transaction.replace(R.id.fragment_frame, new Reports_fragment());
                     transaction.commit();

@@ -4,21 +4,21 @@
     <item
         android:id="@+id/navigation_transactions"
         android:icon="@drawable/ic_local_atm_black_24dp"
-        android:title="transactions" />
+        android:title="Transactions" />
 
     <item
         android:id="@+id/navigation_categories"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="categories" />
+        android:title="Categories" />
 
-    <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_attach_money_black_24dp"
-        android:title="overview" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_notifications"-->
+        <!--android:icon="@drawable/ic_attach_money_black_24dp"-->
+        <!--android:title="overview" />-->
 
     <item
         android:id="@+id/navigation_reports"
         android:icon="@drawable/ic_pie_chart_black_24dp"
-        android:title="reports"/>
+        android:title="Reports"/>
 
 </menu>
