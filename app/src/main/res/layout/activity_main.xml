@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="0dp"
                 android:layout_marginStart="0dp"
-                android:background="?android:attr/windowBackground"
+                android:background="@drawable/backgroundwhite"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -49,6 +50,7 @@
        android:layout_width="wrap_content"
        android:layout_height="match_parent"
        app:menu="@menu/navigation_menu"
+       android:background="@drawable/backgroundwhite"
        android:layout_gravity="start"/>
 
 
