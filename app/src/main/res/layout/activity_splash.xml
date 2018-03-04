@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/backgroundwhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="5">
@@ -53,9 +53,9 @@
             <ImageView
                 android:layout_marginTop="40dp"
                 android:id="@+id/logo"
-                android:layout_width="80sp"
-                android:layout_height="80sp"
-                android:src="@drawable/logo"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/applogo"
                 android:layout_gravity="center"/>
 
         </LinearLayout>

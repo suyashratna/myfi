@@ -1,9 +1,15 @@
 package com.example.lenovo.myfinance.Adapter;
 
 
-import android.app.FragmentManager;
+
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.example.lenovo.myfinance.Fragments.Expense_Fragment;
+import com.example.lenovo.myfinance.Fragments.Income_Fragment;
+import com.example.lenovo.myfinance.Fragments.Transfer_fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,34 +18,53 @@ import java.util.List;
  * Created by lenovo on 2/20/2018.
  */
 
-public class SectionsPageAdapter extends FragmentPagerAdapter {
+public class SectionsPageAdapter extends FragmentPagerAdapter{
 
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
-
-    public void addFragment(Fragment fragment,String title){
-        mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
-    }
-    public SectionsPageAdapter(android.support.v4.app.FragmentManager fm){
+    public SectionsPageAdapter(FragmentManager fm){
         super(fm);
+
     }
 
-    @Override
-    public CharSequence getPageTitle(int position)
-    {
-        return mFragmentTitleList.get(position);
-    }
 
     @Override
-    public android.support.v4.app.Fragment getItem(int position){
-        return mFragmentList.get(position);
-    }
+    public Fragment getItem(int position){
+        Fragment fragment = null;
+       switch (position) {
+           case 0:
+               fragment = new Income_Fragment();
+               break;
+           case 1:
+               fragment = new Expense_Fragment();
+               break;
+           case 2:
+               fragment = new Transfer_fragment();
+               break;
+            }
+               return  fragment;
+       }
+
 
     @Override
     public int getCount(){
-        return mFragmentList.size();
+        return 3;
     }
 
+    @Override
+    public CharSequence getPageTitle(int position) {
+        String title ="";
+        switch (position){
+        case 0:
+            title ="Income";
+            break;
 
+        case 1:
+            title ="Expense";
+            break;
+        case 2:
+             title="Transfer";
+            break;
+
+        }
+        return title;
+    }
 }
