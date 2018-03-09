@@ -4,56 +4,94 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:weightSum="3"
-
+    android:background="@drawable/transaction_background"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-       android:padding="10dp">
+        android:padding="10dp">
+
         <ImageView
-            android:id="@+id/category_image"
+            android:id="@+id/expense_category_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/logoback_shape"
-            android:layout_marginLeft="10dp"/>
+            android:elevation="5dp" />
+
         <TextView
-            android:id="@+id/category_name"
+            android:id="@+id/expense_day_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Health"
-            android:layout_toRightOf="@+id/category_image"
             android:layout_marginLeft="10dp"
-            android:textSize="15dp"
-            />
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/expense_category_image"
+            android:padding="2dp"
+            android:text="30"
+            android:textSize="14dp" />
+
         <TextView
-            android:id="@+id/account_name"
+            android:id="@+id/expense_day_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="cash"
-            android:textSize="14dp"
-            android:layout_toRightOf="@id/category_image"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
-            android:padding="2dp"/>
+            android:layout_toRightOf="@id/expense_category_image"
+            android:padding="2dp"
+            android:text="Wednesday"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/expense_month_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/expense_day_no"
+            android:maxWidth="240dp"
+            android:padding="2dp"
+            android:text="February"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/expense_year_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/expense_month_text"
+            android:padding="2dp"
+            android:text="2018" />
 
 
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        android:padding="10dp"
-        android:layout_weight="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:text="-"
+            android:textSize="25sp" />
+
         <TextView
             android:id="@+id/transaction_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:layout_marginTop="2dp"
-            android:text="-50"
-            android:layout_gravity="center_horizontal"
-            android:textSize="25dp"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:text="50"
+            android:textSize="25sp" />
     </LinearLayout>
 </LinearLayout>

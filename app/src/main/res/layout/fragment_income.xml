@@ -2,12 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     tools:context="com.example.lenovo.myfinance.Fragments.Income_Fragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/income_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="income" />
+        android:layout_height="wrap_content"
+        />
 
 </FrameLayout>

@@ -1,19 +1,9 @@
 package com.example.lenovo.myfinance.Fragments;
 
-import android.app.Dialog;
-import android.app.Fragment;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +14,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.lenovo.myfinance.Adapter.SectionsPageAdapter;
-import com.example.lenovo.myfinance.Adapter.TransactionListAdapter;
+import com.example.lenovo.myfinance.Adapter.IncomeListAdapter;
 import com.example.lenovo.myfinance.Bottomsheet_dialog;
-import com.example.lenovo.myfinance.Model.Transaction;
+
+
 import com.example.lenovo.myfinance.R;
 
 import java.util.List;
@@ -53,8 +44,8 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
 
     @BindView(R.id.trans_image)ImageView transactions;
 
-    TransactionListAdapter mTransactionListAdapter;
-    List<Transaction> transactionList;
+    IncomeListAdapter mIncomeListAdapter;
+
 
 
 //    @BindView(R.id.trans_recycler)RecyclerView mTransactionRecycler;
@@ -104,6 +95,8 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
                 mTablayout.setupWithViewPager(mViewPager);
             }
         });
+
+
 //
 //      add transaction based on the selected tab
         maddtransaction_button.setOnClickListener(new View.OnClickListener() {
@@ -113,9 +106,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
                     case 0:
                         Bottomsheet_dialog bottomSheetDialog = new Bottomsheet_dialog();
                         bottomSheetDialog.show(getFragmentManager(),"TAG");
-//                        View parentView = getActivity().getLayoutInflater().inflate(R.layout.bottomsheet_transaction,null);
-//                        bottomSheetDialog.setContentView(parentView);
-//                        bottomSheetDialog.show();
+
                         break;
                     case 1:
                         Toast.makeText(getActivity(), "Expense", Toast.LENGTH_SHORT).show();
@@ -140,11 +131,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
 //                bottomSheetDialog.setContentView(parentView);
 //                bottomSheetDialog.show();
 
-//        Bundle bundle = getArguments();
-//        transactionList.add(new Transaction
-//                (String.valueOf(bundle.getString("category")),
-//                String.valueOf(bundle.getString("account")),
-//                Integer.valueOf(bundle.getString("amount"))));
+//
 
 
 

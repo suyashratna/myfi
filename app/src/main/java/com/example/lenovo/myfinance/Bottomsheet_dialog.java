@@ -2,41 +2,15 @@ package com.example.lenovo.myfinance;
 
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.lenovo.myfinance.Adapter.SectionsPageAdapter;
-import com.example.lenovo.myfinance.Adapter.TransactionListAdapter;
-import com.example.lenovo.myfinance.Fragments.Expense_Fragment;
-import com.example.lenovo.myfinance.Fragments.Income_Fragment;
-import com.example.lenovo.myfinance.Fragments.Transaction_fragment;
-import com.example.lenovo.myfinance.Fragments.Transfer_fragment;
-import com.example.lenovo.myfinance.Model.Transaction;
-
-import java.text.DecimalFormat;
-import java.util.List;
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,9 +22,52 @@ import butterknife.ButterKnife;
 
 public class Bottomsheet_dialog extends BottomSheetDialogFragment {
 
+    // IDs of all the numeric buttons
+    private int[] numericButtons = {R.id.buttonZero, R.id.buttonOne, R.id.buttonTwo, R.id.buttonThree, R.id.buttonFour, R.id.buttonFive, R.id.buttonSix, R.id.buttonSeven, R.id.buttonEight, R.id.buttonNine};
 
+
+    // IDs of all the operator buttons
+    private int[] operatorButtons = {R.id.buttonAdd, R.id.buttonSubtract, R.id.buttonMultiply, R.id.buttonDivide};
+    // TextView used to display the output
+    private TextView txtScreen;
+    // Represent whether the lastly pressed key is numeric or not
+    private boolean lastNumeric;
+    // Represent that current state is in error or not
+    private boolean stateError;
+    // If true, do not allow to add another DOT
+    private boolean lastDot;
+
+    private double valueOne = Double.NaN;
+    private double valueTwo;
+
+    float mValueOne , mValueTwo ;
+    boolean mAddition , mSubtract ,mMultiplication ,mDivision ;
+    boolean amountadded;
 
     Bundle mbundle;
+
+    @BindView(R.id.buttonZero) Button buttonZero;
+    @BindView(R.id.buttonOne) Button buttonOne;
+    @BindView(R.id.buttonTwo) Button buttonTwo;
+    @BindView(R.id.buttonThree) Button buttonThree;
+    @BindView(R.id.buttonFour) Button buttonFour;
+    @BindView(R.id.buttonFive) Button buttonfive;
+    @BindView(R.id.buttonSix) Button buttonSix;
+    @BindView(R.id.buttonSeven) Button buttonSeven;
+    @BindView(R.id.buttonEight) Button buttonEight;
+    @BindView(R.id.buttonNine) Button buttonNine;
+    @BindView(R.id.buttonDot) Button buttonDot;
+    @BindView(R.id.buttonAdd) Button buttonAdd;
+    @BindView(R.id.buttonSubtract) Button buttonSubtract;
+    @BindView(R.id.buttonMultiply) Button buttonMultiply;
+    @BindView(R.id.buttonDivide) Button buttonDivide;
+    @BindView(R.id.buttonClear) Button buttonClear;
+    @BindView(R.id.buttonEqual) Button buttonEqual;
+    @BindView(R.id.insert_button) Button mInsertButton;
+
+
+
+
 
 
 
@@ -61,7 +78,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);}
-////         mbundle = new Bundle();
+
 ////       // mTransactionRecycler =  getActivity().findViewById(R.id.trans_recycler);
 ////        mTransactionAmount = getActivity().findViewById(R.id.transaction_amount_editText);
 ////        mInsertButton = getActivity().findViewById(R.id.insertamount_button);
@@ -74,45 +91,173 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
 ////                //bottomtransactionList.add(new Transaction("Health","Cash",)));
 ////                //mTransactionListAdapter.notifyDataSetChanged();
 ////
-////                mbundle.putString("category","Health");
-////                mbundle.putString("account","cash");
-////                mbundle.putInt("amount",Integer.parseInt( mTransactionAmount.getText().toString()));
+
 ////
 ////
 ////            }
-////        });
-//    }
 
-//    @Override
-//    public void onDismiss(DialogInterface dialog) {
-//        super.onDismiss(dialog);
-//        Transaction_fragment mfragment = new Transaction_fragment();
-//        mfragment.setArguments(mbundle);
-//
-//    }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        View root = inflater.inflate(R.layout.bottomsheet_transaction, container);
-//          return root;
-//    }
-
-       @Override
+    @Override
     public void setupDialog(Dialog dialog, int style) {
-           super.setupDialog(dialog, style);
+        super.setupDialog(dialog, style);
 
-           View contentView = LayoutInflater.from(getContext()).inflate(R.layout.bottomsheet_transaction, null);
-           ButterKnife.bind(this, contentView);
+        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.bottomsheet_transaction,null);
+        ButterKnife.bind(this, contentView);
+        dialog.setContentView(contentView);
+        amountadded = false;
+        txtScreen =  contentView.findViewById(R.id.income_transaction_edittext);
 
-           FragmentManager fragmentManager = getFragmentManager();
-           FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-           Calculator_Fragment fragment = new Calculator_Fragment();
-           fragmentTransaction.add(R.id.calculator_holder, fragment);
-           fragmentTransaction.commit();
+        mInsertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mbundle = new Bundle();
+                mbundle.putInt("amount",Integer.parseInt(txtScreen.getText().toString()));
+                amountadded = true;
+            }
+        });
+        // Find and set OnClickListener to numeric buttons
+           setNumericOnClickListener();
+//        // Find and set OnClickListener to operator buttons, equal button and decimal point button
+           setOperatorOnClickListener();
+    }
 
-       }
 
 
+    /**
+     * Find and set OnClickListener to numeric buttons.
+     */
+    private void setNumericOnClickListener() {
+        // Create a common OnClickListener
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Just append/set the text of clicked button
+                Button button = (Button) v;
+                if (stateError) {
+                    // If current state is Error, replace the error message
+                    txtScreen.setText(button.getText());
+                    stateError = false;
+                } else {
+                    // If not, already there is a valid expression so append to it
+                    txtScreen.append(button.getText());
+                }
+                // Set the flag
+                lastNumeric = true;
+            }
+        };
+        // Assign the listener to all the numeric buttons
+//        for (int id : numericButtons) {
+//            getActivity().findViewById(id).setOnClickListener(listener);
+//        }
 
+        buttonZero.setOnClickListener(listener);
+        buttonOne.setOnClickListener(listener);
+        buttonTwo.setOnClickListener(listener);
+        buttonThree.setOnClickListener(listener);
+        buttonFour.setOnClickListener(listener);
+        buttonfive.setOnClickListener(listener);
+        buttonSix.setOnClickListener(listener);
+        buttonSeven.setOnClickListener(listener);
+        buttonEight.setOnClickListener(listener);
+        buttonNine.setOnClickListener(listener);
+    }
+
+    /**
+     * Find and set OnClickListener to operator buttons, equal button and decimal point button.
+     */
+    private void setOperatorOnClickListener() {
+        // Create a common OnClickListener for operators
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // If the current state is Error do not append the operator
+                // If the last input is number only, append the operator
+                if (lastNumeric && !stateError) {
+                    Button button = (Button) v;
+                    txtScreen.append(button.getText());
+                    lastNumeric = false;
+                    lastDot = false;    // Reset the DOT flag
+                }
+            }
+        };
+        // Assign the listener to all the operator buttons
+//        for (int id : operatorButtons) {
+//            getActivity().findViewById(id).setOnClickListener(listener);
+//        }
+//        buttonAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (lastNumeric && !stateError) {
+//
+//                    mValueOne = Float.parseFloat(txtScreen.getText() + "");
+//                    mAddition = true;
+//
+//                }
+//            }
+//        });
+
+        buttonAdd.setOnClickListener(listener);
+        buttonSubtract.setOnClickListener(listener);
+        buttonMultiply.setOnClickListener(listener);
+        buttonDivide.setOnClickListener(listener);
+        // Decimal point
+      buttonDot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (lastNumeric && !stateError && !lastDot) {
+                    txtScreen.append(".");
+                    lastNumeric = false;
+                    lastDot = true;
+                }
+            }
+        });
+        // Clear button
+        buttonClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtScreen.setText("");  // Clear the screen
+                // Reset all the states and flags
+                lastNumeric = false;
+                stateError = false;
+                lastDot = false;
+            }
+        });
+        // Equal button
+        buttonEqual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onEqual();
+            }
+        });
+    }
+
+    /**
+     * Logic to calculate the solution.
+     */
+    private void onEqual() {
+        // If the current state is error, nothing to do.
+        // If the last input is a number only, solution can be found.
+        if (lastNumeric && !stateError) {
+            // Read the expression
+            String txt = txtScreen.getText().toString();
+            // Create an Expression (A class from exp4j library)
+            Expression expression = new ExpressionBuilder(txt).build();
+            try {
+                // Calculate the result and display
+                double result = expression.evaluate();
+                txtScreen.setText(Double.toString(result));
+                lastDot = true; // Result contains a dot
+            } catch (ArithmeticException ex) {
+                // Display an error message
+                txtScreen.setText("Error");
+                stateError = true;
+                lastNumeric = false;
+            }
+        }
+    }
 }
+
+
+
+
+

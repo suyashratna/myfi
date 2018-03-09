@@ -1,4 +1,4 @@
-package com.example.lenovo.myfinance;
+package com.example.lenovo.myfinance.Fragments;
 
 
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 
@@ -31,25 +32,36 @@ public class Calculator_Fragment extends android.support.v4.app.Fragment{
     // If true, do not allow to add another DOT
     private boolean lastDot;
 
+
+
     public Calculator_Fragment(){}
 
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//    }
+
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getActivity().setContentView(R.layout.calculator);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.calculator, container,false);
         // Find the TextView
-        this.txtScreen = (TextView) getActivity().findViewById(R.id.income_transaction_edittext);
+        txtScreen =  root.findViewById(R.id.income_transaction_edittext);
+
         // Find and set OnClickListener to numeric buttons
         setNumericOnClickListener();
         // Find and set OnClickListener to operator buttons, equal button and decimal point button
         setOperatorOnClickListener();
+
+        return root;
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.calculator, container);
-        return root;
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     /**

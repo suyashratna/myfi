@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
+    android:background="@drawable/transaction_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/income_category_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/logoback_shape"
+                android:layout_marginLeft="10dp"
+                android:elevation="5dp"/>
+
+            <TextView
+                android:id="@+id/day_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/income_category_image"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="30"
+                android:padding="2dp"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/day_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/income_category_image"
+                android:padding="2dp"
+                android:text="Wednesday"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/month_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/day_no"
+                android:maxWidth="240dp"
+                android:padding="2dp"
+                android:text="February"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/year_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/month_text"
+                android:padding="2dp"
+                android:text="2018" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="+" />
+
+            <TextView
+                android:id="@+id/transfer_total"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+
+                android:textSize="25sp"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
