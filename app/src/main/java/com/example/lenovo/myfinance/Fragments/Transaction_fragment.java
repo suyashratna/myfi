@@ -1,5 +1,6 @@
 package com.example.lenovo.myfinance.Fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.support.design.widget.TabLayout;
@@ -11,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.lenovo.myfinance.Adapter.SectionsPageAdapter;
@@ -33,6 +35,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     Animation uptodown;
+    Animation downtoup;
     Animation rotate;
 
     ViewPager mViewPager;
@@ -43,6 +46,9 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
     Button maddtransaction_button ;
 
     @BindView(R.id.trans_image)ImageView transactions;
+
+    @BindView(R.id.TopInfo_relative)
+    RelativeLayout mtoprelative;
 
     IncomeListAdapter mIncomeListAdapter;
 
@@ -78,13 +84,11 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
          View view = inflater.inflate(R.layout.fragment_transaction, container, false);
         ButterKnife.bind(this,view);
 
-        rotate= AnimationUtils.loadAnimation(getActivity(),R.anim.rotate);
-        transactions.setAnimation(rotate);
+
+
 
 
         mTablayout = view.findViewById(R.id.chooser_tab);
-
-
         mViewPager = view.findViewById(R.id.chooser_viewpager);
 
 
@@ -133,12 +137,22 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
 
 //
 
-
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                uptodown = AnimationUtils.loadAnimation(getActivity(),R.anim.uptodownquick);
+                downtoup= AnimationUtils.loadAnimation(getActivity(),R.anim.downtoupquick);
+//                mtoprelative.setAnimation(uptodown);
+                mTablayout.setAnimation(downtoup);
+            }
+        });
 
 
         return view;
 
     }
+
+
 
 
    }

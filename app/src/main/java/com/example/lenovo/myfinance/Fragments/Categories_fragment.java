@@ -79,8 +79,8 @@ public class Categories_fragment extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
         ButterKnife.bind(this,view);
 
-        rotate = AnimationUtils.loadAnimation(getActivity(),R.anim.rotate);
-        categories_imageview.setAnimation(rotate);
+//        rotate = AnimationUtils.loadAnimation(getActivity(),R.anim.rotate);
+//        categories_imageview.setAnimation(rotate);
 
 
         if (getArguments() != null) {

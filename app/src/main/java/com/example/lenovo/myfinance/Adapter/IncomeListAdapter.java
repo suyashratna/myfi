@@ -33,11 +33,12 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
         ((IncomeTrans)holder).income_amount.setText(mIncomelist.get(position).getIncome_amount());
         ((IncomeTrans)holder).transaction_day.setText(mIncomelist.get(position).getTransaction_Day());
-        ((IncomeTrans)holder).transaction_dayNo.setText(mIncomelist.get(position).getTransaction_DayNo());
+        ((IncomeTrans)holder).transaction_dayNo.setText(String.valueOf(mIncomelist.get(position).getTransaction_DayNo()));
         ((IncomeTrans)holder).transaction_month.setText(mIncomelist.get(position).getTransaction_Month());
-        ((IncomeTrans)holder).transaction_year.setText(mIncomelist.get(position).getYear());
+        ((IncomeTrans)holder).transaction_year.setText(String.valueOf(mIncomelist.get(position).getYear()));
 
     }
 

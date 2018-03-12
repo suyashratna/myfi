@@ -10,15 +10,14 @@ public class Income {
     String income_amount;
     String transaction_Month;
     String transaction_Day;
-    String transaction_time;
-    String transaction_DayNo;
-    String year;
+    int transaction_DayNo;
+    int year;
 
-    public Income(String income_amount, String transaction_Month, String transaction_Day, String transaction_time, String transaction_DayNo, String year) {
+    public Income(String income_amount, String transaction_Month, String transaction_Day,  int transaction_DayNo, int year) {
         this.income_amount = income_amount;
         this.transaction_Month = transaction_Month;
         this.transaction_Day = transaction_Day;
-        this.transaction_time = transaction_time;
+
         this.transaction_DayNo = transaction_DayNo;
         this.year = year;
     }
@@ -47,27 +46,21 @@ public class Income {
         this.transaction_Day = transaction_Day;
     }
 
-    public String getTransaction_time() {
-        return transaction_time;
-    }
 
-    public void setTransaction_time(String transaction_time) {
-        this.transaction_time = transaction_time;
-    }
 
-    public String getTransaction_DayNo() {
+    public int getTransaction_DayNo() {
         return transaction_DayNo;
     }
 
-    public void setTransaction_DayNo(String transaction_DayNo) {
+    public void setTransaction_DayNo(int transaction_DayNo) {
         this.transaction_DayNo = transaction_DayNo;
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         this.year = year;
     }
 }

@@ -66,7 +66,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
     @BindView(R.id.insert_button) Button mInsertButton;
 
 
-
+    DBHelper myDb;
 
 
 
@@ -98,21 +98,27 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
 
 
     @Override
-    public void setupDialog(Dialog dialog, int style) {
+    public void setupDialog(final Dialog dialog, int style) {
         super.setupDialog(dialog, style);
 
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.bottomsheet_transaction,null);
         ButterKnife.bind(this, contentView);
         dialog.setContentView(contentView);
-        amountadded = false;
+
         txtScreen =  contentView.findViewById(R.id.income_transaction_edittext);
+
+        myDb = new DBHelper(getContext());
+
 
         mInsertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mbundle = new Bundle();
-                mbundle.putInt("amount",Integer.parseInt(txtScreen.getText().toString()));
-                amountadded = true;
+
+                  myDb.insertIncomeData(txtScreen.getText().toString(),"March","Tuesday",12,2018);
+                  dialog.dismiss();
+//                mbundle = new Bundle();
+//                mbundle.putInt("amount",Integer.parseInt(txtScreen.getText().toString()));
+//                amountadded = true;
             }
         });
         // Find and set OnClickListener to numeric buttons
@@ -246,6 +252,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
                 // Calculate the result and display
                 double result = expression.evaluate();
                 txtScreen.setText(Double.toString(result));
+
                 lastDot = true; // Result contains a dot
             } catch (ArithmeticException ex) {
                 // Display an error message

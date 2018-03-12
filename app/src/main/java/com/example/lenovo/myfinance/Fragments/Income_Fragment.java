@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.lenovo.myfinance.Adapter.IncomeListAdapter;
+import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.Model.Income;
 
 import com.example.lenovo.myfinance.R;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
 
 
 public class Income_Fragment extends Fragment {
-
+    DBHelper myDb;
 
     private IncomeListAdapter mIncomeListAdapter;
     private List<Income> incomeList;
@@ -53,14 +54,17 @@ public class Income_Fragment extends Fragment {
        View view = inflater.inflate(R.layout.fragment_income, container, false);
        ButterKnife.bind(this,view);
 
-        incomeList = new ArrayList<Income>();
+        myDb = new DBHelper(getActivity());
+        incomeList = myDb.getIncomeData();
+
         mIncomeListAdapter = new IncomeListAdapter(incomeList);
         mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mIncomeRecycler.setAdapter(mIncomeListAdapter);
+        mIncomeRecycler.smoothScrollToPosition(0);
 
-//        while (amountadded = true){
-             incomeList.add(new Income("500","January,","Sunday",null,"12","2018"));
-             incomeList.add(new Income("600","February,","Tuesday",null,"20","2018"));
+//
+//             incomeList.add(new Income("500","January,","Sunday",null,"12","2018"));
+//             incomeList.add(new Income("600","February,","Tuesday",null,"20","2018"));
 
             mIncomeListAdapter.notifyDataSetChanged();
             amountadded = false;
