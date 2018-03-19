@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class Transaction_fragment extends android.support.v4.app.Fragment {
+public class Transaction_fragment extends android.support.v4.app.Fragment implements SwipeRefreshLayout.OnRefreshListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,6 +67,9 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
     @BindView(R.id.income_recyclerview)
     RecyclerView mIncomeRecycler;
 
+    @BindView(R.id.swiperefresh_layout)
+    SwipeRefreshLayout mSwipefreshlayout;
+
 
 
     public Transaction_fragment() {
@@ -88,29 +92,40 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
          View view = inflater.inflate(R.layout.fragment_transaction, container, false);
         ButterKnife.bind(this,view);
 
+        mSwipefreshlayout.setOnRefreshListener(this);
+        loadRecyclerViewData();
+
+//        myDb = new DBHelper(getActivity());
+//        incomeList = myDb.getIncomeData();
 //
-        myDb = new DBHelper(getActivity());
-        incomeList = myDb.getIncomeData();
-
-        mIncomeListAdapter = new IncomeListAdapter(incomeList);
-        mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mIncomeRecycler.setAdapter(mIncomeListAdapter);
-        mIncomeRecycler.smoothScrollToPosition(0);
-
-        mIncomeListAdapter.notifyDataSetChanged();
+//        mIncomeListAdapter = new IncomeListAdapter(incomeList);
+//        mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        mIncomeRecycler.setAdapter(mIncomeListAdapter);
+//        mIncomeRecycler.smoothScrollToPosition(0);
+//
+//        mIncomeListAdapter.notifyDataSetChanged();
 
 //
 //      add transaction based on the selected tab
         maddtransaction_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                switch (mTablayout.getSelectedTabPosition()){
-//
-//                }
                 ChooseCategory_fragment chooseCategory_fragment = new ChooseCategory_fragment();
                 chooseCategory_fragment.show(getFragmentManager(),"chooser");
 
 
+            }
+        });
+
+        mSwipefreshlayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+
+                mSwipefreshlayout.setRefreshing(true);
+
+                // Fetching data from server
+                loadRecyclerViewData();
             }
         });
          return view;
@@ -133,5 +148,22 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        loadRecyclerViewData();
+
+    }
+    public void loadRecyclerViewData(){
+        mSwipefreshlayout.setRefreshing(true);
+        myDb = new DBHelper(getActivity());
+        incomeList = myDb.getIncomeData();
+
+        mIncomeListAdapter = new IncomeListAdapter(incomeList);
+        mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mIncomeRecycler.setAdapter(mIncomeListAdapter);
+        mIncomeRecycler.smoothScrollToPosition(0);
+        mSwipefreshlayout.setRefreshing(false);
     }
 }
