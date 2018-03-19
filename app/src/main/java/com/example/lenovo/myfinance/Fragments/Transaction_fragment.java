@@ -1,5 +1,6 @@
 package com.example.lenovo.myfinance.Fragments;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -92,6 +93,10 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
          View view = inflater.inflate(R.layout.fragment_transaction, container, false);
         ButterKnife.bind(this,view);
 
+
+
+
+
         mSwipefreshlayout.setOnRefreshListener(this);
         loadRecyclerViewData();
 
@@ -112,7 +117,12 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
             public void onClick(View view) {
                 ChooseCategory_fragment chooseCategory_fragment = new ChooseCategory_fragment();
                 chooseCategory_fragment.show(getFragmentManager(),"chooser");
-
+                chooseCategory_fragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        loadRecyclerViewData();
+                    }
+                });
 
             }
         });

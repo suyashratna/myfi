@@ -4,6 +4,7 @@ package com.example.lenovo.myfinance;
 import android.app.Dialog;
 import android.app.Fragment;
 
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.lenovo.myfinance.Fragments.ChooseCategory_fragment;
 import com.example.lenovo.myfinance.Fragments.Income_Fragment;
+import com.example.lenovo.myfinance.Fragments.Transaction_fragment;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -122,9 +124,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
 
                   myDb.insertIncomeData(txtScreen.getText().toString(),"March","Tuesday",12,2018);
                   dialog.dismiss();
-//                mbundle = new Bundle();
-//                mbundle.putInt("amount",Integer.parseInt(txtScreen.getText().toString()));
-//                amountadded = true;
+//
             }
         });
         // Find and set OnClickListener to numeric buttons
@@ -133,18 +133,16 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
            setOperatorOnClickListener();
     }
 
-    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
-        onDismissListener = onDismissListener;
-    }
+
 
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-//        if (onDismissListener != null) {
-//            onDismissListener.onDismiss(dialog);
-//        }
-//        Income_Fragment fragment = new Income_Fragment();
-//        android.support.v4.app.FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
+
+//        android.support.v4.app.FragmentManager fm = getFragmentManager();
+//        Transaction_fragment transaction_fragment = (Transaction_fragment) fm.findFragmentById(R.id.transaction_fragment);
+//        transaction_fragment.onRefresh();
+
         ChooseCategory_fragment chooseCategory_fragment = (ChooseCategory_fragment)Bottomsheet_dialog.this.getParentFragment();
         chooseCategory_fragment.dismiss();
     }

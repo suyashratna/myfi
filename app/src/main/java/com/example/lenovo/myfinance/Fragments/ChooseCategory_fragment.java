@@ -1,6 +1,7 @@
 package com.example.lenovo.myfinance.Fragments;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 
 
 public class ChooseCategory_fragment extends BottomSheetDialogFragment{
+    private DialogInterface.OnDismissListener onDismissListener;
     ViewPager mViewPager;
     TabLayout mTablayout;
     SectionsPageAdapter sectionsPageAdapter;
@@ -50,8 +52,18 @@ public class ChooseCategory_fragment extends BottomSheetDialogFragment{
         return view;
 
     }
+    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener){
+        this.onDismissListener = onDismissListener;
+    }
 
-//    @Override
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if(onDismissListener!= null){
+            onDismissListener.onDismiss(dialog);
+        }
+    }
+    //    @Override
 //    public void setupDialog(Dialog dialog, int style) {
 //        super.setupDialog(dialog, style);
 //        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_choosecategory,null);
