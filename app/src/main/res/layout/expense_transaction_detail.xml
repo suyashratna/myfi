@@ -1,6 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
+    android:layout_marginTop="2dp"
+    android:background="@drawable/expense_transaction_background"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+            <ImageView
+                android:id="@+id/expense_category_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/logoback_shape"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:elevation="5dp"/>
+
+            <TextView
+                android:id="@+id/expense_day_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/expense_category_image"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="30"
+                android:padding="2dp"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/expense_day_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/expense_category_image"
+                android:padding="2dp"
+                android:text="Wednesday"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/expense_month_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/expense_day_no"
+                android:maxWidth="240dp"
+                android:padding="2dp"
+                android:text="February"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/expense_year_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/expense_month_text"
+                android:padding="2dp"
+                android:text="2018" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="-"
+                android:textColor="@color/red"/>
+
+            <TextView
+                android:id="@+id/expense_amount"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:singleLine="true"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

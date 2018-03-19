@@ -114,6 +114,7 @@ public class Calculator_Fragment extends android.support.v4.app.Fragment{
         for (int id : operatorButtons) {
             getActivity().findViewById(id).setOnClickListener(listener);
         }
+
         // Decimal point
         getActivity().findViewById(R.id.buttonDot).setOnClickListener(new View.OnClickListener() {
             @Override

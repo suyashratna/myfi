@@ -2,14 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
+    android:padding="10dp"
     tools:context="com.example.lenovo.myfinance.Fragments.Income_Fragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/income_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+<!--<TextView-->
+    <!--android:id="@+id/category_income"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="INCOME"-->
+    <!--android:padding="10dp"-->
+    <!--android:clickable="true"-->
+    <!--android:elevation="5dp"-->
 
+    <!--android:background="@drawable/amount_back"/>-->
+<android.support.v7.widget.RecyclerView
+    android:padding="5dp"
+    android:id="@+id/income_category_Recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
 </FrameLayout>

@@ -10,6 +10,7 @@ public class Income {
     String income_amount;
     String transaction_Month;
     String transaction_Day;
+
     int transaction_DayNo;
     int year;
 

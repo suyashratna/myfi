@@ -90,4 +90,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return fetchedIncome_List;
     }
 
+    public void clearHistory(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+ TABLE1_NAME);
+
+
+    }
+
 }

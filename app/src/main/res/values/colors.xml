@@ -7,5 +7,7 @@
     <color name="darkturq">#1ea6e4</color>
     <color name="white">#fff</color>
     <color name="logocolor">#4b5aa7</color>
+    <color name="transpa">#99ffffff </color>
+    <color name="red">#dd3434</color>
 
 </resources>

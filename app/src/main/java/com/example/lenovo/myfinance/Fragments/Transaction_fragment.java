@@ -5,7 +5,12 @@ import android.os.Bundle;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -20,6 +25,8 @@ import com.example.lenovo.myfinance.Adapter.IncomeListAdapter;
 import com.example.lenovo.myfinance.Bottomsheet_dialog;
 
 
+import com.example.lenovo.myfinance.DBHelper;
+import com.example.lenovo.myfinance.Model.Income;
 import com.example.lenovo.myfinance.R;
 
 import java.util.List;
@@ -50,17 +57,14 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
     @BindView(R.id.TopInfo_relative)
     RelativeLayout mtoprelative;
 
-    IncomeListAdapter mIncomeListAdapter;
 
+    DBHelper myDb;
 
+    private IncomeListAdapter mIncomeListAdapter;
+    private List<Income> incomeList;
 
-//    @BindView(R.id.trans_recycler)RecyclerView mTransactionRecycler;
-
-//    @BindView(R.id.bottomsheet_layout)
-//    LinearLayout layout;
-
-//    BottomSheetBehavior bab;
-
+    @BindView(R.id.income_recyclerview)
+    RecyclerView mIncomeRecycler;
 
 
 
@@ -84,75 +88,50 @@ public class Transaction_fragment extends android.support.v4.app.Fragment {
          View view = inflater.inflate(R.layout.fragment_transaction, container, false);
         ButterKnife.bind(this,view);
 
+//
+        myDb = new DBHelper(getActivity());
+        incomeList = myDb.getIncomeData();
 
+        mIncomeListAdapter = new IncomeListAdapter(incomeList);
+        mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mIncomeRecycler.setAdapter(mIncomeListAdapter);
+        mIncomeRecycler.smoothScrollToPosition(0);
 
-
-
-        mTablayout = view.findViewById(R.id.chooser_tab);
-        mViewPager = view.findViewById(R.id.chooser_viewpager);
-
-
-        mViewPager.setAdapter(new SectionsPageAdapter(getChildFragmentManager()));
-        mTablayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mTablayout.setupWithViewPager(mViewPager);
-            }
-        });
-
+        mIncomeListAdapter.notifyDataSetChanged();
 
 //
 //      add transaction based on the selected tab
         maddtransaction_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (mTablayout.getSelectedTabPosition()){
-                    case 0:
-                        Bottomsheet_dialog bottomSheetDialog = new Bottomsheet_dialog();
-                        bottomSheetDialog.show(getFragmentManager(),"TAG");
+//                switch (mTablayout.getSelectedTabPosition()){
+//
+//                }
+                ChooseCategory_fragment chooseCategory_fragment = new ChooseCategory_fragment();
+                chooseCategory_fragment.show(getFragmentManager(),"chooser");
 
-                        break;
-                    case 1:
-                        Toast.makeText(getActivity(), "Expense", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        Toast.makeText(getActivity(), "Transfer", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        break;
-
-                }
 
             }
         });
-
-//
-//
-
-
-//                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
-//                View parentView = getActivity().getLayoutInflater().inflate(R.layout.bottomsheet_transaction,null);
-//                bottomSheetDialog.setContentView(parentView);
-//                bottomSheetDialog.show();
-
-//
-
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                uptodown = AnimationUtils.loadAnimation(getActivity(),R.anim.uptodownquick);
-                downtoup= AnimationUtils.loadAnimation(getActivity(),R.anim.downtoupquick);
-//                mtoprelative.setAnimation(uptodown);
-                mTablayout.setAnimation(downtoup);
-            }
-        });
-
-
-        return view;
+         return view;
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.cleartransactions) {
+            myDb.clearHistory();
+            incomeList.clear();
+            mIncomeListAdapter = new IncomeListAdapter(incomeList);
+            mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mIncomeRecycler.setAdapter(mIncomeListAdapter);
+            mIncomeRecycler.smoothScrollToPosition(0);
 
-
-   }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}

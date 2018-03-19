@@ -1,6 +1,7 @@
 package com.example.lenovo.myfinance.Fragments;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -9,9 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.lenovo.myfinance.Adapter.CategoryList_Adapter;
 import com.example.lenovo.myfinance.Adapter.IncomeListAdapter;
+import com.example.lenovo.myfinance.Bottomsheet_dialog;
 import com.example.lenovo.myfinance.DBHelper;
+import com.example.lenovo.myfinance.Interface.CategoryItemClickListener;
+import com.example.lenovo.myfinance.Model.Category;
 import com.example.lenovo.myfinance.Model.Income;
 
 import com.example.lenovo.myfinance.R;
@@ -24,14 +30,12 @@ import butterknife.ButterKnife;
 
 
 public class Income_Fragment extends Fragment {
-    DBHelper myDb;
 
-    private IncomeListAdapter mIncomeListAdapter;
-    private List<Income> incomeList;
-    boolean amountadded;
-    @BindView(R.id.income_recyclerview) RecyclerView mIncomeRecycler;
-
-
+    private CategoryList_Adapter mCategorylistAdapter;
+    private List<Category> categorieslist;
+    @BindView(R.id.income_category_Recyclerview) RecyclerView mIncomeCategory_Recycler;
+//    @BindView(R.id.category_income)
+    TextView income_category_textview;
 
     public Income_Fragment() {
         // Required empty public constructor
@@ -54,30 +58,47 @@ public class Income_Fragment extends Fragment {
        View view = inflater.inflate(R.layout.fragment_income, container, false);
        ButterKnife.bind(this,view);
 
-        myDb = new DBHelper(getActivity());
-        incomeList = myDb.getIncomeData();
+       categorieslist = new ArrayList<Category>();
+       mCategorylistAdapter = new CategoryList_Adapter(categorieslist, new CategoryItemClickListener() {
+           @Override
+           public void OnItemClick(View view, int position) {
 
-        mIncomeListAdapter = new IncomeListAdapter(incomeList);
-        mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mIncomeRecycler.setAdapter(mIncomeListAdapter);
-        mIncomeRecycler.smoothScrollToPosition(0);
+
+               Bottomsheet_dialog bottomsheetDialog = new Bottomsheet_dialog();
+                bottomsheetDialog.show(getFragmentManager(),"TAG");
+//               ChooseCategory_fragment chooseCategory_fragment = (ChooseCategory_fragment)Income_Fragment.this.getParentFragment();
+//               chooseCategory_fragment.dismiss();
+
+           }
+       });
+     //  mIncomeCategory_Recycler = getActivity().findViewById(R.id.income_category_Recyclerview);
+       mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+       mIncomeCategory_Recycler.setAdapter(mCategorylistAdapter);
+
+        categorieslist.add(new Category("Job","Income"));
+        categorieslist.add(new Category("Business","Income"));
+//        income_category_textview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//                Bottomsheet_dialog bottomsheetDialog = new Bottomsheet_dialog();
+//                bottomsheetDialog.show(getFragmentManager(),"TAG");
+//
+//            }
+//        });
+
 
 //
-//             incomeList.add(new Income("500","January,","Sunday",null,"12","2018"));
-//             incomeList.add(new Income("600","February,","Tuesday",null,"20","2018"));
-
-            mIncomeListAdapter.notifyDataSetChanged();
-            amountadded = false;
-            //  Bundle bundle = getArguments();
-//          transactionList.add(new Transaction
-//                (String.valueOf(bundle.getString("category")),
-//                String.valueOf(bundle.getString("account")),
-//                Integer.valueOf(bundle.getString("amount"))));
 
 
-        return view;
+
+            return view;
 
     }
+
+
+
 
 
 

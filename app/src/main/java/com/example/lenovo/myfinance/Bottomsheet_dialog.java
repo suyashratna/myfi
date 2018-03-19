@@ -2,12 +2,20 @@ package com.example.lenovo.myfinance;
 
 
 import android.app.Dialog;
+import android.app.Fragment;
+
+import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.lenovo.myfinance.Fragments.ChooseCategory_fragment;
+import com.example.lenovo.myfinance.Fragments.Income_Fragment;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -67,7 +75,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
 
 
     DBHelper myDb;
-
+    private DialogInterface.OnDismissListener onDismissListener;
 
 
 
@@ -79,9 +87,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);}
 
-////       // mTransactionRecycler =  getActivity().findViewById(R.id.trans_recycler);
-////        mTransactionAmount = getActivity().findViewById(R.id.transaction_amount_editText);
-////        mInsertButton = getActivity().findViewById(R.id.insertamount_button);
+////
 ////
 ////
 ////
@@ -125,6 +131,22 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
            setNumericOnClickListener();
 //        // Find and set OnClickListener to operator buttons, equal button and decimal point button
            setOperatorOnClickListener();
+    }
+
+    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+        onDismissListener = onDismissListener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+//        if (onDismissListener != null) {
+//            onDismissListener.onDismiss(dialog);
+//        }
+//        Income_Fragment fragment = new Income_Fragment();
+//        android.support.v4.app.FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
+        ChooseCategory_fragment chooseCategory_fragment = (ChooseCategory_fragment)Bottomsheet_dialog.this.getParentFragment();
+        chooseCategory_fragment.dismiss();
     }
 
 

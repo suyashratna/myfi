@@ -2,11 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context="com.example.lenovo.myfinance.Fragments.Transfer_fragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/transfer_recyclerview"
+        android:padding="5dp"
+        android:id="@+id/transferCategory_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

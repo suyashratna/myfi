@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ResideMenu resideMenu;
     private ResideMenuItem itemAccount;
     private Context mContext;
-
+    DBHelper myDb;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
 
 //        setUpMenu();
+        myDb = new DBHelper(this);
 
         mDrawerlayout= findViewById(R.id.drawerlayout);
         mToggle = new ActionBarDrawerToggle(this,mDrawerlayout,R.string.open,R.string.close);
@@ -148,10 +149,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.cleartransactions) {
+            myDb.clearHistory();
+        }
         if(mToggle.onOptionsItemSelected(item)){
             return true;
         }
         return super.onOptionsItemSelected(item);
+        //noinspection SimplifiableIfStatement
 
     }
 }
