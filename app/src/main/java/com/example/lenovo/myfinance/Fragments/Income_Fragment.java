@@ -63,37 +63,20 @@ public class Income_Fragment extends Fragment {
            @Override
            public void OnItemClick(View view, int position) {
 
+           Bottomsheet_dialog bottomsheetDialog = new Bottomsheet_dialog();
+           bottomsheetDialog.show(getFragmentManager(),"TAG");
 
-               Bottomsheet_dialog bottomsheetDialog = new Bottomsheet_dialog();
-                bottomsheetDialog.show(getFragmentManager(),"TAG");
-//               ChooseCategory_fragment chooseCategory_fragment = (ChooseCategory_fragment)Income_Fragment.this.getParentFragment();
-//               chooseCategory_fragment.dismiss();
 
            }
        });
-     //  mIncomeCategory_Recycler = getActivity().findViewById(R.id.income_category_Recyclerview);
+
        mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
        mIncomeCategory_Recycler.setAdapter(mCategorylistAdapter);
 
         categorieslist.add(new Category("Job","Income"));
         categorieslist.add(new Category("Business","Income"));
-//        income_category_textview.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//                Bottomsheet_dialog bottomsheetDialog = new Bottomsheet_dialog();
-//                bottomsheetDialog.show(getFragmentManager(),"TAG");
-//
-//            }
-//        });
 
-
-//
-
-
-
-            return view;
+         return view;
 
     }
 
