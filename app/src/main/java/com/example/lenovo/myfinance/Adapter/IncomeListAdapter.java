@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.lenovo.myfinance.Interface.TransactionItemClickListener;
 import com.example.lenovo.myfinance.Model.Income;
 
 import com.example.lenovo.myfinance.R;
@@ -19,16 +20,26 @@ import java.util.List;
 public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private  List<Income>   mIncomelist;
+    TransactionItemClickListener transactionItemClickListener;
 
-    public IncomeListAdapter(List<Income> incomelist) {
+    public IncomeListAdapter(List<Income> incomelist,TransactionItemClickListener listener) {
        this.mIncomelist = incomelist;
+       this.transactionItemClickListener =listener;
 
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.income_transaction_detail,parent,false);
-       return  new IncomeTrans(view);
+         final IncomeTrans incomeTrans = new IncomeTrans(view);
+         view.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 transactionItemClickListener.OnTransItemClick(view,incomeTrans.getPosition());
+             }
+         });
+         return incomeTrans;
+
     }
 
     @Override

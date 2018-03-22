@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,11 @@ import com.example.lenovo.myfinance.Fragments.Transaction_fragment;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -117,12 +123,22 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
 
         myDb = new DBHelper(getContext());
 
+        final DateFormat month = new SimpleDateFormat("MMMM");
+        final DateFormat Day = new SimpleDateFormat("EEEE");
+        final DateFormat DayNO = new SimpleDateFormat("dd");
+
+        final Date date = new Date();
+        Log.d("Month",month.format(date));
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+
 
         mInsertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                  myDb.insertIncomeData(txtScreen.getText().toString(),"March","Tuesday",12,2018);
+                  myDb.insertIncomeData(txtScreen.getText().toString(),month.format(date),Day.format(date), DayNO.format(date),year);
                   dialog.dismiss();
 //
             }

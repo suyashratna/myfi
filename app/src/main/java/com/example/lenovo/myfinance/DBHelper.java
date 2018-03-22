@@ -52,7 +52,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean insertIncomeData(String income_amount, String income_Month, String income_Day, int income_DayNo, int income_year){
+    public boolean insertIncomeData(String income_amount, String income_Month, String income_Day, String income_DayNo, int income_year){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -81,7 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
         fetchedIncome_List = new ArrayList<Income>();
         if(CR.getCount()>0){
             do{
-                fetchedIncome_List.add(0,new Income(CR.getString(0),CR.getString(1),CR.getString(2),CR.getInt(3),CR.getInt(4)));
+                fetchedIncome_List.add(0,new Income(CR.getString(0),CR.getString(1),CR.getString(2),CR.getString(3),CR.getInt(4)));
             }while (CR.moveToNext());
         }
         else {

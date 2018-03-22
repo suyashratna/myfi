@@ -28,6 +28,8 @@ import com.example.lenovo.myfinance.Bottomsheet_dialog;
 
 
 import com.example.lenovo.myfinance.DBHelper;
+import com.example.lenovo.myfinance.Dialogs.TransactionItem_dialog;
+import com.example.lenovo.myfinance.Interface.TransactionItemClickListener;
 import com.example.lenovo.myfinance.Model.Income;
 import com.example.lenovo.myfinance.R;
 
@@ -90,27 +92,13 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         View view = inflater.inflate(R.layout.fragment_transaction, container, false);
+        View view = inflater.inflate(R.layout.fragment_transaction, container, false);
         ButterKnife.bind(this,view);
-
-
-
-
 
         mSwipefreshlayout.setOnRefreshListener(this);
         loadRecyclerViewData();
 
-//        myDb = new DBHelper(getActivity());
-//        incomeList = myDb.getIncomeData();
-//
-//        mIncomeListAdapter = new IncomeListAdapter(incomeList);
-//        mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mIncomeRecycler.setAdapter(mIncomeListAdapter);
-//        mIncomeRecycler.smoothScrollToPosition(0);
-//
-//        mIncomeListAdapter.notifyDataSetChanged();
 
-//
 //      add transaction based on the selected tab
         maddtransaction_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +138,13 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
         if (id == R.id.cleartransactions) {
             myDb.clearHistory();
             incomeList.clear();
-            mIncomeListAdapter = new IncomeListAdapter(incomeList);
+            mIncomeListAdapter = new IncomeListAdapter(incomeList, new TransactionItemClickListener() {
+                @Override
+                public void OnTransItemClick(View view, int position) {
+                    TransactionItem_dialog item_dialog = new TransactionItem_dialog();
+                    item_dialog.show(getFragmentManager(),"ITEM");
+                }
+            });
             mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
             mIncomeRecycler.setAdapter(mIncomeListAdapter);
             mIncomeRecycler.smoothScrollToPosition(0);
@@ -170,7 +164,14 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
         myDb = new DBHelper(getActivity());
         incomeList = myDb.getIncomeData();
 
-        mIncomeListAdapter = new IncomeListAdapter(incomeList);
+        mIncomeListAdapter = new IncomeListAdapter(incomeList, new TransactionItemClickListener() {
+            @Override
+            public void OnTransItemClick(View view, int position) {
+                TransactionItem_dialog item_dialog = new TransactionItem_dialog();
+                item_dialog.show(getFragmentManager(),"ITEM");
+
+            }
+        });
         mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mIncomeRecycler.setAdapter(mIncomeListAdapter);
         mIncomeRecycler.smoothScrollToPosition(0);
