@@ -59,7 +59,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
     float mValueOne , mValueTwo ;
     boolean mAddition , mSubtract ,mMultiplication ,mDivision ;
     boolean amountadded;
-
+    public String category_name;
     Bundle mbundle;
 
     @BindView(R.id.buttonZero) Button buttonZero;
@@ -85,30 +85,20 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
     DBHelper myDb;
     private DialogInterface.OnDismissListener onDismissListener;
 
+     public @BindView(R.id.categoryname_indialog) TextView mCategoryName;
+
 
 
     public Bottomsheet_dialog() {
+
     }
+
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);}
 
-////
-////
-////
-////
-////        mInsertButton.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-////                //bottomtransactionList.add(new Transaction("Health","Cash",)));
-////                //mTransactionListAdapter.notifyDataSetChanged();
-////
-
-////
-////
-////            }
 
 
     @Override
@@ -120,6 +110,9 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
         dialog.setContentView(contentView);
 
         txtScreen =  contentView.findViewById(R.id.income_transaction_edittext);
+
+        Bundle b = getArguments();
+        mCategoryName.setText(b.getString("categoryName"));
 
         myDb = new DBHelper(getContext());
 

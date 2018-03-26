@@ -61,10 +61,16 @@ public class Income_Fragment extends Fragment {
        categorieslist = new ArrayList<Category>();
        mCategorylistAdapter = new CategoryList_Adapter(categorieslist, new CategoryItemClickListener() {
            @Override
-           public void OnItemClick(View view, int position) {
+           public void OnItemClick(View view, int position, String category_name) {
+
+           Bundle bundle = new Bundle();
+           bundle.putString("categoryName",category_name);
 
            Bottomsheet_dialog bottomsheetDialog = new Bottomsheet_dialog();
+           bottomsheetDialog.setArguments(bundle);
+
            bottomsheetDialog.show(getFragmentManager(),"TAG");
+
 
 
            }

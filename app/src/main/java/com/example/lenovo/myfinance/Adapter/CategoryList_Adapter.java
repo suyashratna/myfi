@@ -53,7 +53,7 @@ public class CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.View
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.OnItemClick(view, mIncomeviewholder.getPosition() );
+                    listener.OnItemClick(view, mIncomeviewholder.getPosition(), mIncomeviewholder.Category_name.getText().toString());
                 }
             });
 

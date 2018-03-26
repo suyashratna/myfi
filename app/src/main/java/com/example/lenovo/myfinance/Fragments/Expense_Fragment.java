@@ -52,8 +52,12 @@ public class Expense_Fragment extends Fragment {
         expensecategorieslist = new ArrayList<Category>();
         mCategorylistAdapter = new CategoryList_Adapter(expensecategorieslist, new CategoryItemClickListener() {
             @Override
-            public void OnItemClick(View view, int position) {
+            public void OnItemClick(View view, int position, String category_name) {
+                Bundle bundle = new Bundle();
+                bundle.putString("categoryName",category_name);
+
                 Bottomsheet_dialog bottomsheetDialog = new Bottomsheet_dialog();
+                bottomsheetDialog.setArguments(bundle);
                 bottomsheetDialog.show(getFragmentManager(),"TAG");
             }
         });

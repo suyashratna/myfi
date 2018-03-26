@@ -1,5 +1,6 @@
 package com.example.lenovo.myfinance.Fragments;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -143,6 +144,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
                 public void OnTransItemClick(View view, int position) {
                     TransactionItem_dialog item_dialog = new TransactionItem_dialog();
                     item_dialog.show(getFragmentManager(),"ITEM");
+
                 }
             });
             mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
