@@ -8,6 +8,8 @@
         <!--app:showAsAction="ifRoom"/>-->
     <item
         android:id="@+id/cleartransactions"
-        android:title="CLEAR all transactions"/>
+
+        android:title="CLEAR all transactions"
+        />
 
 </menu>

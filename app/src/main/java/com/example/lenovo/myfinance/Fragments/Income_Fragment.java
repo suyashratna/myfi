@@ -72,7 +72,6 @@ public class Income_Fragment extends Fragment {
            bottomsheetDialog.show(getFragmentManager(),"TAG");
 
 
-
            }
        });
 

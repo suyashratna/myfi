@@ -16,86 +16,119 @@
         android:orientation="vertical"
        >
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/layout_shape"
-            android:elevation="24dp"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_horizontal"
+           android:elevation="15dp"
             >
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@color/colorPrimaryDark"-->
+                <!--android:padding="10dp"-->
+                <!--android:layout_marginBottom="2dp"-->
+                <!--android:orientation="horizontal"-->
+              <!--&gt;-->
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="from"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:padding="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textSize="10sp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:gravity="center"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/categoryname_indialog"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="INCOME"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:padding="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_weight="2"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_weight="1"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textSize="10sp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="To"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:padding="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_weight="1"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:padding="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="ACCOUNT"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_weight="2"/>&ndash;&gt;-->
+               <!---->
+            <!--</LinearLayout>-->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="2dp"
-                android:orientation="horizontal"
-                android:weightSum="7">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="from"
-                    android:textColor="@color/white"
-                    android:padding="10dp"
-                    android:textSize="10sp"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
-                <TextView
-                    android:id="@+id/categoryname_indialog"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="INCOME"
-                    android:textColor="@color/white"
-                    android:padding="10dp"
-                    android:layout_weight="2"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:text="To"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:padding="10dp"
-                    android:text="ACCOUNT"
-                    android:gravity="center"
-                    android:layout_weight="2"/>
-            </LinearLayout>
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/addtrans"
-                android:layout_centerHorizontal="true"
-                android:elevation="5dp"
-                />
+                android:layout_gravity="center"
+                android:text="TRANSACTION DETAIL"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_centerHorizontal="true"/>
+
         </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+            <TextView
+                android:id="@+id/current_date_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Current Date "
+                android:textSize="15sp"
+                android:background="@drawable/transaction_detail_background1"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:layout_weight="2"/>
+            <Button
+                android:id="@+id/change_date_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="change date"
+                android:background="@drawable/amount_back"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:elevation="10dp"/>
+        </LinearLayout>
 
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             xmlns:android="http://schemas.android.com/apk/res/android">
 
             <RelativeLayout
                 android:id="@+id/calculator_relative_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_gravity="top"
                 android:padding="10dp"
-                android:layout_marginBottom="20dp"
+
                 xmlns:android="http://schemas.android.com/apk/res/android">
                 <!--<TextView-->
                 <!--android:id="@+id/infoTextView"-->
@@ -108,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="2dp"
                     android:padding="5dp"
                     android:weightSum="3">
                     <EditText
@@ -116,18 +149,23 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:enabled="false"
-                        android:hint= "Enter transaction amount"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:hint= " Enter transaction amount"
                         android:lines="2"
+
                         android:maxLines="2"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
+                        android:padding="2dp"
+                        android:background="@drawable/transaction_detail_background1"
                         android:layout_weight="2"/>
                     <Button
                         android:id="@+id/insert_button"
                         android:layout_width="0dp"
-                        android:layout_height="40sp"
+                        android:layout_height="wrap_content"
                         android:text="INSERT"
                         android:background="@drawable/amount_back"
                         android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
                         android:elevation="10dp"
                        />
                 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.lenovo.myfinance;
 
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 
@@ -85,7 +86,9 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
     DBHelper myDb;
     private DialogInterface.OnDismissListener onDismissListener;
 
-     public @BindView(R.id.categoryname_indialog) TextView mCategoryName;
+ //    public @BindView(R.id.categoryname_indialog) TextView mCategoryName;
+     @BindView(R.id.current_date_textview) TextView mCurrentDate;
+     @BindView(R.id.change_date_button) Button mChangedate;
 
 
 
@@ -111,8 +114,9 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
 
         txtScreen =  contentView.findViewById(R.id.income_transaction_edittext);
 
+        //get the category name from the category selection fragment
         Bundle b = getArguments();
-        mCategoryName.setText(b.getString("categoryName"));
+       // mCategoryName.setText(b.getString("categoryName"));
 
         myDb = new DBHelper(getContext());
 
@@ -126,6 +130,19 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
 
+        String totaldate = DayNO.format(date)+ " " + month.format(date)+ " " + year;
+        mCurrentDate.setText(totaldate);
+
+        Calendar myCalendar = Calendar.getInstance();
+
+
+
+        mChangedate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         mInsertButton.setOnClickListener(new View.OnClickListener() {
             @Override
