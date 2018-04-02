@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lenovo.myfinance.Interface.TransactionItemClickListener;
-import com.example.lenovo.myfinance.Model.Income;
+import com.example.lenovo.myfinance.Model.Transaction;
 
 import com.example.lenovo.myfinance.R;
 
@@ -19,11 +19,11 @@ import java.util.List;
 
 public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private  List<Income>   mIncomelist;
+    private  List<Transaction>   mTransactionlist;
     TransactionItemClickListener transactionItemClickListener;
 
-    public IncomeListAdapter(List<Income> incomelist,TransactionItemClickListener listener) {
-       this.mIncomelist = incomelist;
+    public IncomeListAdapter(List<Transaction> incomelist, TransactionItemClickListener listener) {
+       this.mTransactionlist = incomelist;
        this.transactionItemClickListener =listener;
 
     }
@@ -45,37 +45,34 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        ((IncomeTrans)holder).income_amount.setText(mIncomelist.get(position).getIncome_amount());
-        ((IncomeTrans)holder).transaction_day.setText(mIncomelist.get(position).getTransaction_Day());
-        ((IncomeTrans)holder).transaction_dayNo.setText(String.valueOf(mIncomelist.get(position).getTransaction_DayNo()));
-        ((IncomeTrans)holder).transaction_month.setText(mIncomelist.get(position).getTransaction_Month());
-        ((IncomeTrans)holder).transaction_year.setText(String.valueOf(mIncomelist.get(position).getYear()));
+        ((IncomeTrans)holder).transaction_amount.setText(mTransactionlist.get(position).getTransaction_amount());
+        ((IncomeTrans)holder).transaction_date.setText(String.valueOf(mTransactionlist.get(position).getTransaction_date()));
+        ((IncomeTrans)holder).transaction_category.setText(mTransactionlist.get(position).getTransaction_category());
 
     }
 
 
     @Override
     public int getItemCount() {
-        return mIncomelist == null ? 0 : mIncomelist.size() ;
+        return mTransactionlist == null ? 0 : mTransactionlist.size() ;
     }
 
 
     public class IncomeTrans extends RecyclerView.ViewHolder{
         //public ImageView category_image;
-        public TextView income_amount;
-        public TextView transaction_month;
-        public TextView transaction_day;
-        public TextView transaction_dayNo;
-        public TextView transaction_year;
+        public TextView transaction_amount;
+        public TextView transaction_date;
+
+        public TextView transaction_category;
 
         public IncomeTrans(View itemView) {
             super(itemView);
           //  category_image = itemView.findViewById(R.id.category_image);
-            income_amount = itemView.findViewById(R.id.transfer_total);
-            transaction_dayNo = itemView.findViewById(R.id.day_no);
-            transaction_month = itemView.findViewById(R.id.month_text);
-            transaction_day = itemView.findViewById(R.id.day_text);
-            transaction_year = itemView.findViewById(R.id.year_no);
+            transaction_amount = itemView.findViewById(R.id.transfer_total);
+            transaction_date= itemView.findViewById(R.id.date_textview);
+
+            transaction_category = itemView.findViewById(R.id.category_name_textview);
+
 //            itemView.setOnClickListener();
         }
     }

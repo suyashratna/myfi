@@ -1,8 +1,6 @@
 package com.example.lenovo.myfinance.Fragments;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.support.design.widget.TabLayout;
@@ -11,27 +9,22 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.lenovo.myfinance.Adapter.SectionsPageAdapter;
 import com.example.lenovo.myfinance.Adapter.IncomeListAdapter;
-import com.example.lenovo.myfinance.Bottomsheet_dialog;
 
 
 import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.Dialogs.TransactionItem_dialog;
 import com.example.lenovo.myfinance.Interface.TransactionItemClickListener;
-import com.example.lenovo.myfinance.Model.Income;
+import com.example.lenovo.myfinance.Model.Transaction;
 import com.example.lenovo.myfinance.R;
 
 import java.util.List;
@@ -66,7 +59,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     DBHelper myDb;
 
     private IncomeListAdapter mIncomeListAdapter;
-    private List<Income> incomeList;
+    private List<Transaction> transactionList;
 
     @BindView(R.id.income_recyclerview)
     RecyclerView mIncomeRecycler;
@@ -134,12 +127,13 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        myDb = new DBHelper(getActivity());
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cleartransactions) {
             myDb.clearHistory();
-            incomeList.clear();
-            mIncomeListAdapter = new IncomeListAdapter(incomeList, new TransactionItemClickListener() {
+            transactionList.clear();
+            mIncomeListAdapter = new IncomeListAdapter(transactionList, new TransactionItemClickListener() {
                 @Override
                 public void OnTransItemClick(View view, int position) {
                     TransactionItem_dialog item_dialog = new TransactionItem_dialog();
@@ -164,9 +158,9 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     public void loadRecyclerViewData(){
         mSwipefreshlayout.setRefreshing(true);
         myDb = new DBHelper(getActivity());
-        incomeList = myDb.getIncomeData();
+        transactionList = myDb.getTransactionData();
 
-        mIncomeListAdapter = new IncomeListAdapter(incomeList, new TransactionItemClickListener() {
+        mIncomeListAdapter = new IncomeListAdapter(transactionList, new TransactionItemClickListener() {
             @Override
             public void OnTransItemClick(View view, int position) {
                 TransactionItem_dialog item_dialog = new TransactionItem_dialog();

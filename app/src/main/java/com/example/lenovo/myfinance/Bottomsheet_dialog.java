@@ -3,23 +3,18 @@ package com.example.lenovo.myfinance;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.Fragment;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.example.lenovo.myfinance.Fragments.ChooseCategory_fragment;
-import com.example.lenovo.myfinance.Fragments.Income_Fragment;
-import com.example.lenovo.myfinance.Fragments.Transaction_fragment;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -37,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by lenovo on 2/15/2018.
  */
 
-public class Bottomsheet_dialog extends BottomSheetDialogFragment {
+public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
 
     // IDs of all the numeric buttons
     private int[] numericButtons = {R.id.buttonZero, R.id.buttonOne, R.id.buttonTwo, R.id.buttonThree, R.id.buttonFour, R.id.buttonFive, R.id.buttonSix, R.id.buttonSeven, R.id.buttonEight, R.id.buttonNine};
@@ -91,7 +86,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
      @BindView(R.id.change_date_button) Button mChangedate;
 
 
-
+    int monthh ,dayy;
     public Bottomsheet_dialog() {
 
     }
@@ -113,9 +108,9 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
         dialog.setContentView(contentView);
 
         txtScreen =  contentView.findViewById(R.id.income_transaction_edittext);
-
+         final Calendar c = Calendar.getInstance();
         //get the category name from the category selection fragment
-        Bundle b = getArguments();
+
        // mCategoryName.setText(b.getString("categoryName"));
 
         myDb = new DBHelper(getContext());
@@ -127,28 +122,41 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment {
         final Date date = new Date();
         Log.d("Month",month.format(date));
 
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
 
-        String totaldate = DayNO.format(date)+ " " + month.format(date)+ " " + year;
+        String totaldate = DayNO.format(date)+ " " + month.format(date)+ " " + year+ ", "+Day.format(date);
         mCurrentDate.setText(totaldate);
 
         Calendar myCalendar = Calendar.getInstance();
 
-
+        monthh = myCalendar.get(Calendar.MONTH);
+        dayy = myCalendar.get(Calendar.DAY_OF_MONTH);
 
         mChangedate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 
+                        c.set(Calendar.YEAR,i);
+                        c.set(Calendar.MONTH,i1);
+                        c.set(Calendar.DAY_OF_MONTH,i2);
+                        final DateFormat dateFormat = new SimpleDateFormat("dd MMMM YYYY, EEEE");
+                        String currentDateString = dateFormat.format(c.getTime());
+                        mCurrentDate.setText(currentDateString);
+                    }
+                },year,monthh,dayy);
+                datePickerDialog.show();
             }
         });
 
         mInsertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                  myDb.insertIncomeData(txtScreen.getText().toString(),month.format(date),Day.format(date), DayNO.format(date),year);
+                  Bundle b = getArguments();
+                  myDb.insertIncomeData(txtScreen.getText().toString(),b.getString("categoryName"),mCurrentDate.getText().toString(),b.getString("categoryType"));
                   dialog.dismiss();
 //
             }

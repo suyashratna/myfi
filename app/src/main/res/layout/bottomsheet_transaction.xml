@@ -151,6 +151,8 @@
                         android:enabled="false"
                         android:textColor="@color/colorPrimaryDark"
                         android:hint= " Enter transaction amount"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
                         android:lines="2"
 
                         android:maxLines="2"

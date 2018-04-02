@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="6dp"
     android:layout_marginTop="2dp"
+    android:elevation="4dp"
+    android:clickable="true"
     android:background="@drawable/transaction_background"
     android:orientation="vertical">
 
@@ -32,47 +34,27 @@
                 android:elevation="5dp"/>
 
             <TextView
-                android:id="@+id/day_no"
+                android:id="@+id/date_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/income_category_image"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:text="30"
+                android:text="30 April 2018"
                 android:padding="2dp"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/day_text"
+                android:id="@+id/category_name_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/income_category_image"
                 android:padding="2dp"
-                android:text="Wednesday"
+                android:hint="category name"
                 android:textSize="10sp" />
 
-            <TextView
-                android:id="@+id/month_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/day_no"
-                android:maxWidth="240dp"
-                android:padding="2dp"
-                android:text="February"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/year_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/month_text"
-                android:padding="2dp"
-                android:text="2018" />
 
 
         </RelativeLayout>

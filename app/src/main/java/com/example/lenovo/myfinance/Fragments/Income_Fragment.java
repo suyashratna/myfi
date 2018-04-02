@@ -1,7 +1,6 @@
 package com.example.lenovo.myfinance.Fragments;
 
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -13,12 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lenovo.myfinance.Adapter.CategoryList_Adapter;
-import com.example.lenovo.myfinance.Adapter.IncomeListAdapter;
 import com.example.lenovo.myfinance.Bottomsheet_dialog;
-import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.Interface.CategoryItemClickListener;
 import com.example.lenovo.myfinance.Model.Category;
-import com.example.lenovo.myfinance.Model.Income;
 
 import com.example.lenovo.myfinance.R;
 
@@ -61,10 +57,11 @@ public class Income_Fragment extends Fragment {
        categorieslist = new ArrayList<Category>();
        mCategorylistAdapter = new CategoryList_Adapter(categorieslist, new CategoryItemClickListener() {
            @Override
-           public void OnItemClick(View view, int position, String category_name) {
+           public void OnItemClick(View view, int position, String category_name,String category_type) {
 
            Bundle bundle = new Bundle();
            bundle.putString("categoryName",category_name);
+           bundle.putString("categoryType",category_type);
 
            Bottomsheet_dialog bottomsheetDialog = new Bottomsheet_dialog();
            bottomsheetDialog.setArguments(bundle);
@@ -78,8 +75,8 @@ public class Income_Fragment extends Fragment {
        mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
        mIncomeCategory_Recycler.setAdapter(mCategorylistAdapter);
 
-        categorieslist.add(new Category("Job","Income"));
-        categorieslist.add(new Category("Business","Income"));
+        categorieslist.add(new Category("Job","income"));
+        categorieslist.add(new Category("Business","income"));
 
          return view;
 

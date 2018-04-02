@@ -33,7 +33,7 @@ public class CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemViewType(int position) {
         switch (mCategoryList.get(position).getCategory_type()){
-            case "Income":
+            case "income":
                 return 1;
             case "Expense":
                 return 2;
@@ -53,7 +53,7 @@ public class CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.View
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.OnItemClick(view, mIncomeviewholder.getPosition(), mIncomeviewholder.Category_name.getText().toString());
+                    listener.OnItemClick(view, mIncomeviewholder.getPosition(), mIncomeviewholder.Category_name.getText().toString(),mIncomeviewholder.category_type);
                 }
             });
 
@@ -73,7 +73,10 @@ public class CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 //        if (holder instanceof incomeCategoryViewHolder){
-        ((incomeCategoryViewHolder)holder).Category_name.setText(mCategoryList.get(position).getCategory_name());}
+        ((incomeCategoryViewHolder)holder).Category_name.setText(mCategoryList.get(position).getCategory_name());
+        ((incomeCategoryViewHolder)holder).category_type = (mCategoryList.get(position).getCategory_type());
+    }
+
 //        else if (holder instanceof ExpenseCategoryViewHolder){
 //            ((ExpenseCategoryViewHolder)holder).expense_category_name.setText(mCategoryList.get(position).getCategory_name());
 //        }
@@ -88,6 +91,7 @@ public class CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.View
 
     public class incomeCategoryViewHolder extends RecyclerView.ViewHolder{
         public TextView Category_name;
+        public String category_type;
         public incomeCategoryViewHolder(View itemView) {
             super(itemView);
             Category_name = itemView.findViewById(R.id.income_category_name);
