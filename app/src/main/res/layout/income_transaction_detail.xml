@@ -52,6 +52,7 @@
                 android:layout_toRightOf="@id/income_category_image"
                 android:padding="2dp"
                 android:hint="category name"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="10sp" />
 
 

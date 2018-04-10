@@ -2,23 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     
     >
-    <item android:id="@+id/nav_account"
-        android:title="Accounts"
-        android:icon="@drawable/accounts"
-        />
-    <item android:id="@+id/nav_logout"
-        android:title="Backup"
-        android:icon="@drawable/backup"
-       />
-    <item android:id="@+id/nav_security"
-        android:title="Security"
-        android:icon="@drawable/security"/>
-    <item android:id="@+id/nav_settings"
-        android:title="Settings"
-        android:icon="@drawable/settings">
+
+        <item android:id="@+id/nav_account"
+            android:title="Accounts"
+            android:icon="@drawable/accounts"
+            />
+        <item android:id="@+id/nav_logout"
+            android:title="Backup"
+            android:icon="@drawable/backup"
+            />
+        <item android:id="@+id/nav_security"
+            android:title="Security"
+            android:icon="@drawable/security"/>
+        <item android:id="@+id/nav_settings"
+            android:title="Settings"
+            android:icon="@drawable/settings">
+        </item>
+        <item android:id="@+id/nav_Reminders"
+            android:title="Reminders"
+            android:icon="@drawable/reminders"/>
+
+    <item android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/nav_aboutus"
+                android:title="About us"/>
+
+        </menu>
     </item>
-    <item android:id="@+id/nav_Reminders"
-        android:title="Reminders"
-        android:icon="@drawable/reminders"/>
+
 
 </menu>

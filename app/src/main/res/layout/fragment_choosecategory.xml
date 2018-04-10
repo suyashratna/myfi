@@ -7,11 +7,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.design.widget.TabLayout
         android:id="@+id/chooser_tab"
-        android:background="@drawable/tablayout_shape"
+        android:background="@drawable/layout_shape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabTextColor="@color/white"
         app:tabIndicatorHeight="0dp"
+        app:tabIndicatorColor="@color/darkturq"
         android:elevation="10dp"
 
         />

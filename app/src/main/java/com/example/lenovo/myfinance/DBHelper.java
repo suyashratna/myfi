@@ -93,7 +93,12 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from "+ TABLE1_NAME);
 
+    }
 
+    public Integer DeleteTransaction(String position){
+
+        SQLiteDatabase db = getWritableDatabase();
+        return db.delete(TABLE1_NAME,"ID = ?",new String[] {position});
     }
 
 }

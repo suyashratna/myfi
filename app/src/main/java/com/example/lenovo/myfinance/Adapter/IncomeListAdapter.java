@@ -36,6 +36,7 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
              @Override
              public void onClick(View view) {
                  transactionItemClickListener.OnTransItemClick(view,incomeTrans.getPosition());
+
              }
          });
          return incomeTrans;
@@ -75,5 +76,10 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 //            itemView.setOnClickListener();
         }
+    }
+
+    void deleteTransaction (int position){
+        mTransactionlist.remove(position);
+        notifyItemRemoved(position);
     }
 }

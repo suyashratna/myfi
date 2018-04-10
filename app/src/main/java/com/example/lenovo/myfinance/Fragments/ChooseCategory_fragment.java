@@ -2,6 +2,7 @@ package com.example.lenovo.myfinance.Fragments;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -43,6 +44,8 @@ public class ChooseCategory_fragment extends BottomSheetDialogFragment{
 
 
         mViewPager.setAdapter(new SectionsPageAdapter(getChildFragmentManager()));
+        mTablayout.setSelectedTabIndicatorColor(Color.parseColor("#36b9e4"));
+        mTablayout.setTabTextColors(Color.parseColor("#ffffff"), Color.parseColor("#36b9e4"));
         mTablayout.post(new Runnable() {
             @Override
             public void run() {

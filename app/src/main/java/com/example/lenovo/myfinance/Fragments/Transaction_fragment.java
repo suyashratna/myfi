@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,9 +44,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     Animation downtoup;
     Animation rotate;
 
-    ViewPager mViewPager;
-    TabLayout mTablayout;
-    SectionsPageAdapter sectionsPageAdapter;
+
 
     @BindView(R.id.addtransaction_button)
     Button maddtransaction_button ;
@@ -162,9 +161,33 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
 
         mIncomeListAdapter = new IncomeListAdapter(transactionList, new TransactionItemClickListener() {
             @Override
-            public void OnTransItemClick(View view, int position) {
-                TransactionItem_dialog item_dialog = new TransactionItem_dialog();
-                item_dialog.show(getFragmentManager(),"ITEM");
+            public void OnTransItemClick(View view, final int position) {
+//                Bundle b = new Bundle();
+//                b.putInt("position",position);
+//                TransactionItem_dialog item_dialog = new TransactionItem_dialog();
+//                item_dialog.setArguments(b);
+//                item_dialog.show(getFragmentManager(),"ITEM");
+
+
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+
+                        alertDialog.setTitle("Delete the transaction?");
+                        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DBHelper dbHelper = new DBHelper(getActivity());
+
+                                dbHelper.DeleteTransaction(String.valueOf(position));
+                                loadRecyclerViewData();
+                            }
+                        });
+                        alertDialog.show();
 
             }
         });

@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,13 +28,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.example.lenovo.myfinance.Fragments.Accounts_fragment;
 import com.example.lenovo.myfinance.Fragments.Categories_fragment;
+import com.example.lenovo.myfinance.Fragments.Main_fragment;
 import com.example.lenovo.myfinance.Fragments.Reports_fragment;
 import com.example.lenovo.myfinance.Fragments.Transaction_fragment;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     android.support.v7.widget.Toolbar toolbar;
     private DrawerLayout mDrawerlayout;
     private ActionBarDrawerToggle mToggle;
@@ -43,32 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     DBHelper myDb;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            switch (item.getItemId()) {
-                case R.id.navigation_transactions:
-                    transaction.replace(R.id.fragment_frame,new Transaction_fragment());
-                    transaction.commit();
-                    return true;
-                case R.id.navigation_categories:
-                    transaction.replace(R.id.fragment_frame,new Categories_fragment());
-                    transaction.commit();
-                    return true;
-//                case R.id.navigation_notifications:
-//
-//                    return true;
-                case R.id.navigation_reports:
-                    transaction.replace(R.id.fragment_frame, new Reports_fragment());
-                    transaction.commit();
-                    return true;
-            }
-            return false;
-        }
-    };
+
+
 
 
 
@@ -76,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,24 +67,30 @@ public class MainActivity extends AppCompatActivity {
         myDb = new DBHelper(this);
 
         mDrawerlayout= findViewById(R.id.drawerlayout);
+
         mToggle = new ActionBarDrawerToggle(this,mDrawerlayout,R.string.open,R.string.close);
         mDrawerlayout.addDrawerListener(mToggle);
+
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        NavigationView navigationView =(NavigationView) findViewById(R.id.navigation_main);
+        navigationView.setNavigationItemSelectedListener(this);
 
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainactivity_fragment,new Main_fragment());
+        transaction.commit();
 
-        BottomNavigationView navigation =  findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_transactions);
 
 
     }
+
 
     private void setUpMenu(){
 
         resideMenu = new ResideMenu(this);
 
         resideMenu.setBackground(R.drawable.backgroundwhite);
+
         resideMenu.attachToActivity(this);
         resideMenu.setMenuListener(menuListener);
         resideMenu.setScaleValue(0.6f);
@@ -158,6 +146,28 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
         //noinspection SimplifiableIfStatement
+
+    }
+private void setUpNavigationView(){
+
+}
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_right);
+        if(id == R.id.nav_account){
+            Toast.makeText(this, " Accounts ", Toast.LENGTH_SHORT).show();
+            transaction.replace(R.id.mainactivity_fragment,new Accounts_fragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+            mDrawerlayout.closeDrawers();
+            return true;
+
+             }
+        return false;
 
     }
 }

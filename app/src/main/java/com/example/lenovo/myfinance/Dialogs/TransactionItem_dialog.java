@@ -23,28 +23,7 @@ public class TransactionItem_dialog extends DialogFragment{
     public TransactionItem_dialog() {
     }
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        AlertDialog.Builder  builder= new AlertDialog.Builder(getActivity());
-//        View view = inflater.inflate(R.layout.dialog_transactionitem,container,false);
-//        builder.setView(view)
-//                .setTitle("Detail")
-//                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                })
-//                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
-//
-//        return view;
-//    }
+
 
     @NonNull
     @Override
@@ -55,7 +34,7 @@ public class TransactionItem_dialog extends DialogFragment{
         View view = inflater.inflate(R.layout.dialog_transactionitem,null);
 
         builder.setView(view)
-                .setTitle("Detail")
+                .setTitle("Delete the transaction?")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
