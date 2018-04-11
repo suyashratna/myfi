@@ -5,12 +5,22 @@ package com.example.lenovo.myfinance.Model;
  */
 
 public class Category {
+    String category_image;
     String category_name;
     String category_type;
 
-    public Category(String category_name, String category_type) {
+    public Category(String category_image, String category_name, String category_type) {
+        this.category_image = category_image;
         this.category_name = category_name;
         this.category_type = category_type;
+    }
+
+    public String getCategory_image() {
+        return category_image;
+    }
+
+    public void setCategory_image(String category_image) {
+        this.category_image = category_image;
     }
 
     public String getCategory_name() {

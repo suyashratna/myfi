@@ -50,12 +50,13 @@ public class Expense_Fragment extends Fragment {
         ButterKnife.bind(this,view);
 
         expensecategorieslist = new ArrayList<Category>();
-        mCategorylistAdapter = new CategoryList_Adapter(expensecategorieslist, new CategoryItemClickListener() {
+        mCategorylistAdapter = new CategoryList_Adapter(expensecategorieslist,getContext(), new CategoryItemClickListener() {
             @Override
-            public void OnItemClick(View view, int position, String category_name,String category_type) {
+            public void OnItemClick(View view, int position, String category_name,String category_type, String category_image) {
                 Bundle bundle = new Bundle();
                 bundle.putString("categoryName",category_name);
                 bundle.putString("categoryType",category_type);
+                bundle.putString("categoryImage",category_image);
 
                 Bottomsheet_dialog bottomsheetDialog = new Bottomsheet_dialog();
                 bottomsheetDialog.setArguments(bundle);
@@ -66,11 +67,12 @@ public class Expense_Fragment extends Fragment {
         mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mIncomeCategory_Recycler.setAdapter(mCategorylistAdapter);
 
-        expensecategorieslist.add(new Category("Education","Expense"));
-        expensecategorieslist.add(new Category("Health","Expense"));
-        expensecategorieslist.add(new Category("Transportation","Expense"));
-        expensecategorieslist.add(new Category("Electricity","Expense"));
-
+        expensecategorieslist.add(new Category("file:///android_asset/education_icon.png","Education","expense"));
+        expensecategorieslist.add(new Category("file:///android_asset/electricity_icon.png","Electricity","expense"));
+        expensecategorieslist.add(new Category("file:///android_asset/entertainment_icon.png","Entertainment","expense"));
+        expensecategorieslist.add(new Category("file:///android_asset/grocery_icon.png","Grocery","expense"));
+        expensecategorieslist.add(new Category("file:///android_asset/health_icon.png","Health","expense"));
+        expensecategorieslist.add(new Category("file:///android_asset/restaurant_icon.png","Restaurant","expense"));
 
         return view;
     }

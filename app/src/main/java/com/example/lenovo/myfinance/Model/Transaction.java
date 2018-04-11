@@ -7,16 +7,31 @@ import android.text.format.DateUtils;
  */
 
 public class Transaction {
+    long transaction_id;
     String transaction_amount;
     String transaction_category;
     String transaction_date;
     String transaction_type;
+    String transaction_category_image;
 
-    public Transaction(String transaction_amount, String transaction_category, String transaction_date, String transaction_type) {
+    public Transaction(){
+
+    }
+
+    public Transaction(String transaction_amount, String transaction_category, String transaction_date, String transaction_type, String transaction_category_image) {
         this.transaction_amount = transaction_amount;
         this.transaction_category = transaction_category;
         this.transaction_date = transaction_date;
         this.transaction_type = transaction_type;
+        this.transaction_category_image = transaction_category_image;
+    }
+
+    public long getTransaction_id() {
+        return transaction_id;
+    }
+
+    public void setTransaction_id(long transaction_id) {
+        this.transaction_id = transaction_id;
     }
 
     public String getTransaction_amount() {
@@ -49,5 +64,13 @@ public class Transaction {
 
     public void setTransaction_type(String transaction_type) {
         this.transaction_type = transaction_type;
+    }
+
+    public String getTransaction_category_image() {
+        return transaction_category_image;
+    }
+
+    public void setTransaction_category_image(String transaction_category_image) {
+        this.transaction_category_image = transaction_category_image;
     }
 }

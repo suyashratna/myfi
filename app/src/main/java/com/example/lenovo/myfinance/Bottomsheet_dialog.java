@@ -155,8 +155,11 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
         mInsertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(txtScreen.getText().toString().trim().length() == 0){
+                    return;
+                }
                   Bundle b = getArguments();
-                  myDb.insertIncomeData(txtScreen.getText().toString(),b.getString("categoryName"),mCurrentDate.getText().toString(),b.getString("categoryType"));
+                  myDb.insertIncomeData(txtScreen.getText().toString(),b.getString("categoryName"),mCurrentDate.getText().toString(),b.getString("categoryType"),b.getString("categoryImage"));
                   dialog.dismiss();
 //
             }

@@ -55,13 +55,14 @@ public class Income_Fragment extends Fragment {
        ButterKnife.bind(this,view);
 
        categorieslist = new ArrayList<Category>();
-       mCategorylistAdapter = new CategoryList_Adapter(categorieslist, new CategoryItemClickListener() {
+       mCategorylistAdapter = new CategoryList_Adapter(categorieslist,getContext() ,new CategoryItemClickListener() {
            @Override
-           public void OnItemClick(View view, int position, String category_name,String category_type) {
+           public void OnItemClick(View view, int position, String category_name,String category_type,String category_image) {
 
            Bundle bundle = new Bundle();
            bundle.putString("categoryName",category_name);
            bundle.putString("categoryType",category_type);
+           bundle.putString("categoryImage",category_image);
 
            Bottomsheet_dialog bottomsheetDialog = new Bottomsheet_dialog();
            bottomsheetDialog.setArguments(bundle);
@@ -75,8 +76,8 @@ public class Income_Fragment extends Fragment {
        mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
        mIncomeCategory_Recycler.setAdapter(mCategorylistAdapter);
 
-        categorieslist.add(new Category("Job","income"));
-        categorieslist.add(new Category("Business","income"));
+        categorieslist.add(new Category("file:///android_asset/salary_icon.png","Salary","income"));
+       // categorieslist.add(new Category("Business","income",""));
 
          return view;
 

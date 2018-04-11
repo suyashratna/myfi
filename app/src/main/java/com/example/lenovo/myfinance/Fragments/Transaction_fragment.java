@@ -35,10 +35,6 @@ import butterknife.ButterKnife;
 
 
 public class Transaction_fragment extends android.support.v4.app.Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     Animation uptodown;
     Animation downtoup;
@@ -132,7 +128,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
         if (id == R.id.cleartransactions) {
             myDb.clearHistory();
             transactionList.clear();
-            mIncomeListAdapter = new IncomeListAdapter(transactionList, new TransactionItemClickListener() {
+            mIncomeListAdapter = new IncomeListAdapter(transactionList,getContext(), new TransactionItemClickListener() {
                 @Override
                 public void OnTransItemClick(View view, int position) {
                     TransactionItem_dialog item_dialog = new TransactionItem_dialog();
@@ -159,7 +155,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
         myDb = new DBHelper(getActivity());
         transactionList = myDb.getTransactionData();
 
-        mIncomeListAdapter = new IncomeListAdapter(transactionList, new TransactionItemClickListener() {
+        mIncomeListAdapter = new IncomeListAdapter(transactionList,getContext(), new TransactionItemClickListener() {
             @Override
             public void OnTransItemClick(View view, final int position) {
 //                Bundle b = new Bundle();
@@ -182,8 +178,8 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 DBHelper dbHelper = new DBHelper(getActivity());
-
-                                dbHelper.DeleteTransaction(String.valueOf(position));
+                                final Transaction transaction = transactionList.get(position);
+                                dbHelper.DeleteTransaction(transaction.getTransaction_id(),getActivity());
                                 loadRecyclerViewData();
                             }
                         });

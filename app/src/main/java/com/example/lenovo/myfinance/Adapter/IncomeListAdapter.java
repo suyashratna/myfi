@@ -1,15 +1,18 @@
 package com.example.lenovo.myfinance.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lenovo.myfinance.Interface.TransactionItemClickListener;
 import com.example.lenovo.myfinance.Model.Transaction;
 
 import com.example.lenovo.myfinance.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,10 +24,11 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private  List<Transaction>   mTransactionlist;
     TransactionItemClickListener transactionItemClickListener;
-
-    public IncomeListAdapter(List<Transaction> incomelist, TransactionItemClickListener listener) {
+    private Context mContext;
+    public IncomeListAdapter(List<Transaction> incomelist,Context context, TransactionItemClickListener listener) {
        this.mTransactionlist = incomelist;
        this.transactionItemClickListener =listener;
+       this.mContext = context;
 
     }
 
@@ -45,11 +49,11 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+         final Transaction transaction = mTransactionlist.get(position);
         ((IncomeTrans)holder).transaction_amount.setText(mTransactionlist.get(position).getTransaction_amount());
         ((IncomeTrans)holder).transaction_date.setText(String.valueOf(mTransactionlist.get(position).getTransaction_date()));
         ((IncomeTrans)holder).transaction_category.setText(mTransactionlist.get(position).getTransaction_category());
-
+        Picasso.with(mContext).load(transaction.getTransaction_category_image()).placeholder(R.mipmap.ic_launcher_round).into(((IncomeTrans)holder).transaction_category_image);
     }
 
 
@@ -63,7 +67,7 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         //public ImageView category_image;
         public TextView transaction_amount;
         public TextView transaction_date;
-
+        public ImageView transaction_category_image;
         public TextView transaction_category;
 
         public IncomeTrans(View itemView) {
@@ -71,15 +75,12 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
           //  category_image = itemView.findViewById(R.id.category_image);
             transaction_amount = itemView.findViewById(R.id.transfer_total);
             transaction_date= itemView.findViewById(R.id.date_textview);
-
+            transaction_category_image = itemView.findViewById(R.id.income_category_image);
             transaction_category = itemView.findViewById(R.id.category_name_textview);
 
 //            itemView.setOnClickListener();
         }
     }
 
-    void deleteTransaction (int position){
-        mTransactionlist.remove(position);
-        notifyItemRemoved(position);
-    }
+
 }
