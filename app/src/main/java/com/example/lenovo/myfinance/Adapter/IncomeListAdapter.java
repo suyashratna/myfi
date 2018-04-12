@@ -34,6 +34,7 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == 1){
        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.income_transaction_detail,parent,false);
          final IncomeTrans incomeTrans = new IncomeTrans(view);
          view.setOnClickListener(new View.OnClickListener() {
@@ -43,9 +44,29 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
              }
          });
-         return incomeTrans;
+         return incomeTrans;}
+         else if (viewType == 2){
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_transaction_detail,parent,false);
+            final IncomeTrans incomeTrans = new IncomeTrans(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    transactionItemClickListener.OnTransItemClick(view,incomeTrans.getPosition());
+        }
 
-    }
+    });return incomeTrans;}
+    else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transfer_transaction_detail,parent,false);
+            final IncomeTrans incomeTrans = new IncomeTrans(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    transactionItemClickListener.OnTransItemClick(view,incomeTrans.getPosition());
+                }
+
+            });return incomeTrans;
+
+        }}
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -56,6 +77,18 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         Picasso.with(mContext).load(transaction.getTransaction_category_image()).placeholder(R.mipmap.ic_launcher_round).into(((IncomeTrans)holder).transaction_category_image);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        switch (mTransactionlist.get(position).getTransaction_type()){
+            case "income":
+                return 1;
+            case "expense":
+                return 2;
+            case "transfer":
+                return 3;
+            default:
+                return 1;
+        }}
 
     @Override
     public int getItemCount() {
