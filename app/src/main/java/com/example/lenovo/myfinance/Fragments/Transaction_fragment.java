@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -138,6 +139,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
             });
             mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
             mIncomeRecycler.setAdapter(mIncomeListAdapter);
+            mIncomeListAdapter.notifyDataSetChanged();
             mIncomeRecycler.smoothScrollToPosition(0);
 
             return true;
@@ -180,7 +182,11 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
                                 DBHelper dbHelper = new DBHelper(getActivity());
                                 final Transaction transaction = transactionList.get(position);
                                 dbHelper.DeleteTransaction(transaction.getTransaction_id(),getActivity());
-                                loadRecyclerViewData();
+                                transactionList.remove(position);
+                                mIncomeRecycler.removeViewAt(position);
+                                mIncomeListAdapter.notifyItemRemoved(position);
+
+                               //loadRecyclerViewData();
                             }
                         });
                         alertDialog.show();
@@ -191,5 +197,22 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
         mIncomeRecycler.setAdapter(mIncomeListAdapter);
         mIncomeRecycler.smoothScrollToPosition(0);
         mSwipefreshlayout.setRefreshing(false);
+
+        new ItemTouchHelper(new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                return 0;
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+        });
     }
 }

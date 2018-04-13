@@ -75,14 +75,17 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<Transaction> getTransactionData(){
 
         SQLiteDatabase db =  getReadableDatabase();
-        String[] columns ={"transaction_amount","transaction_category","transaction_date", "transaction_type","transaction_category_image"};
+        String[] columns ={"ID","transaction_amount","transaction_category","transaction_date", "transaction_type","transaction_category_image"};
         Cursor CR = db.query(TABLE1_NAME,columns,null,null,null,null,null);
         CR.moveToFirst();
+        Transaction transaction;
 
         fetchedTransaction_List = new ArrayList<Transaction>();
         if(CR.getCount()>0){
             do{
-                fetchedTransaction_List.add(0,new Transaction(CR.getString(0),CR.getString(1),CR.getString(2),CR.getString(3),CR.getString(4)));
+//                transaction = new Transaction();
+//                transaction.setTransaction_id(CR.getLong(CR.getColumnIndex("ID")));
+                fetchedTransaction_List.add(0,new Transaction(CR.getLong(0),CR.getString(1),CR.getString(2),CR.getString(3),CR.getString(4),CR.getString(5)));
             }while (CR.moveToNext());
         }
         else {
@@ -100,7 +103,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void DeleteTransaction(long id,Context context){
 
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM "+ TABLE1_NAME+"WHERE ID='"+id+"'");
+        db.execSQL("DELETE FROM "+TABLE1_NAME+" WHERE ID='"+id+"'");
         Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
     }
 

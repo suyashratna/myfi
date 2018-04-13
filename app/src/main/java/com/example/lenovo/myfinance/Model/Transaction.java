@@ -7,7 +7,7 @@ import android.text.format.DateUtils;
  */
 
 public class Transaction {
-    long transaction_id;
+    Long transaction_id;
     String transaction_amount;
     String transaction_category;
     String transaction_date;
@@ -18,7 +18,8 @@ public class Transaction {
 
     }
 
-    public Transaction(String transaction_amount, String transaction_category, String transaction_date, String transaction_type, String transaction_category_image) {
+    public Transaction(Long transaction_id, String transaction_amount, String transaction_category, String transaction_date, String transaction_type, String transaction_category_image) {
+        this.transaction_id = transaction_id;
         this.transaction_amount = transaction_amount;
         this.transaction_category = transaction_category;
         this.transaction_date = transaction_date;

@@ -74,6 +74,7 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ((IncomeTrans)holder).transaction_amount.setText(mTransactionlist.get(position).getTransaction_amount());
         ((IncomeTrans)holder).transaction_date.setText(String.valueOf(mTransactionlist.get(position).getTransaction_date()));
         ((IncomeTrans)holder).transaction_category.setText(mTransactionlist.get(position).getTransaction_category());
+
         Picasso.with(mContext).load(transaction.getTransaction_category_image()).placeholder(R.mipmap.ic_launcher_round).into(((IncomeTrans)holder).transaction_category_image);
     }
 
