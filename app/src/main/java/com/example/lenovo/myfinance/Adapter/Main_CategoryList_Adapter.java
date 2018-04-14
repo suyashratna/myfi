@@ -46,6 +46,7 @@ public class Main_CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView
     public class CategoryViewHolder extends RecyclerView.ViewHolder{
         public TextView Category_name;
         public String category_type;
+
         public CategoryViewHolder(View itemView) {
             super(itemView);
             Category_name = itemView.findViewById(R.id.income_category_name);

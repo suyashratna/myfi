@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.FontsContract;
 import android.widget.Toast;
 
+import com.example.lenovo.myfinance.Model.Category;
 import com.example.lenovo.myfinance.Model.Transaction;
 
 import java.util.ArrayList;
@@ -23,14 +25,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE2_NAME = "Category_Table";
     public static final String TABLE5_NAME ="User_Table";
     public static final String TABLE6_NAME ="Account_Table";
+
     private List<Transaction> fetchedTransaction_List;
-//    public static final String income_COL_1="income_ID";
-//    public static final String income_COL_2="income_amount";
-//    public static final String income_COL_3="income_category";
-//    public static final String income_COL_4="income_day";
-//    public static final String income_COL_5="income_dayNo";
-//    public static final String income_COL_6="income_month";
-//    public static final String income_COL_7="income_year";
+    private  List<Category> fetchedCategory_list;
 
 
     public DBHelper(Context context ) {
@@ -40,7 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE1_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, transaction_amount TEXT, transaction_category TEXT, transaction_date TEXT, transaction_type TEXT, transaction_category_image TEXT)");
-      //  db.execSQL("create table "+ TABLE2_NAME +"(ID INTEGER PRIMARY KEY AUTOINCREMENT,category_name TEXT, category_type TEXT)");
+       // db.execSQL("create table "+ TABLE2_NAME +"(ID INTEGER PRIMARY KEY AUTOINCREMENT, category_image TEXT,category_name TEXT, category_type TEXT)");
 
 
     }
@@ -78,7 +75,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String[] columns ={"ID","transaction_amount","transaction_category","transaction_date", "transaction_type","transaction_category_image"};
         Cursor CR = db.query(TABLE1_NAME,columns,null,null,null,null,null);
         CR.moveToFirst();
-        Transaction transaction;
+
 
         fetchedTransaction_List = new ArrayList<Transaction>();
         if(CR.getCount()>0){
@@ -104,6 +101,47 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE1_NAME+" WHERE ID='"+id+"'");
+        Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+    }
+
+//    public List<Category> getIncomeCategories(){
+//        SQLiteDatabase db = getReadableDatabase();
+//        String columns[] ={"ID","category_image","category_name","category_type"};
+//        Cursor cr = db.query(TABLE2_NAME,columns,null,null,null,columns[3]="income",null,null);
+//        cr.moveToFirst();
+//
+//        fetchedCategory_list = new ArrayList<Category>();
+//        if(cr.getCount()>0){
+//            do{
+//                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),null,null));
+//            }while (cr.moveToFirst());
+//        }
+//        else {
+//            cr.moveToNext();
+//        }
+//        return fetchedCategory_list;
+//    }
+//    public List<Category> getExpenseCategories(){
+//        SQLiteDatabase db = getReadableDatabase();
+//        String columns[] ={"ID","category_image","category_name","category_type"};
+//        Cursor cr = db.query(TABLE2_NAME,columns,null,null,null,columns[3]="expense",null,null);
+//        cr.moveToFirst();
+//
+//        fetchedCategory_list = new ArrayList<Category>();
+//        if(cr.getCount()>0){
+//            do{
+//                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),null,null));
+//            }while (cr.moveToFirst());
+//        }
+//        else {
+//            cr.moveToNext();
+//        }
+//        return fetchedCategory_list;
+//    }
+
+    public void DeleteCategory(long id,Context context){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM "+TABLE2_NAME+" WHERE ID='"+id+"'");
         Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
     }
 

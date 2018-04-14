@@ -5,11 +5,10 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="6dp"
     android:layout_marginTop="2dp"
-    android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"
     android:elevation="4dp"
     android:clickable="true"
-    android:background="@drawable/transaction_background"
+    android:padding="2dp"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -24,26 +23,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:padding="5dp">
+            android:gravity="center"
+            android:padding="8dp">
             <ImageView
-                android:id="@+id/income_category_image"
+                android:id="@+id/main_category_image"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/logoback_shape"
+                android:background="@drawable/category_shape"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="4dp"
+
                 android:layout_margin="4dp"
-                android:elevation="6dp"/>
+                android:elevation="5dp"/>
 
             <TextView
-                android:id="@+id/date_textview"
+                android:id="@+id/latest_insert_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/income_category_image"
+                android:layout_toRightOf="@id/main_category_image"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:text="30 April 2018"
+                android:text="latest insert:"
+                android:padding="2dp"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/latest_insert_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/latest_insert_text"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:text="April 18 2018"
                 android:padding="2dp"
                 android:textSize="12sp" />
 
@@ -52,10 +61,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/income_category_image"
+                android:layout_toRightOf="@id/main_category_image"
                 android:padding="2dp"
-                android:textStyle="bold"
                 android:hint="category name"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="10sp" />
 
@@ -68,18 +77,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
+
             android:orientation="horizontal"
-            android:padding="15dp">
+            android:layout_gravity="center_vertical"
+            android:padding="0dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:text="-"
-                android:textColor="@color/red"/>
+                android:text="Total:"
+                android:textColor="@color/darkturq"/>
 
             <TextView
                 android:id="@+id/currency_sign_textview"
@@ -94,6 +104,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:hint="0.0"
                 android:singleLine="true"
                 />
         </LinearLayout>

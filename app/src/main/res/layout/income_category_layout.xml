@@ -13,7 +13,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
-        android:elevation="20dp"
+        android:layout_margin="5dp"
+        android:elevation="5dp"
         android:src="@drawable/category_shape"/>
     <TextView
         android:id="@+id/income_category_name"

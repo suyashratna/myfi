@@ -3,6 +3,7 @@ package com.example.lenovo.myfinance.Fragments;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -86,7 +87,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
         ButterKnife.bind(this,view);
 
         mSwipefreshlayout.setOnRefreshListener(this);
-        loadRecyclerViewData();
+     //   loadRecyclerViewData();
 
 
 //      add transaction based on the selected tab
@@ -98,6 +99,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
                 chooseCategory_fragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
+
                         loadRecyclerViewData();
                     }
                 });
@@ -118,6 +120,12 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
         });
          return view;
 
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        loadRecyclerViewData();
     }
 
     @Override

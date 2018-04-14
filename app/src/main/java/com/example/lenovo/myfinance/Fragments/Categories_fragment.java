@@ -14,11 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.lenovo.myfinance.Adapter.CategoriesPageAdapter;
 import com.example.lenovo.myfinance.Adapter.SectionsPageAdapter;
+import com.example.lenovo.myfinance.Dialogs.AddCategory_dialog;
 import com.example.lenovo.myfinance.R;
 
 import butterknife.BindView;
@@ -29,6 +31,8 @@ public class Categories_fragment extends android.support.v4.app.Fragment {
     ViewPager mViewPager;
     TabLayout mTablayout;
     CategoriesPageAdapter categoriesPageAdapter;
+    @BindView(R.id.addCategory_button)
+    Button add_category_button;
 
     public Categories_fragment() {
         // Required empty public constructor
@@ -66,7 +70,20 @@ public class Categories_fragment extends android.support.v4.app.Fragment {
             }
         });
 
+        add_category_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    openDialog();
+            }
+        });
+
          return view;
+    }
+
+    public void openDialog(){
+
+        AddCategory_dialog addCategory_dialog = new AddCategory_dialog();
+        addCategory_dialog.show(getFragmentManager(),"add category dialog");
     }
 //
 }

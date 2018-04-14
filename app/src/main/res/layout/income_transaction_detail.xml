@@ -6,6 +6,9 @@
     android:layout_marginBottom="6dp"
     android:layout_marginTop="2dp"
     android:elevation="4dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+
     android:clickable="true"
     android:background="@drawable/transaction_background"
     android:orientation="vertical">
@@ -23,15 +26,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center_vertical"
-            android:padding="8dp">
+            android:padding="5dp">
             <ImageView
                 android:id="@+id/income_category_image"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/logoback_shape"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:elevation="5dp"/>
+                android:layout_marginLeft="4dp"
+                android:layout_margin="4dp"
+                android:elevation="6dp"/>
 
             <TextView
                 android:id="@+id/date_textview"
