@@ -21,4 +21,12 @@
         <item>Expense</item>
     </string-array>
 
+    <string-array name="categoryicons">
+        <item>file:///android_asset/salary_icon.png</item>
+        <item>file:///android_asset/education_icon.png</item>
+        <item>file:///android_asset/entertainment_icon.png</item>
+        <item>file:///android_asset/grocery_icon.png</item>
+    </string-array>
+
+
 </resources>

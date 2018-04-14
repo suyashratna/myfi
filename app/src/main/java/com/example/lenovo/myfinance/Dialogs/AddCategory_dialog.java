@@ -3,6 +3,7 @@ package com.example.lenovo.myfinance.Dialogs;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
@@ -10,11 +11,21 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.MenuPopupWindow;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.example.lenovo.myfinance.Model.Category;
 import com.example.lenovo.myfinance.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +39,8 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
     EditText mCategory_name;
    @BindView(R.id.category_type_spinner)
     Spinner mCategory_type_spinner;
+   @BindView(R.id.category_images_gridview)
+    GridView mCategory_images_gridview;
 
 
     @Override
@@ -40,6 +53,7 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
 
         builder.setView(view)
                 .setTitle("Add Category")
+
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -56,8 +70,65 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCategory_type_spinner.setAdapter(myAdapter);
 
-            return builder.create();
+         mCategory_images_gridview.setAdapter(new ImagegridAdapter());
 
+        return  builder.create();
     }
 
+    class ImagegridAdapter extends BaseAdapter{
+        ArrayList<String> categoryicons;
+        String[] categoryiconsrc = getResources().getStringArray(R.array.categoryicons);
+
+        public ImagegridAdapter() {
+            categoryicons = new ArrayList<>(Arrays.asList(categoryiconsrc));
+        }
+
+        @Override
+        public int getCount() {
+            return categoryicons.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return categoryicons.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        class ViewHolder
+        {
+            ImageView categoryicon;
+            ViewHolder(View v){
+                categoryicon = (ImageView) v.findViewById(R.id.grid_item_image);
+            }
+
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            View row = view;
+            ViewHolder holder = null;
+            if (row == null){
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                row = inflater.inflate(R.layout.single_grid_item,null);
+                holder = new ViewHolder(row);
+                row.setTag(holder);
+            }
+            else{
+                holder = (ViewHolder) row.getTag();
+            }
+
+            String category_anames = categoryicons.get(i);
+            Picasso.with(getContext()).load(category_anames).placeholder(R.mipmap.ic_launcher_round).into(holder.categoryicon);
+
+            return row;
+
+        }
+
+
+    }
 }

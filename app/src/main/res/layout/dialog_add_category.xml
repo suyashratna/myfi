@@ -5,15 +5,40 @@
     android:layout_height="match_parent"
     android:padding="15dp">
     <EditText
+        android:padding="5dp"
+        android:background="@drawable/calculator_button"
         android:id="@+id/category_name_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:hint="Category Name"/>
     <Spinner
+        android:layout_marginTop="5dp"
         android:id="@+id/category_type_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@id/category_name_edittext"/>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/choose_image_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Category Icon"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_below="@id/category_type_spinner"/>
+    <GridView
+        android:padding="5dp"
+        android:background="@drawable/calculator_button"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/category_images_gridview"
+        android:layout_below="@+id/choose_image_text"
+        android:numColumns="auto_fit"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="10dp"
+        android:columnWidth="60dp"
+        android:stretchMode="spacingWidthUniform"/>
 
 </RelativeLayout>
