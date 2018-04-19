@@ -9,9 +9,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.MenuPopupWindow;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.Model.Category;
 import com.example.lenovo.myfinance.R;
 import com.squareup.picasso.Picasso;
@@ -35,18 +38,20 @@ import butterknife.ButterKnife;
  */
 
 public class AddCategory_dialog extends AppCompatDialogFragment{
- @BindView(R.id.category_name_edittext)
+    @BindView(R.id.category_name_edittext)
     EditText mCategory_name;
-   @BindView(R.id.category_type_spinner)
+    @BindView(R.id.category_type_spinner)
     Spinner mCategory_type_spinner;
-   @BindView(R.id.category_images_gridview)
-    GridView mCategory_images_gridview;
-
-
+    @BindView(R.id.category_images_gridview)
+            GridView mCategory_images_gridview;
+    DBHelper mydb;
+//    @BindView(R.id.addcategory_recyclerview)
+//    RecyclerView mAddcategory_recyclerview;
+     String selectedItem;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_add_category,null);
         ButterKnife.bind(this,view);
@@ -64,18 +69,30 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+                        //insert into database
+                        mydb = new DBHelper(getContext());
+                        mydb.insertCategoryData(selectedItem,mCategory_name.getText().toString(),mCategory_type_spinner.getSelectedItem().toString());
+
+
                     }
                 });
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.categorynames));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCategory_type_spinner.setAdapter(myAdapter);
 
-         mCategory_images_gridview.setAdapter(new ImagegridAdapter());
+        mCategory_images_gridview.setAdapter(new ImagegridAdapter());
+        mCategory_images_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedItem =  adapterView.getItemAtPosition(i).toString();
+
+            }
+        });
 
         return  builder.create();
     }
 
-    class ImagegridAdapter extends BaseAdapter{
+   class ImagegridAdapter extends BaseAdapter{
         ArrayList<String> categoryicons;
         String[] categoryiconsrc = getResources().getStringArray(R.array.categoryicons);
 

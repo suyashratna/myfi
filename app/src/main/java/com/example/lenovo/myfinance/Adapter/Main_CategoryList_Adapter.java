@@ -1,13 +1,16 @@
 package com.example.lenovo.myfinance.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lenovo.myfinance.Model.Category;
 import com.example.lenovo.myfinance.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -17,16 +20,17 @@ import java.util.List;
 
 public class Main_CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Category> mCategoryList;
+    private Context mContext;
 
-
-    public Main_CategoryList_Adapter(List<Category> categoryList) {
+    public Main_CategoryList_Adapter(List<Category> categoryList,Context context) {
         this.mCategoryList= categoryList;
+        this.mContext =context;
     }
 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.income_category_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.individual_category_detail,parent,false);
         final CategoryViewHolder categoryViewHolder = new CategoryViewHolder(view);
         return categoryViewHolder;
     }
@@ -38,18 +42,24 @@ public class Main_CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((CategoryViewHolder)holder).Category_name.setText(mCategoryList.get(position).getCategory_name());
+        final Category category = mCategoryList.get(position);
+
+        Picasso.with(mContext).load(category.getCategory_image()).placeholder(R.mipmap.ic_launcher_round).into(((CategoryViewHolder)holder).category_icon);
+        ((CategoryViewHolder)holder).category_name.setText(mCategoryList.get(position).getCategory_name());
         ((CategoryViewHolder)holder).category_type = (mCategoryList.get(position).getCategory_type());
 
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder{
-        public TextView Category_name;
+        public ImageView category_icon;
+        public TextView category_name;
         public String category_type;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
-            Category_name = itemView.findViewById(R.id.income_category_name);
+            category_icon = itemView.findViewById(R.id.main_category_image);
+            category_name = itemView.findViewById(R.id.category_name_textview);
+
         }
     }
 }

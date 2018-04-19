@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -66,7 +67,7 @@ public class Categories_fragment extends android.support.v4.app.Fragment {
         mTablayout.post(new Runnable() {
             @Override
             public void run() {
-                mTablayout.setupWithViewPager(mViewPager);
+
             }
         });
 
@@ -78,6 +79,12 @@ public class Categories_fragment extends android.support.v4.app.Fragment {
         });
 
          return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mTablayout.setupWithViewPager(mViewPager);
     }
 
     public void openDialog(){

@@ -40,9 +40,9 @@ public class CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.View
         switch (mCategoryList.get(position).getCategory_type()){
             case "income":
                 return 1;
-            case "Expense":
+            case "expense":
                 return 2;
-            case "Transfer":
+            case "transfer":
                 return 3;
             default:
                 return 1;
@@ -52,7 +52,7 @@ public class CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//       if(viewType == 1){
+//
            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.income_category_layout,parent,false);
            final incomeCategoryViewHolder mIncomeviewholder = new incomeCategoryViewHolder(view);
             view.setOnClickListener(new View.OnClickListener() {
@@ -64,20 +64,10 @@ public class CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.View
 
            return mIncomeviewholder;
        }
-//       else if(viewType == 2) {
-//           View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.income_category_layout, parent, false);
-//           return new ExpenseCategoryViewHolder(view);
-//
-//       }
-//       else {
-//           View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.income_category_layout,parent,false);
-//           return new TransferCategoryViewHolder(view);
-//       }
-//    }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//        if (holder instanceof incomeCategoryViewHolder){
+
         final Category category = mCategoryList.get(position);
         ((incomeCategoryViewHolder)holder).Category_name.setText(mCategoryList.get(position).getCategory_name());
         ((incomeCategoryViewHolder)holder).category_type = (mCategoryList.get(position).getCategory_type());
@@ -85,12 +75,7 @@ public class CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.View
         Picasso.with(mContext).load(category.getCategory_image()).placeholder(R.mipmap.ic_launcher_round).into(((incomeCategoryViewHolder)holder).Category_image);
     }
 
-//        else if (holder instanceof ExpenseCategoryViewHolder){
-//            ((ExpenseCategoryViewHolder)holder).expense_category_name.setText(mCategoryList.get(position).getCategory_name());
-//        }
 
-
-//    }
 
     @Override
     public int getItemCount() {

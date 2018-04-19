@@ -3,6 +3,7 @@ package com.example.lenovo.myfinance.Fragments;
 
 import android.os.Bundle;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.lenovo.myfinance.Adapter.CategoryList_Adapter;
 import com.example.lenovo.myfinance.Bottomsheet_dialog;
+import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.Interface.CategoryItemClickListener;
 import com.example.lenovo.myfinance.Model.Category;
 
@@ -29,10 +31,11 @@ public class Income_Fragment extends Fragment {
 
     private CategoryList_Adapter mCategorylistAdapter;
     private List<Category> categorieslist;
+
     @BindView(R.id.income_category_Recyclerview) RecyclerView mIncomeCategory_Recycler;
 //    @BindView(R.id.category_income)
     TextView income_category_textview;
-
+    DBHelper mydb;
     public Income_Fragment() {
         // Required empty public constructor
     }
@@ -54,7 +57,9 @@ public class Income_Fragment extends Fragment {
        View view = inflater.inflate(R.layout.fragment_income, container, false);
        ButterKnife.bind(this,view);
 
-       categorieslist = new ArrayList<Category>();
+        mydb = new DBHelper(getActivity());
+       //categorieslist = new ArrayList<Category>();
+       categorieslist = mydb.getIncomeCategories();
        mCategorylistAdapter = new CategoryList_Adapter(categorieslist,getContext() ,new CategoryItemClickListener() {
            @Override
            public void OnItemClick(View view, int position, String category_name,String category_type,String category_image) {
@@ -73,22 +78,17 @@ public class Income_Fragment extends Fragment {
            }
        });
 
-       mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-       mIncomeCategory_Recycler.setAdapter(mCategorylistAdapter);
-
-        //categorieslist.add(new Category(null,"file:///android_asset/salary_icon.png","Salary","income",null,null));
-       // categorieslist.add(new Category("Business","income",""));
-
          return view;
 
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mIncomeCategory_Recycler.setAdapter(mCategorylistAdapter);
+        mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        categorieslist.add(new Category(null,"file:///android_asset/business_icon.png","Business","income",null,null));
+        // categorieslist.add(new Category("Business","income",""));
 
-
-
-
-
-
-
-
+    }
 }

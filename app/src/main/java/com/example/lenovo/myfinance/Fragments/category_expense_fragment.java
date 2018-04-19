@@ -58,11 +58,7 @@ public class category_expense_fragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-       // loadexpenseRecyclerview();
-    }
+
 
 //    public void loadexpenseRecyclerview(){
 //        swipeRefreshlayout.setRefreshing(true);

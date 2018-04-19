@@ -53,7 +53,7 @@ public class category_income_fragment extends Fragment {
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(true);
-              //  loadrecyclerview();
+                loadincomerecyclerview();
             }
         });
 
@@ -64,24 +64,24 @@ public class category_income_fragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-       // loadrecyclerview();
+        loadincomerecyclerview();
 
     }
 
 
-//    public void loadrecyclerview(){
-//
-//        swipeRefreshLayout.setRefreshing(true);
-//        mydb = new DBHelper(getActivity());
-//        categoryList = mydb.getIncomeCategories();
-//
-//        main_categoryList_adapter = new Main_CategoryList_Adapter(categoryList);
-//        mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mIncomeCategory_Recycler.setAdapter(main_categoryList_adapter);
-//        mIncomeCategory_Recycler.smoothScrollToPosition(0);
-//
-//        swipeRefreshLayout.setRefreshing(false);
-//    }
+    public void loadincomerecyclerview(){
+
+        swipeRefreshLayout.setRefreshing(true);
+        mydb = new DBHelper(getActivity());
+        categoryList = mydb.getIncomeCategories();
+
+        main_categoryList_adapter = new Main_CategoryList_Adapter(categoryList,getContext());
+        mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mIncomeCategory_Recycler.setAdapter(main_categoryList_adapter);
+        mIncomeCategory_Recycler.smoothScrollToPosition(0);
+
+        swipeRefreshLayout.setRefreshing(false);
+    }
 }
 
 

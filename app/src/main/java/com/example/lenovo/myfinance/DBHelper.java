@@ -21,7 +21,7 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "transactions.db";
-    public static final String TABLE1_NAME ="Transaction_Table";
+    public static final String TABLE1_NAME = "Transaction_Table";
     public static final String TABLE2_NAME = "Category_Table";
     public static final String TABLE5_NAME ="User_Table";
     public static final String TABLE6_NAME ="Account_Table";
@@ -31,13 +31,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public DBHelper(Context context ) {
-        super(context, DATABASE_NAME, null,  1);
+        super(context, DATABASE_NAME, null,  2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE1_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, transaction_amount TEXT, transaction_category TEXT, transaction_date TEXT, transaction_type TEXT, transaction_category_image TEXT)");
-       // db.execSQL("create table "+ TABLE2_NAME +"(ID INTEGER PRIMARY KEY AUTOINCREMENT, category_image TEXT,category_name TEXT, category_type TEXT)");
+        db.execSQL("create table " + TABLE2_NAME +" (category_ID INTEGER PRIMARY KEY AUTOINCREMENT, category_image TEXT,category_name TEXT, category_type TEXT)");
 
 
     }
@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE1_NAME);
-    //    db.execSQL("DROP TABLE IF EXISTS "+ TABLE2_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE2_NAME);
         onCreate(db);
 
     }
@@ -104,27 +104,27 @@ public class DBHelper extends SQLiteOpenHelper {
         Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
     }
 
-//    public List<Category> getIncomeCategories(){
-//        SQLiteDatabase db = getReadableDatabase();
-//        String columns[] ={"ID","category_image","category_name","category_type"};
-//        Cursor cr = db.query(TABLE2_NAME,columns,null,null,null,columns[3]="income",null,null);
-//        cr.moveToFirst();
-//
-//        fetchedCategory_list = new ArrayList<Category>();
-//        if(cr.getCount()>0){
-//            do{
-//                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),null,null));
-//            }while (cr.moveToFirst());
-//        }
-//        else {
-//            cr.moveToNext();
-//        }
-//        return fetchedCategory_list;
-//    }
+    public List<Category> getIncomeCategories(){
+        SQLiteDatabase db = getReadableDatabase();
+        String columns[] ={"category_ID","category_image","category_name","category_type"};
+        Cursor cr = db.query(TABLE2_NAME,columns,null,null,null,null,null,null);
+        cr.moveToFirst();
+
+        fetchedCategory_list = new ArrayList<Category>();
+        if(cr.getCount()>0){
+            do{
+                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),null,null));
+            }while (cr.moveToNext());
+        }
+        else {
+            cr.moveToNext();
+        }
+        return fetchedCategory_list;
+    }
 //    public List<Category> getExpenseCategories(){
 //        SQLiteDatabase db = getReadableDatabase();
-//        String columns[] ={"ID","category_image","category_name","category_type"};
-//        Cursor cr = db.query(TABLE2_NAME,columns,null,null,null,columns[3]="expense",null,null);
+//        String columns[] ={"category_ID","category_image","category_name","category_type"};
+//        Cursor cr = db.query(TABLE2_NAME,columns,null,null,null,null,null,null);
 //        cr.moveToFirst();
 //
 //        fetchedCategory_list = new ArrayList<Category>();
@@ -138,6 +138,21 @@ public class DBHelper extends SQLiteOpenHelper {
 //        }
 //        return fetchedCategory_list;
 //    }
+
+    public boolean insertCategoryData(String category_image,String category_name,String category_type){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("category_image",category_image);
+        contentValues.put("category_name",category_name);
+        contentValues.put("category_type",category_type);
+
+        long result = db.insert(TABLE2_NAME,null,contentValues);
+        if(result ==-1)
+            return false;
+        else
+            return true;
+
+    }
 
     public void DeleteCategory(long id,Context context){
         SQLiteDatabase db = getWritableDatabase();

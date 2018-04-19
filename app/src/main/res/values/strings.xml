@@ -17,8 +17,8 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
     <string-array name="categorynames">
-        <item>Income</item>
-        <item>Expense</item>
+        <item>income</item>
+        <item>expense</item>
     </string-array>
 
     <string-array name="categoryicons">
