@@ -1,6 +1,8 @@
 package com.example.lenovo.myfinance.Fragments;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.myfinance.Adapter.Main_CategoryList_Adapter;
 import com.example.lenovo.myfinance.DBHelper;
+import com.example.lenovo.myfinance.Interface.DeleteCategoryClickListener;
 import com.example.lenovo.myfinance.Model.Category;
 import com.example.lenovo.myfinance.R;
 
@@ -25,7 +28,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class category_income_fragment extends Fragment {
+public class category_income_fragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     Main_CategoryList_Adapter main_categoryList_adapter;
     List<Category> categoryList;
@@ -49,6 +52,8 @@ public class category_income_fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_category_income,container,false);
         ButterKnife.bind(this,view);
 
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -68,6 +73,10 @@ public class category_income_fragment extends Fragment {
 
     }
 
+    @Override
+    public void onRefresh() {
+        loadincomerecyclerview();
+    }
 
     public void loadincomerecyclerview(){
 
@@ -75,7 +84,32 @@ public class category_income_fragment extends Fragment {
         mydb = new DBHelper(getActivity());
         categoryList = mydb.getIncomeCategories();
 
-        main_categoryList_adapter = new Main_CategoryList_Adapter(categoryList,getContext());
+        main_categoryList_adapter = new Main_CategoryList_Adapter(categoryList, getContext(), new DeleteCategoryClickListener() {
+            @Override
+            public void OnItemClick(View view, final int position) {
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                alertDialog.setTitle("Delete Category?");
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DBHelper dbHelper = new DBHelper(getActivity());
+                        final Category category = categoryList.get(position);
+                        dbHelper.DeleteCategory(category.getCategory_id(),getActivity());
+                        categoryList.remove(position);
+                        mIncomeCategory_Recycler.removeViewAt(position);
+                        main_categoryList_adapter.notifyItemRemoved(position);
+
+                    }
+                });
+                alertDialog.show();
+            }
+        });
         mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mIncomeCategory_Recycler.setAdapter(main_categoryList_adapter);
         mIncomeCategory_Recycler.smoothScrollToPosition(0);

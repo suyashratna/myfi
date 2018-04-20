@@ -38,6 +38,7 @@ import butterknife.ButterKnife;
  */
 
 public class AddCategory_dialog extends AppCompatDialogFragment{
+    private DialogInterface.OnDismissListener onDismissListener;
     @BindView(R.id.category_name_edittext)
     EditText mCategory_name;
     @BindView(R.id.category_type_spinner)
@@ -147,5 +148,17 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
         }
 
 
+    }
+
+    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener){
+        this.onDismissListener = onDismissListener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if(onDismissListener != null){
+            onDismissListener.onDismiss(dialog);
+        }
     }
 }

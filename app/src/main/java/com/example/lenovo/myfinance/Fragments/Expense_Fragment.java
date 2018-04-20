@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.myfinance.Adapter.CategoryList_Adapter;
 import com.example.lenovo.myfinance.Bottomsheet_dialog;
+import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.Interface.CategoryItemClickListener;
 import com.example.lenovo.myfinance.Model.Category;
 import com.example.lenovo.myfinance.R;
@@ -30,7 +31,7 @@ public class Expense_Fragment extends Fragment {
     private List<Category> expensecategorieslist;
     @BindView(R.id.expenseCategory_recyclerview)
     RecyclerView mIncomeCategory_Recycler;
-
+    DBHelper mydb;
     public Expense_Fragment() {
         // Required empty public constructor
     }
@@ -48,8 +49,9 @@ public class Expense_Fragment extends Fragment {
         // Inflate the layout for this fragment
          View view = inflater.inflate(R.layout.fragment_expense, container, false);
         ButterKnife.bind(this,view);
+        mydb = new DBHelper(getContext());
 
-        expensecategorieslist = new ArrayList<Category>();
+        expensecategorieslist = mydb.getExpenseCategories();
         mCategorylistAdapter = new CategoryList_Adapter(expensecategorieslist,getContext(), new CategoryItemClickListener() {
             @Override
             public void OnItemClick(View view, int position, String category_name,String category_type, String category_image) {
@@ -67,7 +69,7 @@ public class Expense_Fragment extends Fragment {
         mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mIncomeCategory_Recycler.setAdapter(mCategorylistAdapter);
 
-        expensecategorieslist.add(new Category(null,"file:///android_asset/education_icon.png","Education","expense",null,null));
+    //    expensecategorieslist.add(new Category(null,"file:///android_asset/education_icon.png","Education","expense",null,null));
 //        expensecategorieslist.add(new Category("file:///android_asset/electricity_icon.png","Electricity","expense"));
 //        expensecategorieslist.add(new Category("file:///android_asset/entertainment_icon.png","Entertainment","expense"));
 //        expensecategorieslist.add(new Category("file:///android_asset/grocery_icon.png","Grocery","expense"));

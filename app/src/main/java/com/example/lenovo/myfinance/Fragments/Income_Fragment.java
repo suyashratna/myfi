@@ -87,7 +87,7 @@ public class Income_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mIncomeCategory_Recycler.setAdapter(mCategorylistAdapter);
         mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        categorieslist.add(new Category(null,"file:///android_asset/business_icon.png","Business","income",null,null));
+    //    categorieslist.add(new Category(null,"file:///android_asset/business_icon.png","Business","income",null,null));
         // categorieslist.add(new Category("Business","income",""));
 
     }

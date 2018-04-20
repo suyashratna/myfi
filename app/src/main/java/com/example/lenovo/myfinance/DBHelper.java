@@ -106,8 +106,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<Category> getIncomeCategories(){
         SQLiteDatabase db = getReadableDatabase();
+
         String columns[] ={"category_ID","category_image","category_name","category_type"};
-        Cursor cr = db.query(TABLE2_NAME,columns,null,null,null,null,null,null);
+        String whereClause = "category_type = ?";
+        String whereArgs[] = new String[]{"income"};
+        Cursor cr = db.query(TABLE2_NAME,columns,whereClause,whereArgs,null,null,null,null);
         cr.moveToFirst();
 
         fetchedCategory_list = new ArrayList<Category>();
@@ -121,23 +124,25 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return fetchedCategory_list;
     }
-//    public List<Category> getExpenseCategories(){
-//        SQLiteDatabase db = getReadableDatabase();
-//        String columns[] ={"category_ID","category_image","category_name","category_type"};
-//        Cursor cr = db.query(TABLE2_NAME,columns,null,null,null,null,null,null);
-//        cr.moveToFirst();
-//
-//        fetchedCategory_list = new ArrayList<Category>();
-//        if(cr.getCount()>0){
-//            do{
-//                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),null,null));
-//            }while (cr.moveToFirst());
-//        }
-//        else {
-//            cr.moveToNext();
-//        }
-//        return fetchedCategory_list;
-//    }
+    public List<Category> getExpenseCategories(){
+        SQLiteDatabase db = getReadableDatabase();
+        String columns[] ={"category_ID","category_image","category_name","category_type"};
+        String whereClause = "category_type = ?";
+        String whereArgs[] = new String[]{"expense"};
+        Cursor cr = db.query(TABLE2_NAME,columns,whereClause,whereArgs,null,null,null,null);
+        cr.moveToFirst();
+
+        fetchedCategory_list = new ArrayList<Category>();
+        if(cr.getCount()>0){
+            do{
+                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),null,null));
+            }while (cr.moveToNext());
+        }
+        else {
+            cr.moveToNext();
+        }
+        return fetchedCategory_list;
+    }
 
     public boolean insertCategoryData(String category_image,String category_name,String category_type){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -156,7 +161,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void DeleteCategory(long id,Context context){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM "+TABLE2_NAME+" WHERE ID='"+id+"'");
+        db.execSQL("DELETE FROM "+TABLE2_NAME+" WHERE category_ID='"+id+"'");
         Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
     }
 

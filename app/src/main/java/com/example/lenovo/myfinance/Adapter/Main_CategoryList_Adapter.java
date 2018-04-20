@@ -1,6 +1,8 @@
 package com.example.lenovo.myfinance.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.lenovo.myfinance.DBHelper;
+import com.example.lenovo.myfinance.Interface.DeleteCategoryClickListener;
 import com.example.lenovo.myfinance.Model.Category;
 import com.example.lenovo.myfinance.R;
 import com.squareup.picasso.Picasso;
@@ -21,10 +25,12 @@ import java.util.List;
 public class Main_CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Category> mCategoryList;
     private Context mContext;
+    DeleteCategoryClickListener deleteCategoryClickListener;
 
-    public Main_CategoryList_Adapter(List<Category> categoryList,Context context) {
+    public Main_CategoryList_Adapter(List<Category> categoryList,Context context,DeleteCategoryClickListener listener) {
         this.mCategoryList= categoryList;
         this.mContext =context;
+        this.deleteCategoryClickListener = listener;
     }
 
 
@@ -32,6 +38,13 @@ public class Main_CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.individual_category_detail,parent,false);
         final CategoryViewHolder categoryViewHolder = new CategoryViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteCategoryClickListener.OnItemClick(view,categoryViewHolder.getPosition());
+
+            }
+        });
         return categoryViewHolder;
     }
 

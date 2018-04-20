@@ -2,6 +2,7 @@ package com.example.lenovo.myfinance.Fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,7 +35,8 @@ public class Categories_fragment extends android.support.v4.app.Fragment {
     CategoriesPageAdapter categoriesPageAdapter;
     @BindView(R.id.addCategory_button)
     Button add_category_button;
-
+    category_income_fragment category_income_fragment;
+    category_expense_fragment category_expense_fragment;
     public Categories_fragment() {
         // Required empty public constructor
     }
@@ -75,6 +77,8 @@ public class Categories_fragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
                     openDialog();
+
+
             }
         });
 
@@ -91,6 +95,12 @@ public class Categories_fragment extends android.support.v4.app.Fragment {
 
         AddCategory_dialog addCategory_dialog = new AddCategory_dialog();
         addCategory_dialog.show(getFragmentManager(),"add category dialog");
+        addCategory_dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+
+            }
+        });
     }
 //
 }
