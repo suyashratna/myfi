@@ -161,8 +161,56 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void DeleteCategory(long id,Context context){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM "+TABLE2_NAME+" WHERE category_ID='"+id+"'");
-        Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+
+//
+            db.execSQL("DELETE FROM "+TABLE2_NAME+" WHERE category_ID='"+id+"'");
+            Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+//
+    }
+
+    public Double GetBalance(){
+        SQLiteDatabase mdb = getReadableDatabase();
+        String columns[]={"transaction_amount"};
+        String whereClause = "transaction_type = ?";
+        String whereArgs[] = new String[]{"expense"};
+        double totalexpense = 0;
+        double totalincome =0;
+        double balance = 0;
+        Cursor expensecursor = mdb.query(TABLE1_NAME,columns,whereClause,whereArgs,null,null,null);
+        expensecursor.moveToFirst();
+        if(expensecursor != null && expensecursor.moveToFirst()){
+
+            if(expensecursor.getCount()>0){
+                do{
+                    double expensetrans = Double.parseDouble(expensecursor.getString(0));
+                    totalexpense = totalexpense + expensetrans;
+                }
+                while (expensecursor.moveToNext());
+            }else{
+                expensecursor.moveToNext();
+            }
+            expensecursor.close();
+        }
+        String whereArgs2[] = new String[]{"income"};
+        Cursor incomeCursor = mdb.query(TABLE1_NAME,columns,whereClause,whereArgs2,null,null,null);
+        incomeCursor.moveToFirst();
+        if(incomeCursor != null && incomeCursor.moveToFirst()){
+            if(incomeCursor.getCount()>0){
+                do{
+                    double incometrans = Double.parseDouble(incomeCursor.getString(0));
+                    totalincome = totalincome+ incometrans;
+                }
+                while (incomeCursor.moveToNext());
+            }
+            else {
+                incomeCursor.moveToNext();
+            }
+            incomeCursor.close();
+        }
+
+        balance = totalincome - totalexpense ;
+
+        return balance;
     }
 
 }

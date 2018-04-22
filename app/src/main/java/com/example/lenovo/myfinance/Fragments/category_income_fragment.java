@@ -100,6 +100,7 @@ public class category_income_fragment extends Fragment implements SwipeRefreshLa
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DBHelper dbHelper = new DBHelper(getActivity());
                         final Category category = categoryList.get(position);
+
                         dbHelper.DeleteCategory(category.getCategory_id(),getActivity());
                         categoryList.remove(position);
                         mIncomeCategory_Recycler.removeViewAt(position);
@@ -110,9 +111,14 @@ public class category_income_fragment extends Fragment implements SwipeRefreshLa
                 alertDialog.show();
             }
         });
+
+        categoryList.add(new Category(null,"file:///android_asset/business_icon.png","Business","income",null,null));
+        categoryList.add(new Category(null,"file:///android_asset/salary_icon.png","Salary","income",null,null));
+
         mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mIncomeCategory_Recycler.setAdapter(main_categoryList_adapter);
         mIncomeCategory_Recycler.smoothScrollToPosition(0);
+
 
         swipeRefreshLayout.setRefreshing(false);
     }

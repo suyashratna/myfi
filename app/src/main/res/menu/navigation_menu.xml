@@ -7,7 +7,7 @@
             android:title="Accounts"
             android:icon="@drawable/accounts"
             />
-        <item android:id="@+id/nav_logout"
+        <item android:id="@+id/nav_backup"
             android:title="Backup"
             android:icon="@drawable/backup"
             />

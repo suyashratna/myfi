@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="4">
+                    android:weightSum="2">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="INCOME:"
+                            android:text=" TOTAL INCOME:"
                             android:textSize="10sp"
                             android:textColor="@color/white" />
                         <TextView
@@ -66,13 +66,13 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="5dp"
-                        android:layout_weight="2">
+                        android:layout_weight="1">
                         <TextView
                             android:id="@+id/expense_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="EXPENSE:"
+                            android:text="TOTAL EXPENSE:"
                             android:textSize="10sp"
                             android:textColor="@color/white" />
                         <TextView
@@ -84,40 +84,12 @@
                             android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:layout_gravity="center_horizontal"
-                            android:background="@drawable/amount_back"
+                            android:background="@drawable/expense_back"
                             android:textColor="@color/white"
                             />
 
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="5dp"
-                        android:layout_weight="1">
-                        <TextView
-                            android:id="@+id/balance_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="BALANCE:"
-                            android:textSize="10sp"
 
-                            android:textColor="@color/white" />
-                        <TextView
-                            android:id="@+id/balance_amount"
-                            android:layout_width="50dp"
-                            android:layout_height="wrap_content"
-                            android:text="500"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:layout_weight="1"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/amount_back"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="@color/white"
-                            />
-                    </LinearLayout>
 
                 </LinearLayout>
 

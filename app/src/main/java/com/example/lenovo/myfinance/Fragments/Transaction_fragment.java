@@ -19,6 +19,7 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.lenovo.myfinance.Adapter.SectionsPageAdapter;
 import com.example.lenovo.myfinance.Adapter.IncomeListAdapter;
@@ -51,6 +52,9 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
 
     @BindView(R.id.TopInfo_relative)
     RelativeLayout mtoprelative;
+
+    @BindView(R.id.balance_amount)
+    TextView mBalanceamount;
 
 
     DBHelper myDb;
@@ -163,6 +167,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     public void loadRecyclerViewData(){
         mSwipefreshlayout.setRefreshing(true);
         myDb = new DBHelper(getActivity());
+        mBalanceamount.setText(myDb.GetBalance().toString());
         transactionList = myDb.getTransactionData();
 
         mIncomeListAdapter = new IncomeListAdapter(transactionList,getContext(), new TransactionItemClickListener() {
@@ -194,6 +199,8 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
                                 mIncomeRecycler.removeViewAt(position);
                                 mIncomeListAdapter.notifyItemRemoved(position);
 
+                                myDb = new DBHelper(getActivity());
+                                mBalanceamount.setText(myDb.GetBalance().toString());
                                //loadRecyclerViewData();
                             }
                         });

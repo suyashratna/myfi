@@ -29,6 +29,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.lenovo.myfinance.Fragments.Accounts_fragment;
+import com.example.lenovo.myfinance.Fragments.Backup_fragment;
 import com.example.lenovo.myfinance.Fragments.Categories_fragment;
 import com.example.lenovo.myfinance.Fragments.Main_fragment;
 import com.example.lenovo.myfinance.Fragments.Reports_fragment;
@@ -167,6 +168,13 @@ private void setUpNavigationView(){
             return true;
 
              }
+        else if(id ==R.id.nav_backup){
+            transaction.replace(R.id.mainactivity_fragment,new Backup_fragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+            mDrawerlayout.closeDrawers();
+            return true;
+        }
         return false;
 
     }

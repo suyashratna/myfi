@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.lenovo.myfinance.Adapter.Main_CategoryList_Adapter;
 import com.example.lenovo.myfinance.DBHelper;
@@ -45,8 +46,7 @@ public class category_expense_fragment extends Fragment implements SwipeRefreshL
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category_expense, container, false);
         ButterKnife.bind(this,view);
@@ -90,19 +90,36 @@ public class category_expense_fragment extends Fragment implements SwipeRefreshL
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DBHelper dbHelper = new DBHelper(getActivity());
                         final Category category = expensecategoryList.get(position);
-                        dbHelper.DeleteCategory(category.getCategory_id(),getActivity());
-                        expensecategoryList.remove(position);
-                        mExpenseCategory_Recycler.removeViewAt(position);
-                        main_categoryList_adapter.notifyItemRemoved(position);
+                        if(category.getCategory_id() != null){
+                            dbHelper.DeleteCategory(category.getCategory_id(),getActivity());
+                            expensecategoryList.remove(position);
+                            mExpenseCategory_Recycler.removeViewAt(position);
+                            main_categoryList_adapter.notifyItemRemoved(position);
+                        }
+                        else {
+                            Toast.makeText(getActivity(), " Cannot delete Default category ", Toast.LENGTH_LONG).show();
+                        }
+
 
                     }
                 });
                 alertDialog.show();
             }
         });
+
+        expensecategoryList.add(new Category(null,"file:///android_asset/education_icon.png","Education","expense",null,null));
+        expensecategoryList.add(new Category(null,"file:///android_asset/electricity_icon.png","Electricity","expense",null,null));
+        expensecategoryList.add(new Category(null,"file:///android_asset/entertainment_icon.png","Entertainment","expense",null,null));
+        expensecategoryList.add(new Category(null,"file:///android_asset/grocery_icon.png","Grocery","expense",null,null));
+        expensecategoryList.add(new Category(null,"file:///android_asset/health_icon.png","Health","expense",null,null));
+        expensecategoryList.add(new Category(null,"file:///android_asset/restaurant_icon.png","Restaurant","expense",null,null));
+        expensecategoryList.add(new Category(null,"file:///android_asset/transportation_icon.png","Transportation","expense",null,null));
+
         mExpenseCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mExpenseCategory_Recycler.setAdapter(main_categoryList_adapter);
         mExpenseCategory_Recycler.smoothScrollToPosition(0);
+
+
 
         swipeRefreshlayout.setRefreshing(false);
     }

@@ -69,12 +69,13 @@ public class Expense_Fragment extends Fragment {
         mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mIncomeCategory_Recycler.setAdapter(mCategorylistAdapter);
 
-    //    expensecategorieslist.add(new Category(null,"file:///android_asset/education_icon.png","Education","expense",null,null));
-//        expensecategorieslist.add(new Category("file:///android_asset/electricity_icon.png","Electricity","expense"));
-//        expensecategorieslist.add(new Category("file:///android_asset/entertainment_icon.png","Entertainment","expense"));
-//        expensecategorieslist.add(new Category("file:///android_asset/grocery_icon.png","Grocery","expense"));
-//        expensecategorieslist.add(new Category("file:///android_asset/health_icon.png","Health","expense"));
-//        expensecategorieslist.add(new Category("file:///android_asset/restaurant_icon.png","Restaurant","expense"));
+        expensecategorieslist.add(new Category(null,"file:///android_asset/education_icon.png","Education","expense",null,null));
+        expensecategorieslist.add(new Category(null,"file:///android_asset/electricity_icon.png","Electricity","expense",null,null));
+        expensecategorieslist.add(new Category(null,"file:///android_asset/entertainment_icon.png","Entertainment","expense",null,null));
+        expensecategorieslist.add(new Category(null,"file:///android_asset/grocery_icon.png","Grocery","expense",null,null));
+        expensecategorieslist.add(new Category(null,"file:///android_asset/health_icon.png","Health","expense",null,null));
+        expensecategorieslist.add(new Category(null,"file:///android_asset/restaurant_icon.png","Restaurant","expense",null,null));
+        expensecategorieslist.add(new Category(null,"file:///android_asset/transportation_icon.png","Transportation","expense",null,null));
 
         return view;
     }

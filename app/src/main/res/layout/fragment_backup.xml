@@ -1,0 +1,114 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundwhite"
+    android:padding="10dp"
+    tools:context="com.example.lenovo.myfinance.Fragments.Backup_fragment">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/backup_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manual Back Up"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back Up now"
+            android:elevation="10dp"
+            android:background="@drawable/amount_back"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Backup Location"
+            android:background="@drawable/transaction_detail_background1"
+            android:padding="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Automatic Backup"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/backup_textview"
+            android:weightSum="3">
+            <Button
+                android:id="@+id/setbackup_date_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:layout_weight="1"
+                android:textSize="10sp"
+                android:background="@drawable/amount_back"
+                android:textColor="@color/colorPrimaryDark"
+                android:elevation="10dp"
+                android:text="Set Backup Time:"/>
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint=" 4:30"
+
+                android:gravity="center"
+                android:layout_weight="2"
+                android:layout_marginLeft="5dp"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:background="@drawable/transaction_detail_background1"
+
+                />
+
+        </LinearLayout>
+        <CheckBox
+            android:layout_marginTop="20dp"
+            android:text="Sunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <CheckBox
+            android:text="Monday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:text="Tuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:text="Wednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:text="Thursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:text="Friday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:text="Saturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>
