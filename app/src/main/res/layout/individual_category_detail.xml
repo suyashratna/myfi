@@ -100,7 +100,7 @@
                 android:padding="2dp"/>
 
             <TextView
-                android:id="@+id/transfer_total"
+                android:id="@+id/category_total"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"

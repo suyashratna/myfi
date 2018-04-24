@@ -91,10 +91,17 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
         ButterKnife.bind(this,view);
 
         mSwipefreshlayout.setOnRefreshListener(this);
-     //   loadRecyclerViewData();
+
+         return view;
+
+    }
 
 
-//      add transaction based on the selected tab
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadRecyclerViewData();
         maddtransaction_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,14 +129,6 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
                 loadRecyclerViewData();
             }
         });
-         return view;
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        loadRecyclerViewData();
     }
 
     @Override

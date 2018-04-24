@@ -60,6 +60,7 @@ public class Main_CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView
         Picasso.with(mContext).load(category.getCategory_image()).placeholder(R.mipmap.ic_launcher_round).into(((CategoryViewHolder)holder).category_icon);
         ((CategoryViewHolder)holder).category_name.setText(mCategoryList.get(position).getCategory_name());
         ((CategoryViewHolder)holder).category_type = (mCategoryList.get(position).getCategory_type());
+        ((CategoryViewHolder)holder).category_total.setText(mCategoryList.get(position).getCategory_total());
 
     }
 
@@ -67,11 +68,13 @@ public class Main_CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView
         public ImageView category_icon;
         public TextView category_name;
         public String category_type;
+        public TextView category_total;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
             category_icon = itemView.findViewById(R.id.main_category_image);
             category_name = itemView.findViewById(R.id.category_name_textview);
+            category_total = itemView.findViewById(R.id.category_total);
 
         }
     }

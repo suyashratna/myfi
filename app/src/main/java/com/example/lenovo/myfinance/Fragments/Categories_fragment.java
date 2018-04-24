@@ -18,10 +18,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.myfinance.Adapter.CategoriesPageAdapter;
 import com.example.lenovo.myfinance.Adapter.SectionsPageAdapter;
+import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.Dialogs.AddCategory_dialog;
 import com.example.lenovo.myfinance.R;
 
@@ -30,13 +32,20 @@ import butterknife.ButterKnife;
 
 
 public class Categories_fragment extends android.support.v4.app.Fragment {
+    private static String TAG ="categoriesfragment";
     ViewPager mViewPager;
     TabLayout mTablayout;
     CategoriesPageAdapter categoriesPageAdapter;
     @BindView(R.id.addCategory_button)
+
     Button add_category_button;
+    @BindView(R.id.income_amount)
+    TextView mIncometext;
+    @BindView(R.id.expense_amount) TextView mExpenseText;
     category_income_fragment category_income_fragment;
     category_expense_fragment category_expense_fragment;
+    DBHelper myDb;
+
     public Categories_fragment() {
         // Required empty public constructor
     }
@@ -61,6 +70,7 @@ public class Categories_fragment extends android.support.v4.app.Fragment {
 
         mTablayout = view.findViewById(R.id.categories_tablayout);
         mViewPager = view.findViewById(R.id.categories_viewpager);
+
 
 
         mViewPager.setAdapter(new CategoriesPageAdapter(getChildFragmentManager()));
@@ -89,6 +99,13 @@ public class Categories_fragment extends android.support.v4.app.Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mTablayout.setupWithViewPager(mViewPager);
+
+        myDb = new DBHelper(getActivity());
+        mIncometext.setText(String.valueOf(myDb.getIncometotal()));
+        mExpenseText.setText(String.valueOf(myDb.getExpenseTotal()));
+
+
+
     }
 
     public void openDialog(){

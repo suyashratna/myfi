@@ -6,12 +6,15 @@ import android.app.Dialog;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.lenovo.myfinance.Fragments.ChooseCategory_fragment;
@@ -57,6 +60,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
     boolean amountadded;
     public String category_name;
     Bundle mbundle;
+    private BottomSheetBehavior mBehaviour;
 
     @BindView(R.id.buttonZero) Button buttonZero;
     @BindView(R.id.buttonOne) Button buttonOne;
@@ -106,6 +110,9 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.bottomsheet_transaction,null);
         ButterKnife.bind(this, contentView);
         dialog.setContentView(contentView);
+
+        mBehaviour = BottomSheetBehavior.from((View)contentView.getParent());
+
 
         txtScreen =  contentView.findViewById(R.id.income_transaction_edittext);
          final Calendar c = Calendar.getInstance();
@@ -170,7 +177,11 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
            setOperatorOnClickListener();
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        mBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
