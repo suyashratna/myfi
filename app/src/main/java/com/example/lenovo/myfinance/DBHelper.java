@@ -26,8 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "transactions.db";
     public static final String TABLE1_NAME = "Transaction_Table";
     public static final String TABLE2_NAME = "Category_Table";
-    public static final String TABLE5_NAME ="User_Table";
-    public static final String TABLE6_NAME ="Account_Table";
+    public static final String TABLE3_NAME ="Account_Table";
 
     private List<Transaction> fetchedTransaction_List;
     private  List<Category> fetchedCategory_list;
@@ -44,6 +43,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE1_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, transaction_amount TEXT, transaction_category TEXT, transaction_date TEXT, transaction_type TEXT, transaction_category_image TEXT)");
         db.execSQL("create table " + TABLE2_NAME +" (category_ID INTEGER PRIMARY KEY AUTOINCREMENT, category_image TEXT,category_name TEXT, category_type TEXT)");
+     //   db.execSQL("create table " + TABLE3_NAME +" (account_ID INTEGER PRIMARY KEY AUTOINCREMENT, account_name TEXT, account_balance TEXT, account_totalincome TEXT, account_totalexpense TEXT, account_icon TEXT)");
+
 
 
     }
@@ -52,6 +53,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE1_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE2_NAME);
+    //    db.execSQL("DROP TABLE IF EXISTS "+ TABLE3_NAME);
         onCreate(db);
 
     }
@@ -253,6 +255,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return totalincome;
     }
+
     public Double getExpenseTotal(){
         SQLiteDatabase mdb = getReadableDatabase();
 

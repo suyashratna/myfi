@@ -1,6 +1,7 @@
 package com.example.lenovo.myfinance.Fragments;
 
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
@@ -31,6 +32,7 @@ import com.example.lenovo.myfinance.Interface.TransactionItemClickListener;
 import com.example.lenovo.myfinance.Model.Transaction;
 import com.example.lenovo.myfinance.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -79,6 +81,8 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        getItemlist getItemlist = new getItemlist();
+//        getItemlist.execute();
 
 
     }
@@ -101,6 +105,8 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         loadRecyclerViewData();
         maddtransaction_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +116,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
                 chooseCategory_fragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-
+                        mIncomeListAdapter.notifyDataSetChanged();
                         loadRecyclerViewData();
                     }
                 });
@@ -160,25 +166,21 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
 
     @Override
     public void onRefresh() {
+        mIncomeListAdapter.notifyDataSetChanged();
         loadRecyclerViewData();
 
     }
     public void loadRecyclerViewData(){
         mSwipefreshlayout.setRefreshing(true);
-        myDb = new DBHelper(getActivity());
+
+        getItemlist getItemlist = new getItemlist();
+        getItemlist.execute();
+        myDb = new DBHelper(getContext());
         mBalanceamount.setText(myDb.GetBalance().toString());
-        transactionList = myDb.getTransactionData();
 
         mIncomeListAdapter = new IncomeListAdapter(transactionList,getContext(), new TransactionItemClickListener() {
             @Override
             public void OnTransItemClick(View view, final int position) {
-//                Bundle b = new Bundle();
-//                b.putInt("position",position);
-//                TransactionItem_dialog item_dialog = new TransactionItem_dialog();
-//                item_dialog.setArguments(b);
-//                item_dialog.show(getFragmentManager(),"ITEM");
-
-
                 AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
 
                         alertDialog.setTitle("Delete the transaction?");
@@ -200,7 +202,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
 
                                 myDb = new DBHelper(getActivity());
                                 mBalanceamount.setText(myDb.GetBalance().toString());
-                               //loadRecyclerViewData();
+                                loadRecyclerViewData();
                             }
                         });
                         alertDialog.show();
@@ -228,5 +230,20 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
 
             }
         });
+    }
+
+    class getItemlist extends AsyncTask<Void,Void,List<Transaction>>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected List<Transaction> doInBackground(Void... voids) {
+            myDb = new DBHelper(getActivity());
+
+            transactionList = myDb.getTransactionData();
+            return transactionList;
+        }
     }
 }
