@@ -136,24 +136,26 @@ public class Reports_fragment extends android.support.v4.app.Fragment {
     public void loadlinechart(){
         lineChart.setDragEnabled(true);
         lineChart.setScaleEnabled(true);
+        mydb = new DBHelper(getActivity());
+        yData = mydb.getexpenseChartdate();
+        xData = mydb.getexpenseChartnames();
+        Object[] yArray = yData.toArray();
+        Object[] xArray = xData.toArray();
 
         ArrayList<Entry> yvalues = new ArrayList<>();
 
-        yvalues.add(new Entry (0,50f));
-        yvalues.add(new Entry(1,70f));
-        yvalues.add(new Entry(2,30f));
-        yvalues.add(new Entry(3,20f));
-        yvalues.add(new Entry(4,10f));
+        for(int i=0;i< yData.size();i++){
+            yvalues.add(new Entry((float) yArray[i],i));
+        }
 
-        LineDataSet set1 = new LineDataSet(yvalues,"Data set 1");
+        LineDataSet set1 = new LineDataSet(yvalues,"Expenses");
 
         set1.setFillAlpha(110);
 
         ArrayList<LineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1);
 
-
-      LineData data = new LineData();
+       LineData data = new LineData(set1);
 
 
 
