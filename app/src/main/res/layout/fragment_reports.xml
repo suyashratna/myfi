@@ -17,6 +17,8 @@
             android:layout_height="wrap_content"
             android:elevation="10dp"
             app:tabTextColor="@color/white"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             app:tabIndicatorHeight="0dp"
             app:tabIndicatorColor="@color/darkturq"
             android:background="@drawable/layout_shape"/>

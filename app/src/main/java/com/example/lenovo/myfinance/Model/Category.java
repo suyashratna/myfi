@@ -9,16 +9,16 @@ public class Category {
     String category_image;
     String category_name;
     String category_type;
-    String category_latest_date;
-    String category_total;
+    String category_amount;
+    String category_saving;
 
-    public Category(Long category_id, String category_image, String category_name, String category_type, String category_latest_date, String category_total) {
+    public Category(Long category_id, String category_image, String category_name, String category_type, String category_amount, String category_saving) {
         this.category_id = category_id;
         this.category_image = category_image;
         this.category_name = category_name;
         this.category_type = category_type;
-        this.category_latest_date = category_latest_date;
-        this.category_total = category_total;
+        this.category_amount = category_amount;
+        this.category_saving = category_saving;
     }
 
     public Long getCategory_id() {
@@ -53,19 +53,19 @@ public class Category {
         this.category_type = category_type;
     }
 
-    public String getCategory_latest_date() {
-        return category_latest_date;
+    public String getCategory_amount() {
+        return category_amount;
     }
 
-    public void setCategory_latest_date(String category_latest_date) {
-        this.category_latest_date = category_latest_date;
+    public void setCategory_amount(String category_amount) {
+        this.category_amount = category_amount;
     }
 
-    public String getCategory_total() {
-        return category_total;
+    public String getCategory_saving() {
+        return category_saving;
     }
 
-    public void setCategory_total(String category_total) {
-        this.category_total = category_total;
+    public void setCategory_saving(String category_saving) {
+        this.category_saving = category_saving;
     }
 }

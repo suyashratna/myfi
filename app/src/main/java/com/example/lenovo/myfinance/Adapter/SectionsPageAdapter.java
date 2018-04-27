@@ -31,10 +31,10 @@ public class SectionsPageAdapter extends FragmentPagerAdapter{
         Fragment fragment = null;
        switch (position) {
            case 0:
-               fragment = new Income_Fragment();
+               fragment = new Expense_Fragment();
                break;
            case 1:
-               fragment = new Expense_Fragment();
+               fragment = new Income_Fragment();
                break;
            case 2:
                fragment = new Transfer_fragment();
@@ -54,11 +54,11 @@ public class SectionsPageAdapter extends FragmentPagerAdapter{
         String title ="";
         switch (position){
         case 0:
-            title ="Income";
+            title ="Expense";
             break;
 
         case 1:
-            title ="Expense";
+            title ="Income";
             break;
         case 2:
              title="Transfer";

@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.Model.Category;
@@ -56,7 +57,7 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_add_category,null);
         ButterKnife.bind(this,view);
-
+        final int[] counter = {0};
         builder.setView(view)
                 .setTitle("Add Category")
 
@@ -66,13 +67,22 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
 
                     }
                 })
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("INSERT", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                         if(mCategory_name.getText().toString() != null && selectedItem != null ){
+                             if(counter[0]>1){
+                                 Toast.makeText(getContext(), "Select only one icon", Toast.LENGTH_SHORT).show();
+                             }
+                             else{
                         //insert into database
-                        mydb = new DBHelper(getContext());
-                        mydb.insertCategoryData(selectedItem,mCategory_name.getText().toString(),mCategory_type_spinner.getSelectedItem().toString());
+                                mydb = new DBHelper(getContext());
+                                 mydb.insertCategoryData(selectedItem,mCategory_name.getText().toString(),mCategory_type_spinner.getSelectedItem().toString());
+                             }
+                         }
+                        else {
+                             Toast.makeText(getContext(), "Please fill all the attributes", Toast.LENGTH_LONG).show();
+                         }
 
 
                     }
@@ -81,11 +91,16 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCategory_type_spinner.setAdapter(myAdapter);
 
-        mCategory_images_gridview.setAdapter(new ImagegridAdapter());
+        final ImagegridAdapter imagegridAdapter = new ImagegridAdapter();
+        mCategory_images_gridview.setAdapter(imagegridAdapter);
         mCategory_images_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                view.setBackgroundColor(Color.CYAN);
                 selectedItem =  adapterView.getItemAtPosition(i).toString();
+                imagegridAdapter.notifyDataSetChanged();
+                counter[0] = counter[0] + 1;
 
             }
         });

@@ -24,10 +24,10 @@ public class CategoriesPageAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new category_income_fragment();
+                fragment = new category_expense_fragment();
                 break;
             case 1:
-                fragment = new category_expense_fragment();
+                fragment = new category_income_fragment();
                 break;
 
         }
@@ -44,11 +44,11 @@ public class CategoriesPageAdapter extends FragmentPagerAdapter {
         String title = "";
         switch (position) {
             case 0:
-                title = "Income";
+                title = "Expense";
                 break;
 
             case 1:
-                title = "Expense";
+                title = "Income";
                 break;
         }
         return title;

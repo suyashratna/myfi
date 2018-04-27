@@ -36,14 +36,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public DBHelper(Context context ) {
-        super(context, DATABASE_NAME, null,  2);
+        super(context, DATABASE_NAME, null,  3);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE1_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, transaction_amount TEXT, transaction_category TEXT, transaction_date TEXT, transaction_type TEXT, transaction_category_image TEXT)");
-        db.execSQL("create table " + TABLE2_NAME +" (category_ID INTEGER PRIMARY KEY AUTOINCREMENT, category_image TEXT,category_name TEXT, category_type TEXT)");
-     //   db.execSQL("create table " + TABLE3_NAME +" (account_ID INTEGER PRIMARY KEY AUTOINCREMENT, account_name TEXT, account_balance TEXT, account_totalincome TEXT, account_totalexpense TEXT, account_icon TEXT)");
+        db.execSQL("create table " + TABLE1_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, account_ID INTEGER, transaction_amount TEXT, transaction_category TEXT, transaction_date TEXT, transaction_type TEXT, transaction_category_image TEXT,transaction_description TEXT, FOREIGN KEY(account_ID) REFERENCES Account_table(account_ID))");
+        db.execSQL("create table " + TABLE2_NAME +" (category_ID INTEGER PRIMARY KEY AUTOINCREMENT, category_image TEXT,category_name TEXT, category_type TEXT, category_amount TEXT, category_savinggoal)");
+        db.execSQL("create table " + TABLE3_NAME +" (account_ID INTEGER PRIMARY KEY AUTOINCREMENT, account_name TEXT, account_balance TEXT, account_totalincome TEXT, account_totalexpense TEXT, account_icon TEXT)");
 
 
 
@@ -53,7 +53,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE1_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE2_NAME);
-    //    db.execSQL("DROP TABLE IF EXISTS "+ TABLE3_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ TABLE3_NAME);
         onCreate(db);
 
     }
@@ -80,7 +80,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<Transaction> getTransactionData(){
 
         SQLiteDatabase db =  getReadableDatabase();
-        String[] columns ={"ID","transaction_amount","transaction_category","transaction_date", "transaction_type","transaction_category_image"};
+        String[] columns ={"ID","transaction_amount","transaction_category","transaction_date", "transaction_type","transaction_category_image","transaction_description"};
         Cursor CR = db.query(TABLE1_NAME,columns,null,null,null,null,null);
         CR.moveToFirst();
 
@@ -90,7 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
             do{
 //                transaction = new Transaction();
 //                transaction.setTransaction_id(CR.getLong(CR.getColumnIndex("ID")));
-                fetchedTransaction_List.add(0,new Transaction(CR.getLong(0),CR.getString(1),CR.getString(2),CR.getString(3),CR.getString(4),CR.getString(5)));
+                fetchedTransaction_List.add(0,new Transaction(CR.getLong(0),CR.getString(1),CR.getString(2),CR.getString(3),CR.getString(4),CR.getString(5),CR.getString(6)));
             }while (CR.moveToNext());
         }
         else {

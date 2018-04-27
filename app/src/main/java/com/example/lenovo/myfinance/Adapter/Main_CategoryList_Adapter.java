@@ -60,7 +60,7 @@ public class Main_CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView
         Picasso.with(mContext).load(category.getCategory_image()).placeholder(R.mipmap.ic_launcher_round).into(((CategoryViewHolder)holder).category_icon);
         ((CategoryViewHolder)holder).category_name.setText(mCategoryList.get(position).getCategory_name());
         ((CategoryViewHolder)holder).category_type = (mCategoryList.get(position).getCategory_type());
-        ((CategoryViewHolder)holder).category_total.setText(mCategoryList.get(position).getCategory_total());
+        ((CategoryViewHolder)holder).category_total.setText(mCategoryList.get(position).getCategory_amount());
 
     }
 
