@@ -58,12 +58,12 @@ public class Expense_Report_Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadpiechart();
-        loadlinechart();
+        loadExpensePiechart();
+    //    loadExpenseLinechart();
 
     }
 
-    public void loadpiechart(){
+    public void loadExpensePiechart(){
 
         mydb = new DBHelper(getActivity());
         yData = mydb.getexpenseChartdate();
@@ -118,7 +118,7 @@ public class Expense_Report_Fragment extends Fragment {
         }
 
     }
-    public void loadlinechart(){
+    public void loadExpenseLinechart(){
         lineChart.setDragEnabled(false);
         lineChart.setScaleEnabled(true);
         mydb = new DBHelper(getActivity());

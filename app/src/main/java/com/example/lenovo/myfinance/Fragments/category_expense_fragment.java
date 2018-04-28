@@ -107,13 +107,13 @@ public class category_expense_fragment extends Fragment implements SwipeRefreshL
             }
         });
 
-        expensecategoryList.add(new Category(null,"file:///android_asset/education_icon.png","Education","expense",null,null));
-        expensecategoryList.add(new Category(null,"file:///android_asset/electricity_icon.png","Electricity","expense",null,null));
-        expensecategoryList.add(new Category(null,"file:///android_asset/entertainment_icon.png","Entertainment","expense",null,null));
-        expensecategoryList.add(new Category(null,"file:///android_asset/grocery_icon.png","Grocery","expense",null,null));
-        expensecategoryList.add(new Category(null,"file:///android_asset/health_icon.png","Health","expense",null,null));
-        expensecategoryList.add(new Category(null,"file:///android_asset/restaurant_icon.png","Restaurant","expense",null,null));
-        expensecategoryList.add(new Category(null,"file:///android_asset/transportation_icon.png","Transportation","expense",null,null));
+//        expensecategoryList.add(new Category(null,"file:///android_asset/education_icon.png","Education","expense",null,null));
+//        expensecategoryList.add(new Category(null,"file:///android_asset/electricity_icon.png","Electricity","expense",null,null));
+//        expensecategoryList.add(new Category(null,"file:///android_asset/entertainment_icon.png","Entertainment","expense",null,null));
+//        expensecategoryList.add(new Category(null,"file:///android_asset/grocery_icon.png","Grocery","expense",null,null));
+//        expensecategoryList.add(new Category(null,"file:///android_asset/health_icon.png","Health","expense",null,null));
+//        expensecategoryList.add(new Category(null,"file:///android_asset/restaurant_icon.png","Restaurant","expense",null,null));
+//        expensecategoryList.add(new Category(null,"file:///android_asset/transportation_icon.png","Transportation","expense",null,null));
 
         mExpenseCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mExpenseCategory_Recycler.setAdapter(main_categoryList_adapter);

@@ -35,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private  List<Float> ExpenseYdata;
 
 
+
     public DBHelper(Context context ) {
         super(context, DATABASE_NAME, null,  3);
     }
@@ -44,10 +45,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE1_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, account_ID INTEGER, transaction_amount TEXT, transaction_category TEXT, transaction_date TEXT, transaction_type TEXT, transaction_category_image TEXT,transaction_description TEXT, FOREIGN KEY(account_ID) REFERENCES Account_table(account_ID))");
         db.execSQL("create table " + TABLE2_NAME +" (category_ID INTEGER PRIMARY KEY AUTOINCREMENT, category_image TEXT,category_name TEXT, category_type TEXT, category_amount TEXT, category_savinggoal)");
         db.execSQL("create table " + TABLE3_NAME +" (account_ID INTEGER PRIMARY KEY AUTOINCREMENT, account_name TEXT, account_balance TEXT, account_totalincome TEXT, account_totalexpense TEXT, account_icon TEXT)");
-
-
+        setDefaultCategories(db);
 
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -58,7 +59,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean insertIncomeData(String transaction_amount, String transaction_category , String transaction_date ,String transaction_type,String transaction_category_image){
+    public boolean insertIncomeData(String transaction_amount, String transaction_category , String transaction_date ,String transaction_type,String transaction_category_image,String transaction_description){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -67,6 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("transaction_date",transaction_date);
         contentValues.put("transaction_type",transaction_type);
         contentValues.put("transaction_category_image",transaction_category_image);
+        contentValues.put("transaction_description",transaction_description);
 
         long result = db.insert(TABLE1_NAME,null,contentValues);
         if(result ==-1)
@@ -160,12 +162,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return fetchedCategory_list;
     }
 
-    public boolean insertCategoryData(String category_image,String category_name,String category_type){
+    public boolean insertCategoryData(String category_image,String category_name,String category_type,String category_amount,String category_savinggoal){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("category_image",category_image);
         contentValues.put("category_name",category_name);
         contentValues.put("category_type",category_type);
+        contentValues.put("category_amount",category_amount);
+        contentValues.put("category_savinggoal",category_savinggoal);
 
         long result = db.insert(TABLE2_NAME,null,contentValues);
         if(result ==-1)
@@ -334,5 +338,25 @@ public class DBHelper extends SQLiteOpenHelper {
         return ExpenseYdata;
 
     }
+
+    public void setDefaultCategories(SQLiteDatabase db){
+
+        //Income Default Categories
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (1,'file:///android_asset/business_icon.png','Business','income',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (2,'file:///android_asset/salary_icon.png','Salary','income',null,null)");
+
+        //Expense Default Categories
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (3,'file:///android_asset/education_icon.png','Education','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (4,'file:///android_asset/electricity_icon.png','Electricity','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (5,'file:///android_asset/entertainment_icon.png','Entertainment','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (6,'file:///android_asset/grocery_icon.png','Grocery','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (7,'file:///android_asset/health_icon.png','Health','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (8,'file:///android_asset/restaurant_icon.png','Restaurant','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (9,'file:///android_asset/transportation_icon.png','Transportation','expense',null,null)");
+
+
+
+    }
+
 
 }

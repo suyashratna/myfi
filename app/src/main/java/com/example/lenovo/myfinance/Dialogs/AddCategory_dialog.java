@@ -77,7 +77,7 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
                              else{
                         //insert into database
                                 mydb = new DBHelper(getContext());
-                                 mydb.insertCategoryData(selectedItem,mCategory_name.getText().toString(),mCategory_type_spinner.getSelectedItem().toString());
+                                 mydb.insertCategoryData(selectedItem,mCategory_name.getText().toString(),mCategory_type_spinner.getSelectedItem().toString(),null,null);
                              }
                          }
                         else {

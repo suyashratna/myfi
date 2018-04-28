@@ -1,5 +1,6 @@
 package com.example.lenovo.myfinance.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -85,6 +86,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
 //        getItemlist.execute();
 
 
+
     }
 
     @Override
@@ -106,7 +108,8 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        getItemlist getItemlist = new getItemlist();
+        getItemlist.execute();
         loadRecyclerViewData();
         maddtransaction_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +120,8 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
                         mIncomeListAdapter.notifyDataSetChanged();
+                        getItemlist getItemlist = new getItemlist();
+                        getItemlist.execute();
                         loadRecyclerViewData();
                     }
                 });
@@ -130,7 +135,8 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
             public void run() {
 
                 mSwipefreshlayout.setRefreshing(true);
-
+                getItemlist getItemlist = new getItemlist();
+                getItemlist.execute();
                 // Fetching data from server
                 loadRecyclerViewData();
             }
@@ -167,14 +173,15 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     @Override
     public void onRefresh() {
         mIncomeListAdapter.notifyDataSetChanged();
+        getItemlist getItemlist = new getItemlist();
+        getItemlist.execute();
         loadRecyclerViewData();
 
     }
     public void loadRecyclerViewData(){
-        mSwipefreshlayout.setRefreshing(true);
+       // mSwipefreshlayout.setRefreshing(true);
 
-        getItemlist getItemlist = new getItemlist();
-        getItemlist.execute();
+
         myDb = new DBHelper(getContext());
         mBalanceamount.setText(myDb.GetBalance().toString());
 
@@ -210,8 +217,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
             }
         });
         mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mIncomeRecycler.setAdapter(mIncomeListAdapter);
-        mIncomeRecycler.smoothScrollToPosition(0);
+        mIncomeListAdapter.notifyDataSetChanged();
         mSwipefreshlayout.setRefreshing(false);
 
         new ItemTouchHelper(new ItemTouchHelper.Callback() {
@@ -233,9 +239,18 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     }
 
     class getItemlist extends AsyncTask<Void,Void,List<Transaction>>{
+        private ProgressDialog dialog;
+
+        public getItemlist() {
+           dialog = new ProgressDialog(getActivity());
+        }
+
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+
+            dialog.setMessage("please wait...");
+            dialog.setIndeterminate(true);
+            dialog.show();
         }
 
         @Override
@@ -244,6 +259,15 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
 
             transactionList = myDb.getTransactionData();
             return transactionList;
+
+
+        }
+
+        @Override
+        protected void onPostExecute(List<Transaction> transactions) {
+            mIncomeRecycler.setAdapter(mIncomeListAdapter);
+            mIncomeRecycler.smoothScrollToPosition(0);
+            dialog.dismiss();
         }
     }
 }

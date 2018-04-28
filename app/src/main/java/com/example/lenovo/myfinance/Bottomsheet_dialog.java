@@ -88,6 +88,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
  //    public @BindView(R.id.categoryname_indialog) TextView mCategoryName;
      @BindView(R.id.current_date_textview) TextView mCurrentDate;
      @BindView(R.id.change_date_button) Button mChangedate;
+     @BindView(R.id.transaction_description_textview) TextView mTransaction_description;
 
 
     int monthh ,dayy;
@@ -166,7 +167,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
                     return;
                 }
                   Bundle b = getArguments();
-                  myDb.insertIncomeData(txtScreen.getText().toString(),b.getString("categoryName"),mCurrentDate.getText().toString(),b.getString("categoryType"),b.getString("categoryImage"));
+                  myDb.insertIncomeData(txtScreen.getText().toString(),b.getString("categoryName"),mCurrentDate.getText().toString(),b.getString("categoryType"),b.getString("categoryImage"),mTransaction_description.getText().toString());
                   dialog.dismiss();
 //
             }

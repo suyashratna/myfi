@@ -117,8 +117,8 @@ public class category_income_fragment extends Fragment implements SwipeRefreshLa
             }
         });
 
-        categoryList.add(new Category(null,"file:///android_asset/business_icon.png","Business","income",null,null));
-        categoryList.add(new Category(null,"file:///android_asset/salary_icon.png","Salary","income",null,null));
+//        categoryList.add(new Category(null,"file:///android_asset/business_icon.png","Business","income",null,null));
+//        categoryList.add(new Category(null,"file:///android_asset/salary_icon.png","Salary","income",null,null));
 
         mIncomeCategory_Recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mIncomeCategory_Recycler.setAdapter(main_categoryList_adapter);
