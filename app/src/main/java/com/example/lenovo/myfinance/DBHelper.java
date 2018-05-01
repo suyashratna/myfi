@@ -98,6 +98,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else {
             CR.moveToNext();
         }
+        CR.close();
         return fetchedTransaction_List;
     }
 
@@ -144,22 +145,45 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<Category> getExpenseCategories(){
         SQLiteDatabase db = getReadableDatabase();
-        String columns[] ={"category_ID","category_image","category_name","category_type"};
+        String columns[] ={"category_ID","category_image","category_name","category_type","category_amount"};
         String whereClause = "category_type = ?";
         String whereArgs[] = new String[]{"expense"};
+        String columns2[] ={"SUM(transaction_amount)","transaction_type","transaction_category"};
+        String whereClause2 = "transaction_type = ?";
+        Cursor cr2 = db.query(TABLE1_NAME,columns2,whereClause2,whereArgs,"transaction_category",null,null,null);
+      //  Cursor cr2 = db.rawQuery("SELECT SUM("+"transaction_amount"+") FROM "+ TABLE1_NAME+" where "+ "transaction_type = expense",null);
         Cursor cr = db.query(TABLE2_NAME,columns,whereClause,whereArgs,null,null,null,null);
         cr.moveToFirst();
 
+        double totalincategory = 0;
         fetchedCategory_list = new ArrayList<Category>();
-        if(cr.getCount()>0){
+        if( cr.getCount()>0){
             do{
-                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),null,null));
+                cr2.moveToFirst();
+                if( cr2.getCount()>0 ){
+                    do{
+                        if( cr.getString(2).equals(cr2.getString(2))){
+                        totalincategory = Double.parseDouble(cr2.getString(0));}
+                    //     db.execSQL("UPDATE " + TABLE2_NAME + " (category_amount) VALUES ('" + String.valueOf(totalincategory) + "') WHERE category_name = ('" + cr2.getString(2)+ "')");
+                    }
+                    while (cr2.moveToNext());
+
+                }else {cr2.moveToNext(); }
+
+                    fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),String.valueOf(totalincategory),null));
+                    totalincategory = 0;
+
+
+
             }while (cr.moveToNext());
         }
         else {
             cr.moveToNext();
         }
+        cr2.close();
+        cr.close();
         return fetchedCategory_list;
+
     }
 
     public boolean insertCategoryData(String category_image,String category_name,String category_type,String category_amount,String category_savinggoal){
@@ -285,16 +309,22 @@ public class DBHelper extends SQLiteOpenHelper {
         return  totalexpense;
     }
 
-    public Double GetCategorytotal(){
-        return null;
+    public void SetCategorytotal(){
+       SQLiteDatabase db = getReadableDatabase();
+        String columns[] ={"category_ID","category_image","category_name","category_type","category_amount"};
+        String whereClause = "category_type = ?";
+        String whereArgs[] = new String[]{"expense"};
+        String columns2[] ={"SUM(transaction_amount)","transaction_type","transaction_category"};
+        String whereClause2 = "transaction_type = ?";
+
     }
 
     public List<String> getexpenseChartnames(){
         SQLiteDatabase db = getReadableDatabase();
-        String Columns [] = {"transaction_amount","transaction_category","transaction_type"};
-        String whereClause = "transaction_type = ?";
+        String Columns [] = {"category_name","category_type"};
+        String whereClause = "category_type = ?";
         String whereArgs[] = new String[]{"expense"};
-        Cursor expenseChart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,null,null,null);
+        Cursor expenseChart = db.query(TABLE2_NAME,Columns,whereClause,whereArgs,null,null,null);
         expenseChart.moveToFirst();
        // float chartvalue = 0;
         if(expenseChart != null && expenseChart.moveToFirst()){
@@ -316,9 +346,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<Float> getexpenseChartdate(){
         SQLiteDatabase db = getReadableDatabase();
-        String Columns [] = {"transaction_amount","transaction_category","transaction_type"};
-        String whereClause = "transaction_type = ?";
+        String Columns [] = {"category_amount","category_name","category_type"};
+        String whereClause = "category_type = ?";
         String whereArgs[] = new String[]{"expense"};
+
         Cursor expenseChart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,null,null,null);
         expenseChart.moveToFirst();
         // float chartvalue = 0;

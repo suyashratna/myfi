@@ -97,8 +97,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
         ButterKnife.bind(this,view);
 
         mSwipefreshlayout.setOnRefreshListener(this);
-
-         return view;
+        return view;
 
     }
 
@@ -108,8 +107,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getItemlist getItemlist = new getItemlist();
-        getItemlist.execute();
+
         loadRecyclerViewData();
         maddtransaction_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,9 +117,8 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
                 chooseCategory_fragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
+
                         mIncomeListAdapter.notifyDataSetChanged();
-                        getItemlist getItemlist = new getItemlist();
-                        getItemlist.execute();
                         loadRecyclerViewData();
                     }
                 });
@@ -135,139 +132,98 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
             public void run() {
 
                 mSwipefreshlayout.setRefreshing(true);
-                getItemlist getItemlist = new getItemlist();
-                getItemlist.execute();
                 // Fetching data from server
                 loadRecyclerViewData();
             }
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        myDb = new DBHelper(getActivity());
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.cleartransactions) {
-            myDb.clearHistory();
-            transactionList.clear();
-            mIncomeListAdapter = new IncomeListAdapter(transactionList,getContext(), new TransactionItemClickListener() {
-                @Override
-                public void OnTransItemClick(View view, int position) {
-                    TransactionItem_dialog item_dialog = new TransactionItem_dialog();
-                    item_dialog.show(getFragmentManager(),"ITEM");
-
-                }
-            });
-            mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mIncomeRecycler.setAdapter(mIncomeListAdapter);
-            mIncomeListAdapter.notifyDataSetChanged();
-            mIncomeRecycler.smoothScrollToPosition(0);
-
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onRefresh() {
         mIncomeListAdapter.notifyDataSetChanged();
-        getItemlist getItemlist = new getItemlist();
-        getItemlist.execute();
+//        getItemlist getItemlist = new getItemlist();
+//        getItemlist.execute();
         loadRecyclerViewData();
 
     }
     public void loadRecyclerViewData(){
-       // mSwipefreshlayout.setRefreshing(true);
+        mSwipefreshlayout.setRefreshing(true);
 
 
-        myDb = new DBHelper(getContext());
+        myDb = new DBHelper(getActivity());
+
         mBalanceamount.setText(myDb.GetBalance().toString());
+        transactionList = myDb.getTransactionData();
 
         mIncomeListAdapter = new IncomeListAdapter(transactionList,getContext(), new TransactionItemClickListener() {
             @Override
             public void OnTransItemClick(View view, final int position) {
                 AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
 
-                        alertDialog.setTitle("Delete the transaction?");
-                        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                alertDialog.setTitle("Delete the transaction?");
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                            }
-                        });
-                        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Delete", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                DBHelper dbHelper = new DBHelper(getActivity());
-                                final Transaction transaction = transactionList.get(position);
-                                dbHelper.DeleteTransaction(transaction.getTransaction_id(),getActivity());
-                                transactionList.remove(position);
-                                mIncomeRecycler.removeViewAt(position);
-                                mIncomeListAdapter.notifyItemRemoved(position);
+                    }
+                });
+                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DBHelper dbHelper = new DBHelper(getActivity());
+                        final Transaction transaction = transactionList.get(position);
+                        dbHelper.DeleteTransaction(transaction.getTransaction_id(),getActivity());
+                        // mIncomeRecycler.removeViewAt(position);
+//                        transactionList.remove(position);
+//                        mIncomeRecycler.removeViewAt(position);
+                        mIncomeListAdapter.notifyDataSetChanged();
+                        loadRecyclerViewData();
 
-                                myDb = new DBHelper(getActivity());
-                                mBalanceamount.setText(myDb.GetBalance().toString());
-                                loadRecyclerViewData();
-                            }
-                        });
-                        alertDialog.show();
+
+
+
+                    }
+                });
+                alertDialog.show();
 
             }
         });
         mIncomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mIncomeListAdapter.notifyDataSetChanged();
+        mIncomeRecycler.setAdapter(mIncomeListAdapter);
+        mIncomeRecycler.smoothScrollToPosition(0);
         mSwipefreshlayout.setRefreshing(false);
 
-        new ItemTouchHelper(new ItemTouchHelper.Callback() {
-            @Override
-            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                return 0;
-            }
 
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
 
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-
-            }
-        });
     }
 
-    class getItemlist extends AsyncTask<Void,Void,List<Transaction>>{
-        private ProgressDialog dialog;
-
-        public getItemlist() {
-           dialog = new ProgressDialog(getActivity());
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-            dialog.setMessage("please wait...");
-            dialog.setIndeterminate(true);
-            dialog.show();
-        }
-
-        @Override
-        protected List<Transaction> doInBackground(Void... voids) {
-            myDb = new DBHelper(getActivity());
-
-            transactionList = myDb.getTransactionData();
-            return transactionList;
-
-
-        }
-
-        @Override
-        protected void onPostExecute(List<Transaction> transactions) {
-            mIncomeRecycler.setAdapter(mIncomeListAdapter);
-            mIncomeRecycler.smoothScrollToPosition(0);
-            dialog.dismiss();
-        }
-    }
+//    class getItemlist extends AsyncTask<Void,Void,Void>{
+//        private ProgressDialog dialog;
+//
+//        public getItemlist() {
+//            dialog = new ProgressDialog(getActivity());
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//
+//            dialog.setMessage("please wait...");
+//            dialog.setIndeterminate(true);
+//            dialog.show();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void unused) {
+//
+//            dialog.dismiss();
+//        }
+//    }
 }

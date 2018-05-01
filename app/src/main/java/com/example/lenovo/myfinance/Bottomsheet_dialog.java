@@ -163,6 +163,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
         mInsertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                onEqual();
                 if(txtScreen.getText().toString().trim().length() == 0){
                     return;
                 }

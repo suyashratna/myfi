@@ -103,9 +103,9 @@ public class category_income_fragment extends Fragment implements SwipeRefreshLa
                         final Category category = categoryList.get(position);
                         if(category.getCategory_id() != null){
                         dbHelper.DeleteCategory(category.getCategory_id(),getActivity());
-                        categoryList.remove(position);
-                        mIncomeCategory_Recycler.removeViewAt(position);
-                        main_categoryList_adapter.notifyItemRemoved(position);}
+//                        categoryList.remove(position);
+//                        mIncomeCategory_Recycler.removeViewAt(position);
+                        main_categoryList_adapter.notifyDataSetChanged();}
                         else {
                             Toast.makeText(getActivity(), " Cannot delete Default category ", Toast.LENGTH_LONG).show();
                         }

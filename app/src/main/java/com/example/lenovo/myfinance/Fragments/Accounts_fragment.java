@@ -9,8 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.lenovo.myfinance.Adapter.AccountList_Adapter;
+import com.example.lenovo.myfinance.Dialogs.AddAccount_dialog;
 import com.example.lenovo.myfinance.Model.Account;
 import com.example.lenovo.myfinance.R;
 
@@ -28,7 +30,8 @@ public class Accounts_fragment extends Fragment {
     private List<Account> accountList;
     @BindView(R.id.account_recyclerview)
     RecyclerView mAcountRecyclerview;
-
+    @BindView(R.id.add_account_button)
+    Button mAddacount_Button;
     public Accounts_fragment() {
         // Required empty public constructor
     }
@@ -47,6 +50,15 @@ public class Accounts_fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         LoadAccountData();
+        mAddacount_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+            }
+        });
+
     }
     public void LoadAccountData(){
         accountList = new ArrayList<Account>();
@@ -56,6 +68,12 @@ public class Accounts_fragment extends Fragment {
         mAcountRecyclerview.smoothScrollToPosition(0);
         accountList.add(new Account(null,null,"Cash","0.0","0.0","0.0"));
 
+
+    }
+
+    public void openAddaccountDialog(){
+        AddAccount_dialog addAccount_dialog = new AddAccount_dialog();
+        addAccount_dialog.show(getFragmentManager(),"add account dialog");
 
     }
 }

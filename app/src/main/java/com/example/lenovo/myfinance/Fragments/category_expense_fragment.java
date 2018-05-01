@@ -92,9 +92,9 @@ public class category_expense_fragment extends Fragment implements SwipeRefreshL
                         final Category category = expensecategoryList.get(position);
                         if(category.getCategory_id() != null){
                             dbHelper.DeleteCategory(category.getCategory_id(),getActivity());
-                            expensecategoryList.remove(position);
-                            mExpenseCategory_Recycler.removeViewAt(position);
-                            main_categoryList_adapter.notifyItemRemoved(position);
+//                            expensecategoryList.remove(position);
+//                            mExpenseCategory_Recycler.removeViewAt(position);
+                            main_categoryList_adapter.notifyDataSetChanged();
                         }
                         else {
                             Toast.makeText(getActivity(), " Cannot delete Default category ", Toast.LENGTH_LONG).show();
