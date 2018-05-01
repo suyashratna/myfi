@@ -66,7 +66,7 @@ public class Expense_Report_Fragment extends Fragment {
     public void loadExpensePiechart(){
 
         mydb = new DBHelper(getActivity());
-        yData = mydb.getexpenseChartdate();
+        yData = mydb.getexpenseChartdata();
         xData = mydb.getexpenseChartnames();
         if(yData != null){
             Object[] yArray = yData.toArray();
@@ -89,14 +89,14 @@ public class Expense_Report_Fragment extends Fragment {
             ArrayList<String> xValues = new ArrayList<>();
 
             for(int i=0;i< yData.size();i++){
-                yValues.add(new PieEntry((float) yArray[i],i));
+                yValues.add(new PieEntry((float) yArray[i],(String) xArray[i]));
             }
-            for(int i=0;i< xData.size();i++){
-                xValues.add((String)xArray[i]);
-            }
+//            for(int i=0;i< xData.size();i++){
+//                xValues.add();
+//            }
 
 
-            PieDataSet dataSet = new PieDataSet(yValues,"Categories");
+            PieDataSet dataSet = new PieDataSet(yValues,"CATEGORY");
             dataSet.setSliceSpace(3f);
             dataSet.setSelectionShift(5f);
             dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
@@ -122,7 +122,7 @@ public class Expense_Report_Fragment extends Fragment {
         lineChart.setDragEnabled(false);
         lineChart.setScaleEnabled(true);
         mydb = new DBHelper(getActivity());
-        yData = mydb.getexpenseChartdate();
+        yData = mydb.getexpenseChartdata();
         xData = mydb.getexpenseChartnames();
         if(yData != null){
             Object[] yArray = yData.toArray();

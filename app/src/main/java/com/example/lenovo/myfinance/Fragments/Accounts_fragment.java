@@ -53,7 +53,7 @@ public class Accounts_fragment extends Fragment {
         mAddacount_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                openAddaccountDialog();
 
 
             }

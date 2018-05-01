@@ -34,6 +34,9 @@ public class DBHelper extends SQLiteOpenHelper {
     private  List<String> ExpenseXdata;
     private  List<Float> ExpenseYdata;
 
+    private  List<String> IncomeXdata;
+    private  List<Float> IncomeYdata;
+
 
 
     public DBHelper(Context context ) {
@@ -121,19 +124,31 @@ public class DBHelper extends SQLiteOpenHelper {
         String columns[] ={"category_ID","category_image","category_name","category_type"};
         String whereClause = "category_type = ?";
         String whereArgs[] = new String[]{"income"};
-        String columns2[] ={"transaction_amount","transaction_category","transaction_date","transaction_type"};
+        String columns2[] ={"SUM(transaction_amount)","transaction_type","transaction_category"};
         String whereClause2 = "transaction_type = ?";
         String whereArgs2[] = new String[]{"income"};
-        Cursor cr2 = db.query(TABLE1_NAME,columns2,whereClause2,whereArgs2,null,null,null,null);
+        Cursor cr2 = db.query(TABLE1_NAME,columns2,whereClause2,whereArgs2,"transaction_category",null,null,null);
         Cursor cr = db.query(TABLE2_NAME,columns,whereClause,whereArgs,null,null,null,null);
         cr.moveToFirst();
-        cr2.moveToFirst();
-        double totalamount = 3;
+
+        double totalincategory = 0;
         fetchedCategory_list = new ArrayList<Category>();
         if(cr.getCount()>0){
             do{
 
-                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),null,String.valueOf(totalamount)));
+                cr2.moveToFirst();
+                if( cr2.getCount()>0 ){
+                    do{
+                        if( cr.getString(2).equals(cr2.getString(2))){
+                            totalincategory = Double.parseDouble(cr2.getString(0));}
+                        //     db.execSQL("UPDATE " + TABLE2_NAME + " (category_amount) VALUES ('" + String.valueOf(totalincategory) + "') WHERE category_name = ('" + cr2.getString(2)+ "')");
+                    }
+                    while (cr2.moveToNext());
+
+                }else {cr2.moveToNext(); }
+
+                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),String.valueOf(totalincategory),null));
+                totalincategory = 0;
 
             }while (cr.moveToNext());
         }
@@ -321,18 +336,20 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<String> getexpenseChartnames(){
         SQLiteDatabase db = getReadableDatabase();
-        String Columns [] = {"category_name","category_type"};
-        String whereClause = "category_type = ?";
+        String Columns [] = {"SUM(transaction_amount)","transaction_category","transaction_type"};
+        String whereClause = "transaction_type = ?";
         String whereArgs[] = new String[]{"expense"};
-        Cursor expenseChart = db.query(TABLE2_NAME,Columns,whereClause,whereArgs,null,null,null);
+        Cursor expenseChart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,"transaction_category",null,null);
         expenseChart.moveToFirst();
        // float chartvalue = 0;
         if(expenseChart != null && expenseChart.moveToFirst()){
             ExpenseXdata = new ArrayList<String>();
             if(expenseChart.getCount()>0){
                 do{
-                    //float initialvalue = Float.parseFloat(expenseChart.getString(0));
-                    ExpenseXdata.add(0,new String(expenseChart.getString(1)));
+                    if(expenseChart.getDouble(0) > 0)
+                    {
+                       ExpenseXdata.add(0,new String(expenseChart.getString(1)));
+                    }
                 }
                 while (expenseChart.moveToNext());
             }else{
@@ -343,14 +360,40 @@ public class DBHelper extends SQLiteOpenHelper {
         return ExpenseXdata;
 
     }
-
-    public List<Float> getexpenseChartdate(){
+    public List<String> getincomeChartnames(){
         SQLiteDatabase db = getReadableDatabase();
-        String Columns [] = {"category_amount","category_name","category_type"};
-        String whereClause = "category_type = ?";
+        String Columns [] = {"SUM(transaction_amount)","transaction_category","transaction_type"};
+        String whereClause = "transaction_type = ?";
+        String whereArgs[] = new String[]{"income"};
+        Cursor incomechart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,"transaction_category",null,null);
+        incomechart.moveToFirst();
+        // float chartvalue = 0;
+        if(incomechart != null && incomechart.moveToFirst()){
+            IncomeXdata = new ArrayList<String>();
+            if(incomechart.getCount()>0){
+                do{
+                    if(incomechart.getDouble(0) > 0)
+                    {
+                        IncomeXdata.add(0,new String(incomechart.getString(1)));
+                    }
+                }
+                while (incomechart.moveToNext());
+            }else{
+                incomechart.moveToNext();
+            }
+            incomechart.close();
+        }
+        return IncomeXdata;
+
+    }
+
+    public List<Float> getexpenseChartdata(){
+        SQLiteDatabase db = getReadableDatabase();
+        String Columns [] = {"SUM(transaction_amount)","transaction_type","transaction_category"};
+        String whereClause = "transaction_type = ?";
         String whereArgs[] = new String[]{"expense"};
 
-        Cursor expenseChart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,null,null,null);
+        Cursor expenseChart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,"transaction_category",null,null);
         expenseChart.moveToFirst();
         // float chartvalue = 0;
         if(expenseChart != null && expenseChart.moveToFirst()){
@@ -367,6 +410,32 @@ public class DBHelper extends SQLiteOpenHelper {
             expenseChart.close();
         }
         return ExpenseYdata;
+
+    }
+
+    public List<Float> getincomeChartdata(){
+        SQLiteDatabase db = getReadableDatabase();
+        String Columns [] = {"SUM(transaction_amount)","transaction_type","transaction_category"};
+        String whereClause = "transaction_type = ?";
+        String whereArgs[] = new String[]{"income"};
+
+        Cursor incomeChart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,"transaction_category",null,null);
+        incomeChart.moveToFirst();
+        // float chartvalue = 0;
+        if(incomeChart != null && incomeChart.moveToFirst()){
+            IncomeYdata = new ArrayList<Float>();
+            if(incomeChart.getCount()>0){
+                do{
+                    //float initialvalue = Float.parseFloat(expenseChart.getString(0));
+                    IncomeYdata.add(0,new Float(Float.parseFloat(incomeChart.getString(0))));
+                }
+                while (incomeChart.moveToNext());
+            }else{
+                incomeChart.moveToNext();
+            }
+            incomeChart.close();
+        }
+        return IncomeYdata;
 
     }
 
