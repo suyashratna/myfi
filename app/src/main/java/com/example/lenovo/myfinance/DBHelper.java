@@ -37,6 +37,9 @@ public class DBHelper extends SQLiteOpenHelper {
     private  List<String> IncomeXdata;
     private  List<Float> IncomeYdata;
 
+    private List<String> Expensedates;
+    private List<Float> ExpenseAmounts;
+
 
 
     public DBHelper(Context context ) {
@@ -62,6 +65,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    //-------------TRANSACTIONS------------------
     public boolean insertIncomeData(String transaction_amount, String transaction_category , String transaction_date ,String transaction_type,String transaction_category_image,String transaction_description){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -116,6 +120,27 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE1_NAME+" WHERE ID='"+id+"'");
         Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    //-------------CATEGORIES--------------------
+
+    public void setDefaultCategories(SQLiteDatabase db){
+
+        //Income Default Categories
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (1,'file:///android_asset/business_icon.png','Business','income',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (2,'file:///android_asset/salary_icon.png','Salary','income',null,null)");
+
+        //Expense Default Categories
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (3,'file:///android_asset/education_icon.png','Education','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (4,'file:///android_asset/electricity_icon.png','Electricity','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (5,'file:///android_asset/entertainment_icon.png','Entertainment','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (6,'file:///android_asset/grocery_icon.png','Grocery','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (7,'file:///android_asset/health_icon.png','Health','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (8,'file:///android_asset/restaurant_icon.png','Restaurant','expense',null,null)");
+        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (9,'file:///android_asset/transportation_icon.png','Transportation','expense',null,null)");
+
+
+
     }
 
     public List<Category> getIncomeCategories(){
@@ -227,6 +252,8 @@ public class DBHelper extends SQLiteOpenHelper {
 //
     }
 
+    //--------FUNCTIONS--------------------------
+
     public Double GetBalance(){
         SQLiteDatabase mdb = getReadableDatabase();
 
@@ -324,16 +351,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return  totalexpense;
     }
 
-    public void SetCategorytotal(){
-       SQLiteDatabase db = getReadableDatabase();
-        String columns[] ={"category_ID","category_image","category_name","category_type","category_amount"};
-        String whereClause = "category_type = ?";
-        String whereArgs[] = new String[]{"expense"};
-        String columns2[] ={"SUM(transaction_amount)","transaction_type","transaction_category"};
-        String whereClause2 = "transaction_type = ?";
-
-    }
-
+    //------------PIE CHART--------------------
     public List<String> getexpenseChartnames(){
         SQLiteDatabase db = getReadableDatabase();
         String Columns [] = {"SUM(transaction_amount)","transaction_category","transaction_type"};
@@ -360,6 +378,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return ExpenseXdata;
 
     }
+
     public List<String> getincomeChartnames(){
         SQLiteDatabase db = getReadableDatabase();
         String Columns [] = {"SUM(transaction_amount)","transaction_category","transaction_type"};
@@ -438,25 +457,64 @@ public class DBHelper extends SQLiteOpenHelper {
         return IncomeYdata;
 
     }
+    //-------------END OF PIE CHART------------
 
-    public void setDefaultCategories(SQLiteDatabase db){
-
-        //Income Default Categories
-        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (1,'file:///android_asset/business_icon.png','Business','income',null,null)");
-        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (2,'file:///android_asset/salary_icon.png','Salary','income',null,null)");
-
-        //Expense Default Categories
-        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (3,'file:///android_asset/education_icon.png','Education','expense',null,null)");
-        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (4,'file:///android_asset/electricity_icon.png','Electricity','expense',null,null)");
-        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (5,'file:///android_asset/entertainment_icon.png','Entertainment','expense',null,null)");
-        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (6,'file:///android_asset/grocery_icon.png','Grocery','expense',null,null)");
-        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (7,'file:///android_asset/health_icon.png','Health','expense',null,null)");
-        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (8,'file:///android_asset/restaurant_icon.png','Restaurant','expense',null,null)");
-        db.execSQL("INSERT INTO " + TABLE2_NAME +" (category_ID,category_image,category_name,category_type,category_amount,category_savinggoal) VALUES (9,'file:///android_asset/transportation_icon.png','Transportation','expense',null,null)");
-
-
+    //----------- LINE CHART------------------
+    public List <String> getexpenseDates(){
+        SQLiteDatabase db = getReadableDatabase();
+        String Columns [] = {"transaction_amount","transaction_date","transaction_type"};
+        String whereClause = "transaction_type = ?";
+        String whereArgs[] = new String[]{"expense"};
+        Cursor expenseLChart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,null,null,null);
+        expenseLChart.moveToFirst();
+        // float chartvalue = 0;
+        if(expenseLChart != null && expenseLChart.moveToFirst()){
+            Expensedates = new ArrayList<String>();
+            if(expenseLChart.getCount()>0){
+                do{
+                    if(expenseLChart.getDouble(0) > 0)
+                    {
+                        Expensedates.add(0,new String(expenseLChart.getString(1)));
+                    }
+                }
+                while (expenseLChart.moveToNext());
+            }else{
+                expenseLChart.moveToNext();
+            }
+            expenseLChart.close();
+        }
+        return Expensedates;
 
     }
+
+    public List <Float> getexpenseLChartdata(){
+        SQLiteDatabase db = getReadableDatabase();
+        String Columns [] = {"transaction_amount","transaction_type","transaction_date"};
+        String whereClause = "transaction_type = ?";
+        String whereArgs[] = new String[]{"expense"};
+
+        Cursor expenseChart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,"transaction_date",null,null);
+        expenseChart.moveToFirst();
+        // float chartvalue = 0;
+        if(expenseChart != null && expenseChart.moveToFirst()){
+            ExpenseAmounts = new ArrayList<Float>();
+            if(expenseChart.getCount()>0){
+                do{
+                    //float initialvalue = Float.parseFloat(expenseChart.getString(0));
+                    ExpenseAmounts.add(0,new Float(Float.parseFloat(expenseChart.getString(0))));
+                }
+                while (expenseChart.moveToNext());
+            }else{
+                expenseChart.moveToNext();
+            }
+            expenseChart.close();
+        }
+        return ExpenseAmounts;
+
+    }
+
+
+
 
 
 }

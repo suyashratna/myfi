@@ -12,18 +12,27 @@ import android.widget.Toast;
 
 import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.R;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.EntryXComparator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,8 +44,8 @@ import butterknife.ButterKnife;
 public class Expense_Report_Fragment extends Fragment {
     @BindView(R.id.piechart_transactions)
     PieChart pieChart;
-    @BindView(R.id.linechart_transactions)
-    LineChart lineChart;
+    @BindView(R.id.Barchart_transactions)
+    BarChart barChart;
     DBHelper mydb;
     private List<Float> yData;
     private List<String> xData;
@@ -59,7 +68,7 @@ public class Expense_Report_Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadExpensePiechart();
-    //    loadExpenseLinechart();
+       loadExpenseLinechart();
 
     }
 
@@ -118,34 +127,48 @@ public class Expense_Report_Fragment extends Fragment {
         }
 
     }
+
     public void loadExpenseLinechart(){
-        lineChart.setDragEnabled(false);
-        lineChart.setScaleEnabled(true);
+        barChart.setDrawBarShadow(false);
+        barChart.setDrawValueAboveBar(true);
+        barChart.setMaxVisibleValueCount(50);
+        barChart.setPinchZoom(false);
+        barChart.setDrawGridBackground(false);
+
         mydb = new DBHelper(getActivity());
         yData = mydb.getexpenseChartdata();
         xData = mydb.getexpenseChartnames();
         if(yData != null){
             Object[] yArray = yData.toArray();
-            Object[] xArray = xData.toArray();
+            String[] xArray = new String[xData.size()];
+            xArray = xData.toArray(xArray);
 
-            ArrayList<Entry> yvalues = new ArrayList<>();
+            ArrayList<BarEntry> yvalues = new ArrayList<>();
+         //   Collections.sort(yvalues,new EntryXComparator());
 
-            for(int i=0;i< yData.size();i++){
-                yvalues.add(new Entry((float) yArray[i],i));
+            for(int i=0; i< yData.size();i++){
+                yvalues.add(new BarEntry(i,(float) yArray[i]));
             }
 
-            LineDataSet set1 = new LineDataSet(yvalues,"Expenses");
 
-            set1.setFillAlpha(110);
-
-            ArrayList<LineDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set1);
-
-            LineData data = new LineData(set1);
+            BarDataSet set1 = new BarDataSet(yvalues,"Expenses");
+            set1.setColors(ColorTemplate.JOYFUL_COLORS);
 
 
+            BarData data = new BarData(set1);
+            data.setBarWidth(0.2f);
 
-            lineChart.setData(data);
+
+            barChart.setData(data);
+            barChart.setFitBars(true);
+            barChart.invalidate();
+
+//            XAxis xAxis = barChart.getXAxis();
+//            xAxis.setValueFormatter(new MyXAxisValueFormatter(xArray));
+
+
+
+
         }
         else {
             Toast.makeText(getActivity(), "no data to show", Toast.LENGTH_SHORT).show();
@@ -153,6 +176,18 @@ public class Expense_Report_Fragment extends Fragment {
 
 
 
+    }
+
+    public class MyXAxisValueFormatter implements IAxisValueFormatter{
+        private String[] mValues;
+        public MyXAxisValueFormatter(String[] values){
+            this.mValues = values;
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            return mValues[(int)value];
+        }
     }
 
 }

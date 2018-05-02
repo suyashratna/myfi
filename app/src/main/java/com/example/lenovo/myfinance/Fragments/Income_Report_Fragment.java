@@ -12,9 +12,13 @@ import android.widget.Toast;
 
 import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.R;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -33,7 +37,7 @@ public class Income_Report_Fragment extends Fragment {
     @BindView(R.id.income_piechart_transactions)
     PieChart pieChart;
     @BindView(R.id.income_linechart_transactions)
-    LineChart lineChart;
+    BarChart barChart;
     DBHelper mydb;
     private List<Float> yData;
     private List<String> xData;
@@ -111,5 +115,50 @@ public class Income_Report_Fragment extends Fragment {
             Toast.makeText(getActivity(), "no data to show", Toast.LENGTH_SHORT).show();
         }
     }
-    public void loadIncomeLinechart(){}
+    public void loadIncomeLinechart(){
+        barChart.setDrawBarShadow(false);
+        barChart.setDrawValueAboveBar(true);
+        barChart.setMaxVisibleValueCount(50);
+        barChart.setPinchZoom(false);
+        barChart.setDrawGridBackground(false);
+
+        mydb = new DBHelper(getActivity());
+        yData = mydb.getincomeChartdata();
+        xData = mydb.getincomeChartnames();
+        if(yData != null){
+            Object[] yArray = yData.toArray();
+            String[] xArray = new String[xData.size()];
+            xArray = xData.toArray(xArray);
+
+            ArrayList<BarEntry> yvalues = new ArrayList<>();
+            //   Collections.sort(yvalues,new EntryXComparator());
+
+            for(int i=0; i< yData.size();i++){
+                yvalues.add(new BarEntry(i,(float) yArray[i]));
+            }
+
+
+            BarDataSet set1 = new BarDataSet(yvalues,"Expenses");
+            set1.setColors(ColorTemplate.JOYFUL_COLORS);
+
+
+            BarData data = new BarData(set1);
+            data.setBarWidth(0.2f);
+
+
+            barChart.setData(data);
+            barChart.setFitBars(true);
+            barChart.invalidate();
+
+//            XAxis xAxis = barChart.getXAxis();
+//            xAxis.setValueFormatter(new MyXAxisValueFormatter(xArray));
+
+
+
+
+        }
+        else {
+            Toast.makeText(getActivity(), "no data to show", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

@@ -23,8 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/linechart_transactions"
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/Barchart_transactions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
