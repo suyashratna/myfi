@@ -109,6 +109,26 @@ public class DBHelper extends SQLiteOpenHelper {
         return fetchedTransaction_List;
     }
 
+    public String GetTransactionMemo(long id,Context context){
+        SQLiteDatabase db = getReadableDatabase();
+        String columns[]={"transaction_description"};
+        String whereClause ="ID = ?";
+        String whereArgs[] = new String[]{String.valueOf(id)};
+       // db.execSQL("SELECT transaction_description FROM "+TABLE1_NAME+" WHERE ID='"+id+"'");
+        String memo = "";
+        Cursor cr = db.query(TABLE1_NAME,columns,whereClause,whereArgs,null,null,null);
+        cr.moveToFirst();
+        if(cr.getCount() > 0){
+            do{
+              memo = cr.getString(0);
+            }
+            while(cr.moveToNext());
+
+        }
+        else{ cr.moveToNext();}
+        return memo;
+    }
+
     public void clearHistory(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from "+ TABLE1_NAME);

@@ -71,7 +71,7 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
     @BindView(R.id.swiperefresh_layout)
     SwipeRefreshLayout mSwipefreshlayout;
 
-
+    String memo;
 
     public Transaction_fragment() {
         // Required empty public constructor
@@ -161,8 +161,9 @@ public class Transaction_fragment extends android.support.v4.app.Fragment implem
             @Override
             public void OnTransItemClick(View view, final int position) {
                 AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-
+                memo = myDb.GetTransactionMemo(transactionList.get(position).getTransaction_id(),getContext());
                 alertDialog.setTitle("Delete the transaction?");
+                alertDialog.setMessage(memo);
                 alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

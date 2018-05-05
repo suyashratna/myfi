@@ -42,6 +42,7 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
              public void onClick(View view) {
                  transactionItemClickListener.OnTransItemClick(view,incomeTrans.getPosition());
 
+
              }
          });
          return incomeTrans;}

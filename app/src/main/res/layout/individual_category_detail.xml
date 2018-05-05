@@ -42,11 +42,11 @@
                 android:layout_toRightOf="@id/main_category_image"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:text="saving goal:"
+                android:text="Budget:"
                 android:padding="2dp"
                 android:textSize="12sp" />
             <TextView
-                android:id="@+id/saving_goal_textview"
+                android:id="@+id/budget_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/latest_insert_text"

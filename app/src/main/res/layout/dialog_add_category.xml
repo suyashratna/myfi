@@ -15,12 +15,24 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:hint="Category Name"/>
+    <EditText
+        android:id="@+id/budget_editext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter budget"
+        android:gravity="center"
+        android:inputType="numberPassword"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
+        android:background="@drawable/calculator_button"
+        android:layout_below="@id/category_name_edittext"
+        />
     <Spinner
         android:layout_marginTop="5dp"
         android:id="@+id/category_type_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/category_name_edittext"/>
+        android:layout_below="@id/budget_editext"/>
     <TextView
         android:layout_marginTop="5dp"
         android:id="@+id/choose_image_text"

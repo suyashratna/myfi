@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/transaction_background">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+
+
+
+        <TextView
+            android:id="@+id/fund_name_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:padding="2dp"
+            android:hint="Fund name"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/last_added"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="last added date :"
+            android:layout_marginLeft="10dp"
+            android:textSize="12sp"
+            android:layout_below="@id/fund_name_textview"
+           />
+        <TextView
+            android:id="@+id/fund_date_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/last_added"
+            android:layout_marginTop="30dp"
+            android:text="30 April 2018"
+            android:padding="2dp"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/last_added_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="last added amount :"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/last_added"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="1000"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:background="@drawable/amount_back"
+            android:layout_toRightOf="@id/last_added_a"
+            android:layout_below="@id/fund_date_textview"/>
+
+
+
+
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Total :"
+            android:textColor="@color/darkturq"/>
+
+        <TextView
+            android:id="@+id/currency_sign_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs."
+            android:textSize="15sp"
+            android:padding="2dp"/>
+
+        <TextView
+            android:id="@+id/fund_amount"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+
+</LinearLayout>

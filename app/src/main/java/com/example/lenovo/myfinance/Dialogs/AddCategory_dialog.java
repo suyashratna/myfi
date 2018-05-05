@@ -46,6 +46,8 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
     Spinner mCategory_type_spinner;
     @BindView(R.id.category_images_gridview)
             GridView mCategory_images_gridview;
+    @BindView(R.id.budget_editext)
+            EditText mBudget_edittext;
     DBHelper mydb;
 //    @BindView(R.id.addcategory_recyclerview)
 //    RecyclerView mAddcategory_recyclerview;
@@ -77,7 +79,7 @@ public class AddCategory_dialog extends AppCompatDialogFragment{
                              else{
                         //insert into database
                                 mydb = new DBHelper(getContext());
-                                 mydb.insertCategoryData(selectedItem,mCategory_name.getText().toString(),mCategory_type_spinner.getSelectedItem().toString(),null,null);
+                                mydb.insertCategoryData(selectedItem,mCategory_name.getText().toString(),mCategory_type_spinner.getSelectedItem().toString(),null,mBudget_edittext.getText().toString());
                              }
                          }
                         else {

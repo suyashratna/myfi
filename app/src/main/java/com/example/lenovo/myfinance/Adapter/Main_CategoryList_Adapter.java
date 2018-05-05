@@ -61,6 +61,7 @@ public class Main_CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView
         ((CategoryViewHolder)holder).category_name.setText(mCategoryList.get(position).getCategory_name());
         ((CategoryViewHolder)holder).category_type = (mCategoryList.get(position).getCategory_type());
         ((CategoryViewHolder)holder).category_total.setText(mCategoryList.get(position).getCategory_amount());
+        ((CategoryViewHolder)holder).budget_total.setText(mCategoryList.get(position).getCategory_saving());
 
     }
 
@@ -69,12 +70,14 @@ public class Main_CategoryList_Adapter extends RecyclerView.Adapter<RecyclerView
         public TextView category_name;
         public String category_type;
         public TextView category_total;
+        public  TextView budget_total;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
             category_icon = itemView.findViewById(R.id.main_category_image);
             category_name = itemView.findViewById(R.id.category_name_textview);
             category_total = itemView.findViewById(R.id.category_total);
+            budget_total = itemView.findViewById(R.id.budget_textview);
 
         }
     }

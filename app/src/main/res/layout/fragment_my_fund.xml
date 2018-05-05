@@ -15,19 +15,21 @@
             android:padding="10dp"
             android:weightSum="2">
             <Button
+                android:id="@+id/add_fund_button"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_marginTop="5dp"
-                android:text="ADD FUND"
+                android:text="UPDATE FUND"
                 android:textSize="10sp"
                 android:textColor="@color/white"
                 android:background="@drawable/button_shape"
                 android:layout_gravity="center_horizontal"
                 android:elevation="15dp" />
              <Button
-                 android:layout_weight="1"
+                 android:id="@+id/create_fund_button"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
