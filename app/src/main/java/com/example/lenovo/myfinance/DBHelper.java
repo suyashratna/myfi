@@ -351,7 +351,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return  totalexpense;
     }
 
-    //------------PIE CHART--------------------
+    //------------PIE CHART-& BARCHART-----------------
     public List<String> getexpenseChartnames(){
         SQLiteDatabase db = getReadableDatabase();
         String Columns [] = {"SUM(transaction_amount)","transaction_category","transaction_type"};
@@ -459,59 +459,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     //-------------END OF PIE CHART------------
 
-    //----------- LINE CHART------------------
-    public List <String> getexpenseDates(){
-        SQLiteDatabase db = getReadableDatabase();
-        String Columns [] = {"transaction_amount","transaction_date","transaction_type"};
-        String whereClause = "transaction_type = ?";
-        String whereArgs[] = new String[]{"expense"};
-        Cursor expenseLChart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,null,null,null);
-        expenseLChart.moveToFirst();
-        // float chartvalue = 0;
-        if(expenseLChart != null && expenseLChart.moveToFirst()){
-            Expensedates = new ArrayList<String>();
-            if(expenseLChart.getCount()>0){
-                do{
-                    if(expenseLChart.getDouble(0) > 0)
-                    {
-                        Expensedates.add(0,new String(expenseLChart.getString(1)));
-                    }
-                }
-                while (expenseLChart.moveToNext());
-            }else{
-                expenseLChart.moveToNext();
-            }
-            expenseLChart.close();
-        }
-        return Expensedates;
 
-    }
-
-    public List <Float> getexpenseLChartdata(){
-        SQLiteDatabase db = getReadableDatabase();
-        String Columns [] = {"transaction_amount","transaction_type","transaction_date"};
-        String whereClause = "transaction_type = ?";
-        String whereArgs[] = new String[]{"expense"};
-
-        Cursor expenseChart = db.query(TABLE1_NAME,Columns,whereClause,whereArgs,"transaction_date",null,null);
-        expenseChart.moveToFirst();
-        // float chartvalue = 0;
-        if(expenseChart != null && expenseChart.moveToFirst()){
-            ExpenseAmounts = new ArrayList<Float>();
-            if(expenseChart.getCount()>0){
-                do{
-                    //float initialvalue = Float.parseFloat(expenseChart.getString(0));
-                    ExpenseAmounts.add(0,new Float(Float.parseFloat(expenseChart.getString(0))));
-                }
-                while (expenseChart.moveToNext());
-            }else{
-                expenseChart.moveToNext();
-            }
-            expenseChart.close();
-        }
-        return ExpenseAmounts;
-
-    }
 
 
 
