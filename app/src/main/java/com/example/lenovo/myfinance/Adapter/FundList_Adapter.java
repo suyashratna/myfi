@@ -52,7 +52,7 @@ public class FundList_Adapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return mFundList.size();
+        return mFundList == null ? 0 : mFundList.size();
     }
 
     public class FundViewHolder extends RecyclerView.ViewHolder{
