@@ -8,7 +8,6 @@
     android:elevation="4dp"
     android:layout_marginLeft="2dp"
     android:layout_marginRight="2dp"
-
     android:clickable="true"
     android:background="@drawable/transaction_background"
     android:orientation="vertical">
@@ -47,6 +46,16 @@
                 android:text="30 April 2018"
                 android:padding="2dp"
                 android:textSize="12sp" />
+            <TextView
+                android:id="@+id/account_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account name"
+                android:textSize="10sp"
+                android:layout_marginLeft="10dp"
+                android:padding="2dp"
+                android:layout_below="@id/date_textview"
+                android:layout_toRightOf="@id/income_category_image"/>
 
             <TextView
                 android:id="@+id/category_name_textview"

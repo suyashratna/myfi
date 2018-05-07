@@ -256,21 +256,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
                 }
             }
         };
-        // Assign the listener to all the operator buttons
-//        for (int id : operatorButtons) {
-//            getActivity().findViewById(id).setOnClickListener(listener);
-//        }
-//        buttonAdd.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (lastNumeric && !stateError) {
-//
-//                    mValueOne = Float.parseFloat(txtScreen.getText() + "");
-//                    mAddition = true;
-//
-//                }
-//            }
-//        });
+
 
         buttonAdd.setOnClickListener(listener);
         buttonSubtract.setOnClickListener(listener);

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter fund name"
+        android:background="@drawable/transaction_detail_background1"
+        android:inputType="text"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:padding="10dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter fund amount"
+        android:background="@drawable/transaction_detail_background1"
+        android:padding="10dp"
+        android:inputType="number"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="10dp"/>
+
+
+</LinearLayout>

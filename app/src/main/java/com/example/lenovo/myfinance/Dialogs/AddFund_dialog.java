@@ -1,14 +1,15 @@
 package com.example.lenovo.myfinance.Dialogs;
 
-import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDialogFragment;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.lenovo.myfinance.R;
@@ -16,14 +17,27 @@ import com.example.lenovo.myfinance.R;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by lenovo on 4/30/2018.
+ * Created by lenovo on 5/6/2018.
  */
 
-public class AddAccount_dialog extends AppCompatDialogFragment {
+public class AddFund_dialog extends BottomSheetDialogFragment {
+    private TextView txtScreen;
+    // Represent whether the lastly pressed key is numeric or not
+    private boolean lastNumeric;
+    // Represent that current state is in error or not
+    private boolean stateError;
+    // If true, do not allow to add another DOT
+    private boolean lastDot;
+
     @BindView(R.id.buttonZero)
     Button buttonZero;
     @BindView(R.id.buttonOne) Button buttonOne;
@@ -44,49 +58,62 @@ public class AddAccount_dialog extends AppCompatDialogFragment {
     @BindView(R.id.buttonEqual) Button buttonEqual;
     @BindView(R.id.insert_button) Button mInsertButton;
 
-    private TextView txtscreen;
-    // Represent whether the lastly pressed key is numeric or not
-    private boolean lastNumeric;
-    // Represent that current state is in error or not
-    private boolean stateError;
-    // If true, do not allow to add another DOT
-    private boolean lastDot;
-
-
-
-    @BindView(R.id.account_name_edittext)
-    EditText mAccountname_editext;
+    @BindView(R.id.current_date_textview) TextView mCurrentDate;
+    @BindView(R.id.change_date_button) Button mChangedate;
+    @BindView(R.id.fund_name_spinner)
+    Spinner mFundname;
+    int monthh ,dayy;
+    public AddFund_dialog(){}
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_add_account,null);
+    public void setupDialog(Dialog dialog, int style) {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.bottomsheet_addfund,null);
         ButterKnife.bind(this,view);
-        txtscreen =  view.findViewById(R.id.income_transaction_edittext);
+        dialog.setContentView(view);
 
+        final Calendar c = Calendar.getInstance();
+        final DateFormat month = new SimpleDateFormat("MMMM");
+        final DateFormat Day = new SimpleDateFormat("EEEE");
+        final DateFormat DayNO = new SimpleDateFormat("dd");
+
+        final Date date = new Date();
+        Log.d("Month",month.format(date));
+
+        final Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+
+        String totaldate = DayNO.format(date)+ " " + month.format(date)+ " " + year+ ", "+Day.format(date);
+        mCurrentDate.setText(totaldate);
+
+        Calendar myCalendar = Calendar.getInstance();
+
+        monthh = myCalendar.get(Calendar.MONTH);
+        dayy = myCalendar.get(Calendar.DAY_OF_MONTH);
+
+        mChangedate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+                        c.set(Calendar.YEAR,i);
+                        c.set(Calendar.MONTH,i1);
+                        c.set(Calendar.DAY_OF_MONTH,i2);
+                        final DateFormat dateFormat = new SimpleDateFormat("dd MMMM YYYY, EEEE");
+                        String currentDateString = dateFormat.format(c.getTime());
+                        mCurrentDate.setText(currentDateString);
+                    }
+                },year,monthh,dayy);
+                datePickerDialog.show();
+            }
+        });
         // Find and set OnClickListener to numeric buttons
         setNumericOnClickListener();
-       // Find and set OnClickListener to operator buttons, equal button and decimal point button
+        // Find and set OnClickListener to operator buttons, equal button and decimal point button
         setOperatorOnClickListener();
-        builder.setView(view)
-                .setTitle("Add new Account")
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .setPositiveButton("INSERT", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-        return builder.create();
-
     }
+
     /**
      * Find and set OnClickListener to numeric buttons.
      */
@@ -99,11 +126,11 @@ public class AddAccount_dialog extends AppCompatDialogFragment {
                 Button button = (Button) v;
                 if (stateError) {
                     // If current state is Error, replace the error message
-                    txtscreen.setText(button.getText());
+                    txtScreen.setText(button.getText());
                     stateError = false;
                 } else {
                     // If not, already there is a valid expression so append to it
-                    txtscreen.append(button.getText());
+                    txtScreen.append(button.getText());
                 }
                 // Set the flag
                 lastNumeric = true;
@@ -138,7 +165,7 @@ public class AddAccount_dialog extends AppCompatDialogFragment {
                 // If the last input is number only, append the operator
                 if (lastNumeric && !stateError) {
                     Button button = (Button) v;
-                    txtscreen.append(button.getText());
+                    txtScreen.append(button.getText());
                     lastNumeric = false;
                     lastDot = false;    // Reset the DOT flag
                 }
@@ -155,7 +182,7 @@ public class AddAccount_dialog extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
                 if (lastNumeric && !stateError && !lastDot) {
-                    txtscreen.append(".");
+                    txtScreen.append(".");
                     lastNumeric = false;
                     lastDot = true;
                 }
@@ -165,7 +192,7 @@ public class AddAccount_dialog extends AppCompatDialogFragment {
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txtscreen.setText("");  // Clear the screen
+                txtScreen.setText("");  // Clear the screen
                 // Reset all the states and flags
                 lastNumeric = false;
                 stateError = false;
@@ -189,18 +216,18 @@ public class AddAccount_dialog extends AppCompatDialogFragment {
         // If the last input is a number only, solution can be found.
         if (lastNumeric && !stateError) {
             // Read the expression
-            String txt = txtscreen.getText().toString();
+            String txt = txtScreen.getText().toString();
             // Create an Expression (A class from exp4j library)
             Expression expression = new ExpressionBuilder(txt).build();
             try {
                 // Calculate the result and display
                 double result = expression.evaluate();
-                txtscreen.setText(Double.toString(result));
+                txtScreen.setText(Double.toString(result));
 
                 lastDot = true; // Result contains a dot
             } catch (ArithmeticException ex) {
                 // Display an error message
-                txtscreen.setText("Error");
+                txtScreen.setText("Error");
                 stateError = true;
                 lastNumeric = false;
             }

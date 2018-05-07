@@ -166,7 +166,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<Category> getIncomeCategories(){
         SQLiteDatabase db = getReadableDatabase();
 
-        String columns[] ={"category_ID","category_image","category_name","category_type"};
+        String columns[] ={"category_ID","category_image","category_name","category_type","category_savinggoal"};
         String whereClause = "category_type = ?";
         String whereArgs[] = new String[]{"income"};
         String columns2[] ={"SUM(transaction_amount)","transaction_type","transaction_category"};
@@ -192,7 +192,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 }else {cr2.moveToNext(); }
 
-                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),String.valueOf(totalincategory),null));
+                fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),String.valueOf(totalincategory),cr.getString(4)));
                 totalincategory = 0;
 
             }while (cr.moveToNext());
@@ -205,7 +205,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<Category> getExpenseCategories(){
         SQLiteDatabase db = getReadableDatabase();
-        String columns[] ={"category_ID","category_image","category_name","category_type","category_amount"};
+        String columns[] ={"category_ID","category_image","category_name","category_type","category_amount","category_savinggoal"};
         String whereClause = "category_type = ?";
         String whereArgs[] = new String[]{"expense"};
         String columns2[] ={"SUM(transaction_amount)","transaction_type","transaction_category"};
@@ -230,7 +230,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 }else {cr2.moveToNext(); }
 
-                    fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),String.valueOf(totalincategory),null));
+                    fetchedCategory_list.add(0,new Category(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),String.valueOf(totalincategory),cr.getString(5)));
                     totalincategory = 0;
 
 
