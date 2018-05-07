@@ -11,6 +11,9 @@
             android:title="My funds"
             android:icon="@drawable/fund_icon"
             />
+        <item android:id="@+id/nav_loancal"
+            android:title="Loan Calulator"
+            android:icon="@drawable/loan_cal"/>
         <item android:id="@+id/nav_tips"
             android:title="Financial Tips"
             android:icon="@drawable/tips_icon"/>
