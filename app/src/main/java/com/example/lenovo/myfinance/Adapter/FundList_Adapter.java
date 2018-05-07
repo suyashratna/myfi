@@ -48,6 +48,7 @@ public class FundList_Adapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
         ((FundViewHolder)holder).fund_name.setText(fund.getFund_name());
         ((FundViewHolder)holder).fund_amount.setText(fund.getFund_amount());
         ((FundViewHolder)holder).fund_date.setText(fund.getFund_added_date());
+        ((FundViewHolder)holder).fund_lastamount.setText(fund.getFund_lastadded_amount());
     }
 
     @Override
@@ -60,12 +61,14 @@ public class FundList_Adapter  extends RecyclerView.Adapter<RecyclerView.ViewHol
         public TextView fund_name;
         public TextView fund_date;
         TextView fund_amount;
+        TextView fund_lastamount;
 
         public FundViewHolder(View itemView) {
             super(itemView);
             fund_name = itemView.findViewById(R.id.fund_name_textview);
             fund_date = itemView.findViewById(R.id.fund_date_textview);
             fund_amount = itemView.findViewById(R.id.fund_amount);
+            fund_lastamount = itemView.findViewById(R.id.last_added_amount);
         }
     }
 }

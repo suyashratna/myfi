@@ -5,7 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+        <TextView
+            android:id="@+id/current_date_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Current Date "
+            android:textSize="15sp"
+            android:background="@drawable/transaction_detail_background1"
+            android:padding="5dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:layout_weight="2"/>
+        <Button
+            android:id="@+id/change_date_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="change date"
+            android:background="@drawable/amount_back"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:elevation="10dp"/>
+    </LinearLayout>
     <EditText
+        android:id="@+id/create_fundname_editext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter fund name"
@@ -15,6 +46,7 @@
         android:ellipsize="end"
         android:padding="10dp"/>
     <EditText
+        android:id="@+id/fund_amount_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter fund amount"

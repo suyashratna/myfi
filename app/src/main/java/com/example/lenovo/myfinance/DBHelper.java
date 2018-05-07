@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.lenovo.myfinance.Fragments.Categories_fragment;
 import com.example.lenovo.myfinance.Model.Category;
+import com.example.lenovo.myfinance.Model.Fund;
 import com.example.lenovo.myfinance.Model.Transaction;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE1_NAME = "Transaction_Table";
     public static final String TABLE2_NAME = "Category_Table";
     public static final String TABLE3_NAME ="Account_Table";
+    public static final String TABLE4_NAME ="Fund_Table";
 
     private List<Transaction> fetchedTransaction_List;
     private  List<Category> fetchedCategory_list;
@@ -40,10 +42,12 @@ public class DBHelper extends SQLiteOpenHelper {
     private List<String> Expensedates;
     private List<Float> ExpenseAmounts;
 
+    private List<Fund> fetchedFund_List;
+
 
 
     public DBHelper(Context context ) {
-        super(context, DATABASE_NAME, null,  3);
+        super(context, DATABASE_NAME, null,  4);
     }
 
     @Override
@@ -51,6 +55,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE1_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, account_ID INTEGER, transaction_amount TEXT, transaction_category TEXT, transaction_date TEXT, transaction_type TEXT, transaction_category_image TEXT,transaction_description TEXT, FOREIGN KEY(account_ID) REFERENCES Account_table(account_ID))");
         db.execSQL("create table " + TABLE2_NAME +" (category_ID INTEGER PRIMARY KEY AUTOINCREMENT, category_image TEXT,category_name TEXT, category_type TEXT, category_amount TEXT, category_savinggoal)");
         db.execSQL("create table " + TABLE3_NAME +" (account_ID INTEGER PRIMARY KEY AUTOINCREMENT, account_name TEXT, account_balance TEXT, account_totalincome TEXT, account_totalexpense TEXT, account_icon TEXT)");
+        db.execSQL("create table " + TABLE4_NAME +"(fund_ID INTEGER PRIMARY KEY AUTOINCREMENT, fund_name TEXT, fund_amount TEXT, fund_lastdate TEXT, fund_lastamount TEXT)");
         setDefaultCategories(db);
 
     }
@@ -61,6 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE1_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE2_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE3_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE4_NAME);
         onCreate(db);
 
     }
@@ -479,7 +485,37 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     //-------------END OF PIE CHART------------
 
+    //-------------FUND---------------------------
 
+    public boolean insertFundData(String fund_name, String fund_amount, String fund_lastadded_date, String fund_lastadded_amount){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("fund_name",fund_name);
+        contentValues.put("fund_amount",fund_amount);
+        contentValues.put("fund_lastdate",fund_lastadded_date);
+        contentValues.put("fund_lastamount",fund_lastadded_amount);
+        long result = db.insert(TABLE4_NAME,null,contentValues);
+        if(result ==-1)
+            return false;
+        else
+            return true;
+    }
+
+    public List<Fund> getFundData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns ={"fund_ID","fund_name","fund_lastdate","fund_lastamount","SUM(fund_amount)"};
+        Cursor cr= db.query(TABLE4_NAME,columns,null,null,null,null,null);
+        cr.moveToFirst();
+
+        fetchedFund_List = new ArrayList<Fund>();
+        if(cr.getCount()>0){
+            do {
+                fetchedFund_List.add(0, new Fund(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),cr.getString(4)));
+            }while (cr.moveToNext());
+        }
+        else {cr.moveToNext();}
+        return fetchedFund_List;
+    }
 
 
 

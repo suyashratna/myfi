@@ -16,6 +16,8 @@ import android.widget.Button;
 
 import com.example.lenovo.myfinance.Adapter.FundList_Adapter;
 import com.example.lenovo.myfinance.DBHelper;
+import com.example.lenovo.myfinance.Dialogs.AddFund_dialog;
+import com.example.lenovo.myfinance.Dialogs.CreateFund_dialog;
 import com.example.lenovo.myfinance.Interface.FundItemClickListener;
 import com.example.lenovo.myfinance.Model.Fund;
 import com.example.lenovo.myfinance.R;
@@ -66,6 +68,8 @@ public class MyFunds_Fragment extends Fragment implements SwipeRefreshLayout.OnR
         mAddfund_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AddFund_dialog addFund_dialog = new AddFund_dialog();
+                addFund_dialog.show(getFragmentManager(),"addfund");
 
             }
         });
@@ -73,6 +77,8 @@ public class MyFunds_Fragment extends Fragment implements SwipeRefreshLayout.OnR
         mCreatefund_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CreateFund_dialog createFund_dialog = new CreateFund_dialog();
+                createFund_dialog.show(getFragmentManager(),"createfund");
 
             }
         });

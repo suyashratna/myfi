@@ -56,6 +56,7 @@
             android:layout_marginLeft="10dp"
             android:layout_below="@id/last_added"/>
         <TextView
+            android:id="@+id/last_added_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
