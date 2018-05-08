@@ -40,7 +40,8 @@
                 android:icon="@drawable/settings"/>
             <item
                 android:id="@+id/nav_aboutus"
-                android:title="About us"/>
+                android:title="About us"
+                android:icon="@drawable/icon_aboutus"/>
 
         </menu>
     </item>
