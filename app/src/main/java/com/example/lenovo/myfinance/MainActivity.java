@@ -35,6 +35,7 @@ import com.example.lenovo.myfinance.Fragments.Financetips_Fragment;
 import com.example.lenovo.myfinance.Fragments.Funds_fragment;
 import com.example.lenovo.myfinance.Fragments.LoanCalulator_Fragment;
 import com.example.lenovo.myfinance.Fragments.Main_fragment;
+import com.example.lenovo.myfinance.Fragments.Mortgage_Calculator_Fragment;
 import com.example.lenovo.myfinance.Fragments.Reports_fragment;
 import com.example.lenovo.myfinance.Fragments.Transaction_fragment;
 import com.special.ResideMenu.ResideMenu;
@@ -166,7 +167,6 @@ private void setUpNavigationView(){
             transaction.commit();
             mDrawerlayout.closeDrawers();
             return true;
-
              }
         else if(id ==R.id.nav_backup){
             transaction.replace(R.id.mainactivity_fragment,new Backup_fragment());
@@ -177,6 +177,13 @@ private void setUpNavigationView(){
         }
         else if(id ==R.id.nav_loancal){
             transaction.replace(R.id.mainactivity_fragment,new LoanCalulator_Fragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+            mDrawerlayout.closeDrawers();
+            return true;
+        }
+        else if(id ==R.id.nav_mortgagecal){
+            transaction.replace(R.id.mainactivity_fragment,new Mortgage_Calculator_Fragment());
             transaction.addToBackStack(null);
             transaction.commit();
             mDrawerlayout.closeDrawers();

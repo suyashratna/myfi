@@ -88,6 +88,7 @@ public class MyFunds_Fragment extends Fragment implements SwipeRefreshLayout.OnR
 
         mSwipefreshlayout.setRefreshing(true);
         myDb = new DBHelper(getActivity());
+        mFundList = myDb.getFundData();
         fundList_adapter = new FundList_Adapter(mFundList, getContext(), new FundItemClickListener() {
             @Override
             public void onFundItemClick(View view, int position) {
