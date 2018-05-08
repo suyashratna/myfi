@@ -102,7 +102,7 @@ public class Mortgage_Calculator_Fragment extends Fragment {
         double Numerator = i * Math.pow((1 + i), n);
         double Denominator = Math.pow((1 + i), n) - 1;
 
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("##.##");
 
         monthlyPayment = P * Numerator / Denominator;
         // end of finding monthly mortgage Payment
@@ -142,6 +142,7 @@ public class Mortgage_Calculator_Fragment extends Fragment {
 
     }
     public void  clearallfields(){
+        homeValue.setText("");
         downPayment.setText("");
         interestRate.setText("");
         propertyTax.setText("");

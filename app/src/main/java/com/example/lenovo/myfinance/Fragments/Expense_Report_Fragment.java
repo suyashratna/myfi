@@ -123,7 +123,7 @@ public class Expense_Report_Fragment extends Fragment {
             pieChart.animateXY(800,800);
         }
         else {
-            Toast.makeText(getActivity(), "no data to show", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "no expense data to show", Toast.LENGTH_SHORT).show();
         }
 
     }

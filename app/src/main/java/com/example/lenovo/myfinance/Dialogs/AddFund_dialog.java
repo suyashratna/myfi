@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.lenovo.myfinance.DBHelper;
 import com.example.lenovo.myfinance.R;
 
 import net.objecthunter.exp4j.Expression;
@@ -63,6 +64,8 @@ public class AddFund_dialog extends BottomSheetDialogFragment {
     @BindView(R.id.fund_name_spinner)
     Spinner mFundname;
     int monthh ,dayy;
+    DBHelper mydb;
+
     public AddFund_dialog(){}
 
     @Override
@@ -70,7 +73,7 @@ public class AddFund_dialog extends BottomSheetDialogFragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.bottomsheet_addfund,null);
         ButterKnife.bind(this,view);
         dialog.setContentView(view);
-
+        txtScreen =  view.findViewById(R.id.income_transaction_edittext);
         final Calendar c = Calendar.getInstance();
         final DateFormat month = new SimpleDateFormat("MMMM");
         final DateFormat Day = new SimpleDateFormat("EEEE");
@@ -106,6 +109,14 @@ public class AddFund_dialog extends BottomSheetDialogFragment {
                     }
                 },year,monthh,dayy);
                 datePickerDialog.show();
+            }
+        });
+
+        mInsertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mydb = new DBHelper(getActivity());
+                mydb.updatefundData(null,mCurrentDate.getText().toString(),txtScreen.getText().toString());
             }
         });
         // Find and set OnClickListener to numeric buttons

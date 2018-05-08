@@ -168,7 +168,7 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
                     return;
                 }
                   Bundle b = getArguments();
-                  myDb.insertIncomeData(txtScreen.getText().toString(),b.getString("categoryName"),mCurrentDate.getText().toString(),b.getString("categoryType"),b.getString("categoryImage"),mTransaction_description.getText().toString());
+                  myDb.insertIncomeData(txtScreen.getText().toString(),b.getString("categoryName"),mCurrentDate.getText().toString(),b.getString("categoryType"),b.getString("categoryImage"),mTransaction_description.getText().toString(),null);
                   dialog.dismiss();
 //
             }

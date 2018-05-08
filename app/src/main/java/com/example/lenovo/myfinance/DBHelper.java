@@ -52,9 +52,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE1_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, account_ID INTEGER, transaction_amount TEXT, transaction_category TEXT, transaction_date TEXT, transaction_type TEXT, transaction_category_image TEXT,transaction_description TEXT, FOREIGN KEY(account_ID) REFERENCES Account_table(account_ID))");
+        db.execSQL("create table " + TABLE1_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, account_ID INTEGER, transaction_amount TEXT, transaction_category TEXT, transaction_date TEXT, transaction_type TEXT, transaction_category_image TEXT,transaction_description TEXT, transaction_account TEXT)");
         db.execSQL("create table " + TABLE2_NAME +" (category_ID INTEGER PRIMARY KEY AUTOINCREMENT, category_image TEXT,category_name TEXT, category_type TEXT, category_amount TEXT, category_savinggoal)");
-        db.execSQL("create table " + TABLE3_NAME +" (account_ID INTEGER PRIMARY KEY AUTOINCREMENT, account_name TEXT, account_balance TEXT, account_totalincome TEXT, account_totalexpense TEXT, account_icon TEXT)");
+        db.execSQL("create table " + TABLE3_NAME +" (account_ID INTEGER PRIMARY KEY AUTOINCREMENT, account_name TEXT, account_balance TEXT, account_totalincome TEXT, account_totalexpense TEXT)");
         db.execSQL("create table " + TABLE4_NAME +"(fund_ID INTEGER PRIMARY KEY AUTOINCREMENT, fund_name TEXT, fund_amount TEXT, fund_lastdate TEXT, fund_lastamount TEXT)");
         setDefaultCategories(db);
 
@@ -72,7 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //-------------TRANSACTIONS------------------
-    public boolean insertIncomeData(String transaction_amount, String transaction_category , String transaction_date ,String transaction_type,String transaction_category_image,String transaction_description){
+    public boolean insertIncomeData(String transaction_amount, String transaction_category , String transaction_date ,String transaction_type,String transaction_category_image,String transaction_description, String transaction_account){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -82,6 +82,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("transaction_type",transaction_type);
         contentValues.put("transaction_category_image",transaction_category_image);
         contentValues.put("transaction_description",transaction_description);
+        contentValues.put("transaction_account", transaction_account);
 
         long result = db.insert(TABLE1_NAME,null,contentValues);
         if(result ==-1)
@@ -95,7 +96,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<Transaction> getTransactionData(){
 
         SQLiteDatabase db =  getReadableDatabase();
-        String[] columns ={"ID","transaction_amount","transaction_category","transaction_date", "transaction_type","transaction_category_image","transaction_description"};
+        String[] columns ={"ID","transaction_amount","transaction_category","transaction_date", "transaction_type","transaction_category_image","transaction_description","transaction_account"};
         Cursor CR = db.query(TABLE1_NAME,columns,null,null,null,null,null);
         CR.moveToFirst();
 
@@ -105,7 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
             do{
 //                transaction = new Transaction();
 //                transaction.setTransaction_id(CR.getLong(CR.getColumnIndex("ID")));
-                fetchedTransaction_List.add(0,new Transaction(CR.getLong(0),CR.getString(1),CR.getString(2),CR.getString(3),CR.getString(4),CR.getString(5),CR.getString(6)));
+                fetchedTransaction_List.add(0,new Transaction(CR.getLong(0),CR.getString(1),CR.getString(2),CR.getString(3),CR.getString(4),CR.getString(5),CR.getString(6),CR.getString(7)));
             }while (CR.moveToNext());
         }
         else {
@@ -121,7 +122,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String whereClause ="ID = ?";
         String whereArgs[] = new String[]{String.valueOf(id)};
        // db.execSQL("SELECT transaction_description FROM "+TABLE1_NAME+" WHERE ID='"+id+"'");
-        String memo = "";
+        String memo = "no memo";
         Cursor cr = db.query(TABLE1_NAME,columns,whereClause,whereArgs,null,null,null);
         cr.moveToFirst();
         if(cr.getCount() > 0){
@@ -503,8 +504,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<Fund> getFundData(){
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns ={"fund_ID","fund_name","fund_lastdate","fund_lastamount","SUM(fund_amount)"};
-        Cursor cr= db.query(TABLE4_NAME,columns,null,null,null,null,null);
+        String[] columns ={"fund_ID","fund_name","fund_lastdate","fund_lastamount","SUM(fund_lastamount)"};
+        Cursor cr= db.query(TABLE4_NAME,columns,null,null,"fund_name",null,null);
         cr.moveToFirst();
 
         fetchedFund_List = new ArrayList<Fund>();
@@ -515,6 +516,19 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         else {cr.moveToNext();}
         return fetchedFund_List;
+    }
+
+    public  void updatefundData(String fund_name,String fund_lastadded_date, String fund_lastadded_amount){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("fund_lastdate",fund_lastadded_date);
+        cv.put("fund_lastamount",fund_lastadded_amount);
+
+        db.update(TABLE4_NAME,cv,"fund_name="+fund_name,null);
+
+
+
     }
 
 

@@ -7,15 +7,13 @@ package com.example.lenovo.myfinance.Model;
 public class Account {
 
     Long account_id;
-    String account_image;
     String account_name;
     String account_income;
     String account_expense;
     String account_balance;
 
-    public Account(Long account_id, String account_image, String account_name, String account_income, String account_expense, String account_balance) {
+    public Account(Long account_id, String account_name, String account_income, String account_expense, String account_balance) {
         this.account_id = account_id;
-        this.account_image = account_image;
         this.account_name = account_name;
         this.account_income = account_income;
         this.account_expense = account_expense;
@@ -28,14 +26,6 @@ public class Account {
 
     public void setAccount_id(Long account_id) {
         this.account_id = account_id;
-    }
-
-    public String getAccount_image() {
-        return account_image;
-    }
-
-    public void setAccount_image(String account_image) {
-        this.account_image = account_image;
     }
 
     public String getAccount_name() {

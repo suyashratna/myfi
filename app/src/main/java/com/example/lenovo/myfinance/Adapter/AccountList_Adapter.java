@@ -42,7 +42,7 @@ public class AccountList_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ((AccountViewHolder)holder).account_income.setText(account.getAccount_income());
         ((AccountViewHolder)holder).account_expense.setText(account.getAccount_expense());
         ((AccountViewHolder)holder).account_balance.setText(account.getAccount_balance());
-        Picasso.with(mContext).load(account.getAccount_image()).placeholder(R.mipmap.ic_launcher_round).into(((AccountViewHolder)holder).account_image);
+
 
     }
 
@@ -62,7 +62,7 @@ public class AccountList_Adapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public AccountViewHolder(View itemView) {
             super(itemView);
             account_name = itemView.findViewById(R.id.accountname_textview);
-            account_image = itemView.findViewById(R.id.accounticon_imageview);
+
             account_income = itemView.findViewById(R.id.account_income_amount);
             account_expense = itemView.findViewById(R.id.account_expense_amount);
             account_balance = itemView.findViewById(R.id.account_balance_amount);

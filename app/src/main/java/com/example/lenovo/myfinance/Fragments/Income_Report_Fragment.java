@@ -112,7 +112,7 @@ public class Income_Report_Fragment extends Fragment {
             pieChart.animateXY(800,800);
         }
         else {
-            Toast.makeText(getActivity(), "no data to show", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "no income data to show", Toast.LENGTH_SHORT).show();
         }
     }
     public void loadIncomeLinechart(){

@@ -75,6 +75,7 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ((IncomeTrans)holder).transaction_amount.setText(mTransactionlist.get(position).getTransaction_amount());
         ((IncomeTrans)holder).transaction_date.setText(String.valueOf(mTransactionlist.get(position).getTransaction_date()));
         ((IncomeTrans)holder).transaction_category.setText(mTransactionlist.get(position).getTransaction_category());
+        ((IncomeTrans)holder).transaction_account.setText(mTransactionlist.get(position).getTransaction_account());
 
         Picasso.with(mContext).load(transaction.getTransaction_category_image()).placeholder(R.mipmap.ic_launcher_round).into(((IncomeTrans)holder).transaction_category_image);
     }
@@ -104,6 +105,7 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public TextView transaction_date;
         public ImageView transaction_category_image;
         public TextView transaction_category;
+        public TextView transaction_account;
 
         public IncomeTrans(View itemView) {
             super(itemView);
@@ -112,6 +114,7 @@ public class IncomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             transaction_date= itemView.findViewById(R.id.date_textview);
             transaction_category_image = itemView.findViewById(R.id.income_category_image);
             transaction_category = itemView.findViewById(R.id.category_name_textview);
+            transaction_account = itemView.findViewById(R.id.transaction_account_name);
 
 //            itemView.setOnClickListener();
         }

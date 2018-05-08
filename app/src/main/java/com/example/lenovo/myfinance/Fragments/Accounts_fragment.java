@@ -66,7 +66,7 @@ public class Accounts_fragment extends Fragment {
         mAcountRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAcountRecyclerview.setAdapter(accountList_adapter);
         mAcountRecyclerview.smoothScrollToPosition(0);
-        accountList.add(new Account(null,null,"Cash","0.0","0.0","0.0"));
+        accountList.add(new Account(null,"Cash","0.0","0.0","0.0"));
 
 
     }

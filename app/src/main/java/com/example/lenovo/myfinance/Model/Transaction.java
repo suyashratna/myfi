@@ -14,9 +14,10 @@ public class Transaction {
     String transaction_type;
     String transaction_category_image;
     String transaction_description;
+    String transaction_account;
 
 
-    public Transaction(Long transaction_id, String transaction_amount, String transaction_category, String transaction_date, String transaction_type, String transaction_category_image, String transaction_description) {
+    public Transaction(Long transaction_id, String transaction_amount, String transaction_category, String transaction_date, String transaction_type, String transaction_category_image, String transaction_description, String transaction_account) {
         this.transaction_id = transaction_id;
         this.transaction_amount = transaction_amount;
         this.transaction_category = transaction_category;
@@ -24,6 +25,7 @@ public class Transaction {
         this.transaction_type = transaction_type;
         this.transaction_category_image = transaction_category_image;
         this.transaction_description = transaction_description;
+        this.transaction_account = transaction_account;
     }
 
     public Long getTransaction_id() {
@@ -80,5 +82,13 @@ public class Transaction {
 
     public void setTransaction_description(String transaction_description) {
         this.transaction_description = transaction_description;
+    }
+
+    public String getTransaction_account() {
+        return transaction_account;
+    }
+
+    public void setTransaction_account(String transaction_account) {
+        this.transaction_account = transaction_account;
     }
 }

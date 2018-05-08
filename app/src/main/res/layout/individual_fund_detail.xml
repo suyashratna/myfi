@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_marginBottom="10dp"
     android:background="@drawable/transaction_background">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -28,6 +29,7 @@
             android:layout_marginBottom="10dp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
+
         <TextView
             android:id="@+id/last_added"
             android:layout_width="wrap_content"
@@ -42,10 +44,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/last_added"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="35dp"
             android:text="30 April 2018"
             android:padding="2dp"
-            android:textSize="14sp" />
+
+            android:textSize="10sp" />
         <TextView
             android:id="@+id/last_added_a"
             android:layout_width="wrap_content"
@@ -63,6 +66,7 @@
             android:text="1000"
             android:gravity="center_vertical"
             android:padding="5dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/amount_back"
             android:layout_toRightOf="@id/last_added_a"
             android:layout_below="@id/fund_date_textview"/>
@@ -78,8 +82,8 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="15dp">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,22 +93,30 @@
             android:textStyle="bold"
             android:text="Total :"
             android:textColor="@color/darkturq"/>
-
-        <TextView
-            android:id="@+id/currency_sign_textview"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rs."
-            android:textSize="15sp"
-            android:padding="2dp"/>
+            android:layout_gravity="right"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/currency_sign_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rs."
+                android:textSize="15sp"
+                android:padding="2dp"/>
 
-        <TextView
-            android:id="@+id/fund_amount"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:singleLine="true"
-            />
+            <TextView
+                android:id="@+id/fund_amount"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:singleLine="true"
+                />
+        </LinearLayout>
+
+
     </LinearLayout>
 
 </LinearLayout>
