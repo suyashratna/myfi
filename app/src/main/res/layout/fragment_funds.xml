@@ -2,26 +2,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgroundwhite"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.lenovo.myfinance.Fragments.Funds_fragment">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/backgroundwhite"
-        android:orientation="vertical">
-        <android.support.design.widget.TabLayout
-            android:id="@+id/fund_tablayout"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/fund_fragment_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/fund_navigation"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/fund_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            app:tabIndicatorHeight="0dp"
-            android:background="@drawable/layout_shape"/>
-        <android.support.v4.view.ViewPager
-            android:id="@+id/fund_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/toolbar_background"
+            app:menu="@menu/fund_navigation_menu"
+            />
+    </RelativeLayout>
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@drawable/backgroundwhite"-->
+        <!--android:orientation="vertical">-->
+        <!--&lt;!&ndash;<android.support.design.widget.TabLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/fund_tablayout"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_marginRight="10dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_marginLeft="10dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;app:tabIndicatorHeight="0dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="@drawable/layout_shape"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<android.support.v4.view.ViewPager&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/fund_viewpager"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"/>&ndash;&gt;-->
+        <!---->
+    <!--</LinearLayout>-->
+
 
 
 

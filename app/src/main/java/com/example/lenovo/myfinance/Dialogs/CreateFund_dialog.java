@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
  */
 
 public class CreateFund_dialog extends AppCompatDialogFragment{
+    private DialogInterface.OnDismissListener onDismissListener;
     @BindView(R.id.create_fundname_editext)
     EditText mFundname_editext;
     @BindView(R.id.fund_amount_edittext)
@@ -102,5 +103,16 @@ public class CreateFund_dialog extends AppCompatDialogFragment{
                     }
                 });
         return  builder.create();
+    }
+    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener){
+        this.onDismissListener = onDismissListener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if(onDismissListener!= null){
+            onDismissListener.onDismiss(dialog);
+        }
     }
 }

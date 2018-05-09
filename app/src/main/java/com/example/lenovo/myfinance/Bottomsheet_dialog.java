@@ -114,7 +114,6 @@ public class Bottomsheet_dialog extends BottomSheetDialogFragment  {
 
         mBehaviour = BottomSheetBehavior.from((View)contentView.getParent());
 
-
         txtScreen =  contentView.findViewById(R.id.income_transaction_edittext);
          final Calendar c = Calendar.getInstance();
         //get the category name from the category selection fragment

@@ -71,6 +71,14 @@ public class MyFunds_Fragment extends Fragment implements SwipeRefreshLayout.OnR
             public void onClick(View view) {
                 AddFund_dialog addFund_dialog = new AddFund_dialog();
                 addFund_dialog.show(getFragmentManager(),"addfund");
+                addFund_dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        fundList_adapter.notifyDataSetChanged();
+                        loadFundRecyclerView();
+                    }
+                });
+
 
             }
         });
@@ -80,6 +88,14 @@ public class MyFunds_Fragment extends Fragment implements SwipeRefreshLayout.OnR
             public void onClick(View view) {
                 CreateFund_dialog createFund_dialog = new CreateFund_dialog();
                 createFund_dialog.show(getFragmentManager(),"createfund");
+                createFund_dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        fundList_adapter.notifyDataSetChanged();
+                        loadFundRecyclerView();
+                    }
+                });
+
 
             }
         });
@@ -95,7 +111,7 @@ public class MyFunds_Fragment extends Fragment implements SwipeRefreshLayout.OnR
         }
         fundList_adapter = new FundList_Adapter(mFundList, getContext(), new FundItemClickListener() {
             @Override
-            public void onFundItemClick(View view, int position) {
+            public void onFundItemClick(View view, final int position) {
                 AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
 
                 alertDialog.setTitle("Delete the Fund?");
@@ -109,7 +125,10 @@ public class MyFunds_Fragment extends Fragment implements SwipeRefreshLayout.OnR
                 alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                            final  Fund fund = mFundList.get(position);
+                            myDb.DeleteFund(fund.getFund_id(),getActivity());
+                            fundList_adapter.notifyDataSetChanged();
+                            loadFundRecyclerView();
                     }
 
                 });
@@ -123,6 +142,10 @@ public class MyFunds_Fragment extends Fragment implements SwipeRefreshLayout.OnR
         mMyfund_recyclerview.smoothScrollToPosition(0);
         mSwipefreshlayout.setRefreshing(false);
     }
+
+
+
+
 
     @Override
     public void onRefresh() {

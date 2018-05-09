@@ -43,6 +43,10 @@ public class DBHelper extends SQLiteOpenHelper {
     private List<Float> ExpenseAmounts;
 
     private List<Fund> fetchedFund_List;
+    private List<String> fundNames_List;
+
+    private List<String> FundXdata;
+    private List<Float> FundYdata;
 
 
 
@@ -273,7 +277,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public void DeleteCategory(long id,Context context){
         SQLiteDatabase db = getWritableDatabase();
 
-//
             db.execSQL("DELETE FROM "+TABLE2_NAME+" WHERE category_ID='"+id+"'");
             Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
 //
@@ -504,13 +507,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<Fund> getFundData(){
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns ={"fund_ID","fund_name","fund_lastdate","fund_lastamount","SUM(fund_lastamount)"};
+
+        String[] columns ={"fund_ID","fund_name","fund_lastdate","fund_lastamount","fund_amount"};
         Cursor cr= db.query(TABLE4_NAME,columns,null,null,"fund_name",null,null);
         cr.moveToFirst();
 
         fetchedFund_List = new ArrayList<Fund>();
         if(cr.getCount()>0){
             do {
+
+
                 fetchedFund_List.add(0, new Fund(cr.getLong(0),cr.getString(1),cr.getString(2),cr.getString(3),cr.getString(4)));
             }while (cr.moveToNext());
         }
@@ -518,16 +524,72 @@ public class DBHelper extends SQLiteOpenHelper {
         return fetchedFund_List;
     }
 
+    public List<String> getFundNames(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = { "fund_name","fund_amount"};
+        Cursor cr = db.query(TABLE4_NAME, columns, null,null,"fund_name",null,null);
+        cr.moveToFirst();
+        fundNames_List = new ArrayList<>();
+        if(cr.getCount()>0){
+            do{
+                fundNames_List.add(0, new String(cr.getString(0)));
+            }
+            while (cr.moveToNext());
+
+        }else {cr.moveToNext();}
+        return  fundNames_List;
+
+    }
+
     public  void updatefundData(String fund_name,String fund_lastadded_date, String fund_lastadded_amount){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-
+        ContentValues cv2 = new ContentValues();
         cv.put("fund_lastdate",fund_lastadded_date);
         cv.put("fund_lastamount",fund_lastadded_amount);
+        db.update(TABLE4_NAME,cv,"fund_name = ?",new String[]{String.valueOf(fund_name)});
 
-        db.update(TABLE4_NAME,cv,"fund_name="+fund_name,null);
+        String[] columns ={"(fund_lastamount) + (fund_amount)","fund_name"};
+
+        Cursor cr= db.query(TABLE4_NAME,columns,null,null,"fund_name",null,null);
+        cr.moveToFirst();
+        if(cr.getCount()>0){
+            do {
+                if(fund_name.equals(cr.getString(1)) ){
+                cv2.put("fund_amount",cr.getString(0));
+                db.update(TABLE4_NAME,cv2,"fund_name = ?",new String[]{String.valueOf(fund_name)});
+                }
+            }while (cr.moveToNext());
+        }
+        else {cr.moveToNext();}
+        cr.close();
 
 
+
+    }
+
+    public List<Float> getFundYdata(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = { "fund_name","fund_amount"};
+        Cursor cr = db.query(TABLE4_NAME, columns, null,null,"fund_name",null,null);
+        cr.moveToFirst();
+        FundYdata = new ArrayList<>();
+        if(cr.getCount()>0){
+            do{
+                FundYdata.add(0,Float.parseFloat(cr.getString(1)));
+            }
+            while (cr.moveToNext());
+
+        }else {cr.moveToNext();}
+        return FundYdata;
+
+    }
+
+    public void DeleteFund(long id,Context context){
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.execSQL("DELETE FROM "+TABLE4_NAME+" WHERE fund_ID='"+id+"'");
+        Toast.makeText(context, "Fun Deleted Successfully", Toast.LENGTH_SHORT).show();
 
     }
 

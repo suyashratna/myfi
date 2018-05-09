@@ -2,11 +2,14 @@ package com.example.lenovo.myfinance.Dialogs;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
@@ -31,6 +34,7 @@ import butterknife.ButterKnife;
  */
 
 public class AddFund_dialog extends BottomSheetDialogFragment {
+    private DialogInterface.OnDismissListener onDismissListener;
     private TextView txtScreen;
     // Represent whether the lastly pressed key is numeric or not
     private boolean lastNumeric;
@@ -62,18 +66,27 @@ public class AddFund_dialog extends BottomSheetDialogFragment {
     @BindView(R.id.current_date_textview) TextView mCurrentDate;
     @BindView(R.id.change_date_button) Button mChangedate;
     @BindView(R.id.fund_name_spinner)
-    Spinner mFundname;
+
+    Spinner mFundname_spinner;
     int monthh ,dayy;
     DBHelper mydb;
+    private BottomSheetBehavior mBehaviour;
 
     public AddFund_dialog(){}
 
     @Override
-    public void setupDialog(Dialog dialog, int style) {
+    public void setupDialog(final Dialog dialog, int style) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.bottomsheet_addfund,null);
         ButterKnife.bind(this,view);
         dialog.setContentView(view);
+        mBehaviour = BottomSheetBehavior.from((View)view.getParent());
         txtScreen =  view.findViewById(R.id.income_transaction_edittext);
+        mydb = new DBHelper(getContext());
+
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,mydb.getFundNames());
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mFundname_spinner.setAdapter(myAdapter);
+
         final Calendar c = Calendar.getInstance();
         final DateFormat month = new SimpleDateFormat("MMMM");
         final DateFormat Day = new SimpleDateFormat("EEEE");
@@ -116,13 +129,34 @@ public class AddFund_dialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
                 mydb = new DBHelper(getActivity());
-                mydb.updatefundData(null,mCurrentDate.getText().toString(),txtScreen.getText().toString());
+                mydb.updatefundData(mFundname_spinner.getSelectedItem().toString(),mCurrentDate.getText().toString(),txtScreen.getText().toString());
+                dialog.dismiss();
+
             }
         });
         // Find and set OnClickListener to numeric buttons
         setNumericOnClickListener();
         // Find and set OnClickListener to operator buttons, equal button and decimal point button
         setOperatorOnClickListener();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
+
+    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener){
+        this.onDismissListener = onDismissListener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if(onDismissListener!= null){
+            onDismissListener.onDismiss(dialog);
+        }
     }
 
     /**

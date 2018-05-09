@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_myfunds"
+        android:icon="@drawable/ic_local_atm_black_24dp"
+        android:title="My Funds"/>
+    <item
+        android:id="@+id/navigation_fundcharts"
+        android:icon="@drawable/ic_pie_chart_black_24dp"
+       android:title="Fund Chart"/>
+</menu>
